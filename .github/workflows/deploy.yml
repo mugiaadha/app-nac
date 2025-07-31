@@ -31,12 +31,12 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
-          TARGET: /var/www/angular-app
+          TARGET: /var/www/app-nac
           SOURCE: dist/app-nac
           EXCLUDE: .git
           ARGS: -avz --delete
           SCRIPT_AFTER: |
-            cd /var/www/angular-app
-            sudo chown -R www-data:www-data /var/www/angular-app
-            sudo chmod -R 755 /var/www/angular-app
+            cd /var/www/app-nac
+            sudo chown -R www-data:www-data /var/www/app-nac
+            sudo chmod -R 755 /var/www/app-nac
             sudo systemctl reload nginx
