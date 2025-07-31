@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SiteSettingsService } from '../../state/site-settings.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,9 +17,14 @@ export class LoginComponent {
   password = '';
   logoUrl = '';
 
-  constructor(public siteSettings: SiteSettingsService) {
+  constructor(public siteSettings: SiteSettingsService, private toastr: ToastrService) {
     this.siteSettings.settings$.subscribe((settings) => {
       this.logoUrl = settings.logo || '';
     });
+  }
+
+  login() {
+    // Contoh pemanggilan toaster
+    this.toastr.success('Login berhasil!', 'Sukses');
   }
 }

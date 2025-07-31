@@ -31,7 +31,9 @@
           autocomplete="current-password"
         />
       </div>
-      <button type="submit" class="btn btn-gradient w-100">Masuk</button>
+      <button type="submit" class="btn btn-gradient w-100" (click)="login()">
+        Masuk
+      </button>
     </form>
     <div class="mt-3 text-center">
       Belum punya akun? <a [routerLink]="['/daftar']">Daftar</a>
