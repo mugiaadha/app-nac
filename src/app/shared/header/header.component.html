@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+  <div class="container">
+    <a
+      class="navbar-brand d-flex align-items-center gap-2"
+      [routerLink]="['/']"
+    >
+      <app-logo [logo]="(siteSettings.settings$ | async)?.logo"></app-logo>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
+        <ng-container *ngFor="let menu of menus">
+          <li *ngIf="!menu.children" class="nav-item">
+            <a class="nav-link" [routerLink]="[menu.link]">{{ menu.label }}</a>
+          </li>
+          <li *ngIf="menu.children" class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="dropdown-{{ menu.label }}"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ menu.label }}
+            </a>
+            <ul
+              class="dropdown-menu"
+              [attr.aria-labelledby]="'dropdown-' + menu.label"
+            >
+              <ng-container *ngFor="let child of menu.children">
+                <li>
+                  <a class="dropdown-item" [routerLink]="[child.link]">{{
+                    child.label
+                  }}</a>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+      <div class="d-flex gap-2 ms-4">
+        <a
+          [routerLink]="['/login']"
+          class="btn btn-outline-primary rounded-pill"
+          >Masuk</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>

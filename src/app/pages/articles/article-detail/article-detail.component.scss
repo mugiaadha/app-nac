@@ -1,0 +1,10 @@
+.article-detail {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  padding: 2rem;
+}
+.article-detail img {
+  max-height: 340px;
+  object-fit: cover;
+}

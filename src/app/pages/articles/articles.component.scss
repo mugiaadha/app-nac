@@ -1,0 +1,49 @@
+// Search box sidebar artikel
+.articles-searchbox {
+  .articles-search-input-wrapper {
+    position: relative;
+    flex: 1;
+  }
+  .articles-search-input {
+    padding-left: 2.5rem;
+    border-radius: 1.5rem;
+    font-size: 1.1rem;
+    height: 48px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .articles-search-input:focus {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    border-color: #1976d2;
+  }
+  .articles-search-icon {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    font-size: 1.2rem;
+    pointer-events: none;
+  }
+}
+// Migrasi style inline ke CSS
+.articles-img {
+  max-height: 180px;
+  width: 100%;
+  object-fit: cover;
+}
+.articles-select {
+  max-width: 100px;
+}
+.article-card {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.article-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 1.5px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px) scale(1.02);
+  text-decoration: none;
+}
+h2 {
+  color: #1976d2;
+  text-align: center;
+}

@@ -1,0 +1,120 @@
+.footer-bg {
+  background: linear-gradient(90deg, #e3f2fd 0%, #f5f7fa 100%);
+  border-top: 1px solid #e0e0e0;
+}
+
+footer {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 1rem;
+}
+
+footer .fw-bold {
+  font-size: 1.25rem;
+  color: #222;
+}
+
+footer .fw-semibold {
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+footer .text-secondary {
+  color: #6c757d !important;
+  font-size: 0.98rem;
+}
+
+footer .border-top {
+  border-color: #e0e0e0 !important;
+}
+
+footer .bg-white {
+  background: #fff !important;
+}
+
+footer .rounded-3 {
+  border-radius: 0.75rem !important;
+}
+
+footer a.text-dark:hover {
+  color: #5b4cff !important;
+}
+
+footer a.footer-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+footer a.footer-link:hover {
+  color: #43a047;
+  text-decoration: underline;
+}
+
+footer .container {
+  max-width: 1200px;
+}
+
+.footer-bottom {
+  background: transparent;
+  font-size: 0.97rem;
+  padding-top: 12px;
+}
+
+.footer-bottom a {
+  color: #1976d2;
+  font-weight: 500;
+  margin: 0 4px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-bottom a:hover {
+  color: #43a047;
+  text-decoration: underline;
+}
+
+.social-icon {
+  transition: color 0.2s, transform 0.2s;
+  color: #1976d2 !important;
+}
+.social-icon:hover {
+  color: #43a047 !important;
+  transform: scale(1.15);
+}
+
+.animated-gradient-border {
+  position: relative;
+}
+
+.animated-gradient-border:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(270deg, #2563eb, #06b6d4, #2563eb);
+  background-size: 200% 100%;
+  animation: borderWave 2s linear infinite;
+  border-radius: 3px 3px 0 0;
+  z-index: 2;
+}
+
+@keyframes borderWave {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%) 1;
+  }
+  100% {
+    border-image: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%) 1;
+  }
+}

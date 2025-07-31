@@ -1,0 +1,64 @@
+<!-- Category Section Cards -->
+<section class="container my-5" id="category-section">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark category-title">Kategori Pelatihan</h2>
+  </div>
+  <div class="row g-4">
+    <div
+      class="col-4 col-md-2 m-0 p-1"
+      *ngFor="let category of visibleCategories"
+    >
+      <a
+        [routerLink]="['/courses']"
+        [queryParams]="{ search: category.name }"
+        class="category-link"
+      >
+        <div class="card shadow-sm border-0 h-100 category-card">
+          <div class="card-img-container">
+            <img
+              [src]="category.image"
+              class="card-img-top rounded-top-4"
+              [alt]="category.name"
+              width="90"
+              height="90"
+            />
+            <div class="card-title-overlay">
+              <h3 class="fw-bold mt-2 mb-1">{{ category.name }}</h3>
+            </div>
+            <div class="card-body-overlay">
+              <div class="text-secondary mb-2">{{ category.description }}</div>
+              <span
+                class="category rounded-4 px-2 bg-primary-gradient"
+                [ngClass]="category.categoryClass"
+              >
+                {{ category.category }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    class="d-flex justify-content-center mt-3"
+    *ngIf="visibleCount < categories.length"
+  >
+    <button
+      class="btn btn-gradient px-4 rounded-pill"
+      (click)="showMoreCategories()"
+    >
+      Lihat lebih banyak
+    </button>
+  </div>
+  <div
+    class="d-flex justify-content-center mt-3"
+    *ngIf="visibleCount >= categories.length && categories.length > 12"
+  >
+    <button
+      class="btn btn-gradient px-4 rounded-pill"
+      (click)="resetCategories()"
+    >
+      Tutup
+    </button>
+  </div>
+</section>

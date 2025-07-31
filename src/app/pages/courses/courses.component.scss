@@ -1,0 +1,195 @@
+.courses-searchbar-card {
+  position: relative;
+  border-radius: 2.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 32px rgba(25, 118, 210, 0.1);
+  display: flex;
+  align-items: center;
+}
+.courses-searchbar {
+  height: 56px;
+  font-size: 1.25rem;
+  border-radius: 2.5rem;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  flex: 1;
+}
+.courses-searchbar:focus {
+  outline: none;
+  box-shadow: none;
+}
+.courses-searchbar-btn {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-size: 1.7rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.courses-searchbar-btn:hover {
+  color: #43a047;
+}
+// Hero search bar section
+.courses-search-hero {
+  background: #e3eafc url("/images/newsletter/bgg.webp") center/cover no-repeat;
+  border-radius: 0 0 24px 24px;
+  position: relative;
+}
+.courses-searchbar-wrapper {
+  position: relative;
+}
+.courses-searchbar {
+  height: 56px;
+  font-size: 1.25rem;
+  border-radius: 2rem;
+  padding-left: 2.8rem;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+  border: 1px solid #bdbdbd;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.courses-searchbar:focus {
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.15);
+  border-color: #1976d2;
+}
+.courses-searchbar-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+  font-size: 1.3rem;
+  pointer-events: none;
+}
+// Migrasi style inline dari HTML ke CSS
+.courses-category {
+  top: 16px;
+  right: 16px;
+}
+.courses-rating {
+  color: #f7b500;
+  font-weight: 600;
+}
+.courses-stars {
+  color: #f7b500;
+}
+/* Container and Header */
+.courses-header {
+  background: #f5f7fa;
+  padding: 32px 24px 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 32px;
+  text-align: center;
+}
+.courses-header h2 {
+  color: #1976d2;
+  font-size: 2rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.courses-header .search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.courses-header input[type="text"] {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #bdbdbd;
+  width: 320px;
+  font-size: 1rem;
+}
+.filter-btn,
+.reset-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.filter-btn:hover,
+.reset-btn:hover {
+  background: #1565c0;
+}
+.courses-header p {
+  color: #333;
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+/* Courses Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.course-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+.course-card:hover {
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.15);
+}
+.course-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background: #e3eafc;
+}
+.course-info {
+  padding: 16px;
+  width: 100%;
+  text-align: center;
+}
+.course-info h3 {
+  font-size: 1.1rem;
+  color: #1976d2;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.course-info p {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 2px 0;
+}
+.stars {
+  color: #ffc107;
+  font-size: 1.1rem;
+  margin: 4px 0;
+}
+.stars span {
+  color: #333;
+  font-size: 0.95rem;
+  margin-left: 4px;
+}
+.lihat-btn {
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lihat-btn:hover {
+  background: #388e3c;
+}

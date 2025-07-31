@@ -1,0 +1,78 @@
+// Migrasi style inline ke CSS
+.category-title {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+}
+/* Style khusus untuk popular course section */
+#popular-section .card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+#popular-section .card-img-top {
+  height: 90px;
+  object-fit: contain;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+/* Updated category styles for the new component name */
+#new-component-name .category {
+  font-size: 0.95rem;
+  padding: 0.5em 1.2em;
+}
+.category-card .card-img-container {
+  position: relative;
+  width: 100%;
+  padding: 8px 8px 0 8px;
+}
+.card-title-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 0;
+  z-index: 2;
+}
+.card-title-overlay h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1976d2;
+  font-weight: 700;
+}
+.card-body-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 3;
+}
+.category-card:hover .card-body-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+.category-card:hover .card-title-overlay {
+  opacity: 0;
+}
+.category-link {
+  display: block;
+  text-decoration: none;
+  border-radius: 16px;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.category-link:hover {
+  background: #f5f7fa;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.1);
+}
+.category-card {
+  padding: 8px;
+}

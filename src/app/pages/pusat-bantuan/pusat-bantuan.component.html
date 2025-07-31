@@ -1,0 +1,17 @@
+<div class="faq-page container py-5">
+  <h2 class="fw-bold mb-4 text-center">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item mb-3" *ngFor="let faq of faqs; let i = index">
+      <h2 class="accordion-header" id="heading{{i}}">
+        <button class="accordion-button" [class.collapsed]="opened !== i" (click)="opened = opened === i ? null : i" type="button">
+          {{ faq.question }}
+        </button>
+      </h2>
+      <div [id]="'collapse' + i" class="accordion-collapse" [class.collapse]="opened !== i" [class.show]="opened === i">
+        <div class="accordion-body">
+          {{ faq.answer }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

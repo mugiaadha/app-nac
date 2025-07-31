@@ -1,0 +1,22 @@
+.logo-img {
+  height: 38px;
+}
+.logo-skeleton {
+  width: 38px;
+  height: 38px;
+  background: #eaeaea;
+  border-radius: 8px;
+  animation: pulse 1.2s infinite;
+  display: inline-block;
+}
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,55 @@
+// Migrasi style inline ke CSS
+// Kontras lebih baik
+.hero-highlight {
+  color: #4ecb71;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.hero-check-icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
+.hero-highlight-text {
+  position: relative;
+  top: 3px;
+}
+.hero-title {
+  font-weight: 700;
+  font-size: 3rem;
+  color: #212529;
+}
+.hero-search-input {
+  font-size: 1.25rem;
+  height: 56px;
+  border-radius: 50rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.hero-search-btn {
+  height: 56px;
+  border-radius: 50rem;
+  padding: 0 1.5rem;
+  font-size: 1.25rem;
+}
+.hero-feature {
+  color: #1565c0;
+}
+.hero-feature-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+.hero-bg-gradient {
+  background: linear-gradient(135deg, #2d3a5b 60%, #5b4cff 100%);
+  z-index: 0;
+}
+.hero-main-img {
+  z-index: 1;
+  width: 636px;
+  height: 590px;
+  object-fit: cover;
+  display: block;
+}
+/* Tambahkan style khusus Hero Section di sini */

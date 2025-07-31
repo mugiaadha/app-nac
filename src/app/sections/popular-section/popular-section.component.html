@@ -1,0 +1,108 @@
+<!-- Popular Section Slider -->
+<section class="container my-5" id="popular-section">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark popular-title">Pelatihan Terpopuler</h2>
+  </div>
+  <div
+    id="popularCourseCarousel"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="row g-4">
+          <ng-container *ngFor="let course of popularCourses">
+            <div class="col-md-3">
+              <a
+                [routerLink]="['/courses', course.slug]"
+                class="text-decoration-none d-block h-100"
+                *ngIf="course.slug"
+              >
+                <div class="card shadow-sm border-0 h-100 card-hover">
+                  <img
+                    [src]="course.img"
+                    class="card-img-top rounded-top-4"
+                    [alt]="course.alt"
+                    width="180"
+                    height="120"
+                  />
+                  <div class="card-body">
+                    <span
+                      class="category rounded-pill bg-primary position-absolute popular-category text-white px-2"
+                      >{{ course.category }}</span
+                    >
+                    <h5 class="fw-bold mt-2 mb-1">{{ course.title }}</h5>
+                    <div class="text-secondary mb-2">{{ course.author }}</div>
+                    <div class="d-flex align-items-center mb-2">
+                      <span class="me-2 popular-rating">{{
+                        course.rating
+                      }}</span>
+                      <span class="popular-stars">
+                        <i class="bi bi-star-fill"></i
+                        ><i class="bi bi-star-fill"></i
+                        ><i class="bi bi-star-fill"></i
+                        ><i class="bi bi-star-fill"></i
+                        ><i class="bi bi-star-half"></i>
+                      </span>
+                      <span class="ms-auto fw-bold">{{ course.price }}</span>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between text-secondary">
+                      <span
+                        ><i class="bi bi-book me-1"></i>
+                        {{ course.classes }} kelas</span
+                      >
+                      <span
+                        ><i class="bi bi-people me-1"></i>
+                        {{ course.participants }} peserta</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div
+                class="card shadow-sm border-0 h-100 card-hover"
+                *ngIf="!course.slug"
+              >
+                <img
+                  [src]="course.img"
+                  class="card-img-top rounded-top-4"
+                  [alt]="course.alt"
+                  width="180"
+                  height="120"
+                />
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#popularCourseCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#popularCourseCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="text-center mt-4">
+    <a
+      href="/courses"
+      class="btn btn-gradient btn-lg rounded-pill px-5 d-inline-flex align-items-center gap-2 shadow"
+    >
+      <span class="fw-semibold">Lihat Lebih Banyak</span>
+      <i class="bi bi-arrow-right ms-1"></i>
+    </a>
+  </div>
+</section>

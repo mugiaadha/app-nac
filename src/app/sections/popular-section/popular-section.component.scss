@@ -1,0 +1,30 @@
+// Migrasi style inline ke CSS
+.popular-title {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+}
+.popular-category {
+  top: 16px;
+  right: 16px;
+}
+.popular-rating {
+  color: #f7b500;
+  font-weight: 600;
+}
+.popular-stars {
+  color: #f7b500;
+}
+/* Style khusus untuk popular course section */
+#popular-section .card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+#popular-section .card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+/* Updated category styles for the new component name */
+#new-component-name .category {
+  font-size: 0.95rem;
+  padding: 0.5em 1.2em;
+}

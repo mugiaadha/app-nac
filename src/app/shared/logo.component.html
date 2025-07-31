@@ -1,0 +1,6 @@
+<ng-container *ngIf="logo; else logoSkeleton">
+  <img [src]="logo" alt="NAC Tax Center" class="logo-img" />
+</ng-container>
+<ng-template #logoSkeleton>
+  <div class="logo-skeleton"></div>
+</ng-template>
