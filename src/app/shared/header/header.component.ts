@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MENUS } from '../../config/menu.config';
 import { SiteSettingsService } from '../../state/site-settings.service';
-import { LogoComponent } from '../../shared/logo.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-header',

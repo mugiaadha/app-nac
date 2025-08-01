@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LogoComponent } from '../logo.component';
+import { LogoComponent } from '../logo/logo.component';
 import { SiteSettingsService } from '../../state/site-settings.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
