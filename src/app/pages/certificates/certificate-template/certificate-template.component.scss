@@ -1,0 +1,337 @@
+.certificate-container {
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  
+  &.certificate-small {
+    .certificate-template {
+      transform: scale(0.7);
+      transform-origin: top center;
+    }
+  }
+  
+  &.certificate-medium {
+    .certificate-template {
+      transform: scale(0.85);
+      transform-origin: top center;
+    }
+  }
+  
+  &.certificate-large {
+    .certificate-template {
+      transform: scale(1);
+    }
+  }
+}
+
+.certificate-template {
+  width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.certificate-border {
+  border: 8px solid;
+  border-image: linear-gradient(90deg, #1976d2 0%, #6366f1 100%) 1;
+  padding: 3rem;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    border: 2px solid #e9ecef;
+    pointer-events: none;
+  }
+}
+
+.certificate-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.certificate-header {
+  margin-bottom: 2rem;
+  
+  .certificate-logo {
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
+  .certificate-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1976d2;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .certificate-subtitle {
+    font-size: 1.2rem;
+    color: #6c757d;
+    font-style: italic;
+  }
+}
+
+.student-name-section {
+  margin: 2.5rem 0;
+  
+  .student-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .student-name-underline {
+    width: 300px;
+    height: 3px;
+    background: linear-gradient(90deg, #1976d2 0%, #6366f1 100%);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+}
+
+.course-section {
+  margin: 2rem 0;
+  
+  .completion-text {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+  
+  .course-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0ba360;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+  }
+  
+  .course-details {
+    font-size: 1rem;
+    color: #6c757d;
+    
+    .grade-info {
+      font-weight: 600;
+      color: #28a745;
+    }
+  }
+}
+
+.signature-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem 0 2rem 0;
+  gap: 4rem;
+  
+  .date-section,
+  .instructor-section {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .completion-date,
+  .instructor-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .date-line,
+  .instructor-line {
+    width: 100%;
+    height: 2px;
+    background: #dee2e6;
+    margin: 0.5rem 0;
+  }
+  
+  .date-label,
+  .instructor-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.certificate-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+  
+  .certificate-number {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1976d2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .verification-info {
+    font-size: 0.8rem;
+    color: #6c757d;
+  }
+}
+
+.decorative-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  
+  .corner-decoration {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #1976d2, #6366f1);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    
+    &.top-left {
+      top: 1rem;
+      left: 1rem;
+    }
+    
+    &.top-right {
+      top: 1rem;
+      right: 1rem;
+      transform: rotate(90deg);
+    }
+    
+    &.bottom-left {
+      bottom: 1rem;
+      left: 1rem;
+      transform: rotate(-90deg);
+    }
+    
+    &.bottom-right {
+      bottom: 1rem;
+      right: 1rem;
+      transform: rotate(180deg);
+    }
+  }
+  
+  .achievement-ribbon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    
+    i {
+      font-size: 2rem;
+      color: #b8860b;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #b8860b;
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+  }
+}
+
+.certificate-actions {
+  .btn {
+    min-width: 120px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .certificate-container {
+    background: white !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .certificate-template {
+    transform: scale(1) !important;
+    box-shadow: none !important;
+  }
+  
+  .certificate-actions {
+    display: none !important;
+  }
+  
+  .certificate-border {
+    border: 4px solid #1976d2 !important;
+    border-image: none !important;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .certificate-container {
+    padding: 1rem;
+    
+    &.certificate-small .certificate-template {
+      transform: scale(0.5);
+    }
+    
+    &.certificate-medium .certificate-template {
+      transform: scale(0.6);
+    }
+    
+    &.certificate-large .certificate-template {
+      transform: scale(0.7);
+    }
+  }
+  
+  .certificate-template {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .certificate-border {
+    padding: 2rem;
+  }
+  
+  .certificate-header .certificate-title {
+    font-size: 2rem;
+  }
+  
+  .student-name-section .student-name {
+    font-size: 1.8rem;
+  }
+  
+  .course-section .course-name {
+    font-size: 1.5rem;
+  }
+  
+  .signature-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

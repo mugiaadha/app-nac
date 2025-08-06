@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../state/auth.service';
+import { CertificateTemplateComponent, CertificateData } from './certificate-template/certificate-template.component';
 
 interface Certificate {
   id: string;
@@ -17,7 +18,7 @@ interface Certificate {
 @Component({
   selector: 'app-certificates',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CertificateTemplateComponent],
   templateUrl: './certificates.component.html',
   styleUrls: ['./certificates.component.scss'],
 })
@@ -56,6 +57,10 @@ export class CertificatesComponent implements OnInit {
       completionScore: 92
     }
   ];
+
+  // Modal properties
+  showCertificateModal = false;
+  selectedCertificateData: CertificateData | null = null;
 
   constructor(private auth: AuthService) {}
 
@@ -98,5 +103,33 @@ export class CertificatesComponent implements OnInit {
     if (this.certificates.length === 0) return 0;
     const total = this.certificates.reduce((sum, c) => sum + c.completionScore, 0);
     return Math.round(total / this.certificates.length);
+  }
+
+  previewCertificate(certificate: Certificate) {
+    this.selectedCertificateData = {
+      studentName: 'John Doe', // This should come from auth service
+      courseName: certificate.courseName,
+      instructorName: certificate.instructor,
+      completionDate: certificate.issueDate,
+      certificateNumber: certificate.certificateNumber,
+      duration: '40 hours', // This should come from course data
+      grade: this.getGrade(certificate.completionScore)
+    };
+    this.showCertificateModal = true;
+  }
+
+  closeCertificateModal() {
+    this.showCertificateModal = false;
+    this.selectedCertificateData = null;
+  }
+
+  private getGrade(score: number): string {
+    if (score >= 95) return 'A+';
+    if (score >= 90) return 'A';
+    if (score >= 85) return 'B+';
+    if (score >= 80) return 'B';
+    if (score >= 75) return 'C+';
+    if (score >= 70) return 'C';
+    return 'D';
   }
 }

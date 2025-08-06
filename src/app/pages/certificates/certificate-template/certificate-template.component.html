@@ -1,0 +1,88 @@
+<div class="certificate-container" [ngClass]="'certificate-' + size">
+  <div class="certificate-template">
+    <!-- Certificate Background & Border -->
+    <div class="certificate-border">
+      <div class="certificate-content">
+        
+        <!-- Header -->
+        <div class="certificate-header">
+          <div class="logo-section">
+            <img src="/images/logo/logo.svg" alt="NAC Academy" class="certificate-logo">
+          </div>
+          <h1 class="certificate-title">Certificate of Completion</h1>
+          <div class="certificate-subtitle">This is to certify that</div>
+        </div>
+
+        <!-- Student Name -->
+        <div class="student-name-section">
+          <h2 class="student-name">{{ certificateData.studentName }}</h2>
+          <div class="student-name-underline"></div>
+        </div>
+
+        <!-- Course Details -->
+        <div class="course-section">
+          <p class="completion-text">has successfully completed the course</p>
+          <h3 class="course-name">{{ certificateData.courseName }}</h3>
+          <p class="course-details">
+            Duration: {{ certificateData.duration }} 
+            <span *ngIf="certificateData.grade" class="grade-info">| Grade: {{ certificateData.grade }}</span>
+          </p>
+        </div>
+
+        <!-- Date & Signatures -->
+        <div class="signature-section">
+          <div class="date-section">
+            <p class="completion-date">{{ certificateData.completionDate | date:'MMMM dd, yyyy' }}</p>
+            <div class="date-line"></div>
+            <p class="date-label">Date of Completion</p>
+          </div>
+
+          <div class="instructor-section">
+            <p class="instructor-name">{{ certificateData.instructorName }}</p>
+            <div class="instructor-line"></div>
+            <p class="instructor-label">Course Instructor</p>
+          </div>
+        </div>
+
+        <!-- Certificate Number & Verification -->
+        <div class="certificate-footer">
+          <div class="certificate-number">
+            Certificate No: {{ certificateData.certificateNumber }}
+          </div>
+          <div class="verification-info">
+            <small>Verify at: nacademy.my.id/verify</small>
+          </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="decorative-elements">
+          <div class="corner-decoration top-left"></div>
+          <div class="corner-decoration top-right"></div>
+          <div class="corner-decoration bottom-left"></div>
+          <div class="corner-decoration bottom-right"></div>
+          
+          <!-- Ribbon -->
+          <div class="achievement-ribbon">
+            <i class="bi bi-award"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="certificate-actions" *ngIf="showActions">
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <button class="btn btn-outline-primary" (click)="downloadCertificate()">
+        <i class="bi bi-download me-2"></i>Download PDF
+      </button>
+      <button class="btn btn-outline-secondary" (click)="printCertificate()">
+        <i class="bi bi-printer me-2"></i>Print
+      </button>
+      <button class="btn btn-outline-success" (click)="shareCertificate()">
+        <i class="bi bi-share me-2"></i>Share
+      </button>
+    </div>
+  </div>
+</div>

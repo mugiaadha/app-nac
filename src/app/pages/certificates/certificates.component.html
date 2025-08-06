@@ -90,7 +90,10 @@
               >
                 <i class="bi bi-download me-1"></i>Download
               </button>
-              <button class="btn btn-outline-secondary btn-sm">
+              <button 
+                class="btn btn-outline-primary btn-sm me-2"
+                (click)="previewCertificate(certificate)"
+              >
                 <i class="bi bi-eye me-1"></i>View
               </button>
               <span *ngIf="certificate.status === 'pending'" class="text-warning">
@@ -113,3 +116,35 @@
     </div>
   </div>
 </div>
+
+<!-- Certificate Preview Modal -->
+<div class="modal fade" [class.show]="showCertificateModal" [style.display]="showCertificateModal ? 'block' : 'none'" 
+     id="certificateModal" tabindex="-1" *ngIf="showCertificateModal">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-award me-2"></i>Certificate Preview
+        </h5>
+        <button type="button" class="btn-close" (click)="closeCertificateModal()"></button>
+      </div>
+      <div class="modal-body p-0">
+        <app-certificate-template 
+          *ngIf="selectedCertificateData"
+          [certificateData]="selectedCertificateData"
+          [showActions]="true"
+          [size]="'medium'">
+        </app-certificate-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeCertificateModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop fade" [class.show]="showCertificateModal" *ngIf="showCertificateModal" 
+     (click)="closeCertificateModal()"></div>
