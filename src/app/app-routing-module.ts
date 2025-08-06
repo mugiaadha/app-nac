@@ -70,6 +70,8 @@ export const routes: Routes = [
     path: '',
     component: InnerLayoutComponent,
     canActivate: [authGuard],
+    resolve: { seo: SeoResolver },
+    data: { seo: SEO_CONFIG.dashboard },
     children: [
       {
         path: 'dashboard',
