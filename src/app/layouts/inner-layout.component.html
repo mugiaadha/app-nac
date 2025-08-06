@@ -1,0 +1,174 @@
+<div class="inner-layout">
+  <app-dashboard-header></app-dashboard-header>
+  <main class="dashboard-main">
+    <div class="dashboard-container">
+      <div class="container-fluid py-4">
+        <!-- Header Welcome -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="welcome-card bg-plum-plate rounded-4 p-4 text-white">
+              <h1 class="h3 mb-2">
+                Selamat datang, {{ user?.name || "User" }}!
+              </h1>
+              <p class="mb-0 opacity-90">
+                Kelola aktivitas pembelajaran Anda di sini
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation (Hidden on desktop) -->
+        <div class="row mb-4 d-lg-none">
+          <div class="col-12">
+            <div class="content-card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <i class="bi bi-grid-3x3-gap me-2"></i>Navigation
+                </h5>
+              </div>
+              <div class="card-body p-0">
+                <div class="sidebar-menu mobile-nav">
+                  <a
+                    [routerLink]="['/dashboard']"
+                    class="sidebar-item"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                  >
+                    <i class="bi bi-house"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a
+                    [routerLink]="['/my-courses']"
+                    class="sidebar-item"
+                    routerLinkActive="active"
+                  >
+                    <i class="bi bi-book"></i>
+                    <span>My Courses</span>
+                  </a>
+                  <a
+                    [routerLink]="['/certificates']"
+                    class="sidebar-item"
+                    routerLinkActive="active"
+                  >
+                    <i class="bi bi-award"></i>
+                    <span>Certificates</span>
+                  </a>
+                  <a
+                    [routerLink]="['/profile']"
+                    class="sidebar-item"
+                    routerLinkActive="active"
+                  >
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content with Sidebar -->
+        <div class="row g-4">
+          <!-- Sidebar (Desktop only) -->
+          <div class="col-lg-3 d-none d-lg-block">
+            <div class="dashboard-sidebar">
+              <!-- Navigation Menu -->
+              <div class="content-card mb-4">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <i class="bi bi-grid-3x3-gap me-2"></i>Navigation
+                  </h5>
+                </div>
+                <div class="card-body p-0">
+                  <div class="sidebar-menu">
+                    <a
+                      [routerLink]="['/dashboard']"
+                      class="sidebar-item"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      <i class="bi bi-house"></i>
+                      <span>Dashboard</span>
+                    </a>
+                    <a
+                      [routerLink]="['/my-courses']"
+                      class="sidebar-item"
+                      routerLinkActive="active"
+                    >
+                      <i class="bi bi-book"></i>
+                      <span>My Courses</span>
+                    </a>
+                    <a
+                      [routerLink]="['/certificates']"
+                      class="sidebar-item"
+                      routerLinkActive="active"
+                    >
+                      <i class="bi bi-award"></i>
+                      <span>Certificates</span>
+                    </a>
+                    <a
+                      [routerLink]="['/profile']"
+                      class="sidebar-item"
+                      routerLinkActive="active"
+                    >
+                      <i class="bi bi-person"></i>
+                      <span>Profile</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Stats -->
+              <div class="content-card">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <i class="bi bi-bar-chart me-2"></i>Quick Stats
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <div class="quick-stat-item">
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted">Course Progress</span>
+                      <span class="fw-semibold">75%</span>
+                    </div>
+                    <div class="progress mt-1">
+                      <div
+                        class="progress-bar bg-malibu-beach"
+                        style="width: 75%"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="quick-stat-item">
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted">Monthly Goal</span>
+                      <span class="fw-semibold">60%</span>
+                    </div>
+                    <div class="progress mt-1">
+                      <div
+                        class="progress-bar bg-grow-early"
+                        style="width: 60%"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="quick-stat-item">
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted">Streak</span>
+                      <span class="fw-semibold text-warning">🔥 7 days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Content Area -->
+          <div class="col-lg-9 col-12">
+            <div class="dashboard-main">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

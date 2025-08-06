@@ -1,0 +1,198 @@
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+  <div class="col-md-3 col-sm-6">
+    <div class="stats-card">
+      <div class="stats-icon bg-malibu-beach">
+        <i class="bi bi-book"></i>
+      </div>
+      <div class="stats-info">
+        <h3>12</h3>
+        <p>Course Completed</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="stats-card">
+      <div class="stats-icon bg-grow-early">
+        <i class="bi bi-trophy"></i>
+      </div>
+      <div class="stats-info">
+        <h3>8</h3>
+        <p>Certificates</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="stats-card">
+      <div class="stats-icon bg-sunny-morning">
+        <i class="bi bi-clock"></i>
+      </div>
+      <div class="stats-info">
+        <h3>45h</h3>
+        <p>Learning Time</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="stats-card">
+      <div class="stats-icon bg-malibu-beach">
+        <i class="bi bi-graph-up"></i>
+      </div>
+      <div class="stats-info">
+        <h3>95%</h3>
+        <p>Progress Rate</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Courses -->
+<div class="content-card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">
+      <i class="bi bi-clock-history me-2"></i>Recent Courses
+    </h5>
+    <a [routerLink]="['/courses']" class="btn btn-sm btn-outline-primary">
+      View All
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="course-item">
+      <div class="course-image">
+        <img
+          src="/images/courses/courseone.webp"
+          alt="Fundamental Akuntansi"
+          class="rounded"
+        />
+      </div>
+      <div class="course-info">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h6 class="mb-0 flex-grow-1">Fundamental Akuntansi</h6>
+          <span class="badge bg-primary-soft text-primary-gradient ms-2"
+            >In Progress</span
+          >
+        </div>
+        <p class="text-muted mb-2 course-description">
+          Pelajari dasar-dasar akuntansi dari nol hingga mahir
+        </p>
+        <div class="progress mb-2">
+          <div
+            class="progress-bar bg-malibu-beach"
+            style="width: 75%"
+            role="progressbar"
+          ></div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">75% Complete</small>
+          <small class="text-muted">3 dari 4 modul</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <div class="course-image">
+        <img
+          src="/images/courses/coursetwo.webp"
+          alt="Pajak Penghasilan"
+          class="rounded"
+        />
+      </div>
+      <div class="course-info">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h6 class="mb-0 flex-grow-1">Pajak Penghasilan</h6>
+          <span class="badge bg-grow-early ms-2">Completed</span>
+        </div>
+        <p class="text-muted mb-2 course-description">
+          Memahami perhitungan PPh untuk perusahaan dan individu
+        </p>
+        <div class="progress mb-2">
+          <div
+            class="progress-bar bg-grow-early"
+            style="width: 100%"
+            role="progressbar"
+          ></div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-success fw-semibold">Completed</small>
+          <small class="text-muted">Sertifikat tersedia</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <div class="course-image">
+        <img
+          src="/images/courses/coursethree.webp"
+          alt="Pelaporan Pajak Digital"
+          class="rounded"
+        />
+      </div>
+      <div class="course-info">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h6 class="mb-0 flex-grow-1">Pelaporan Pajak Digital</h6>
+          <span class="badge bg-sunny-morning text-dark ms-2">New</span>
+        </div>
+        <p class="text-muted mb-2 course-description">
+          Pelajari cara pelaporan pajak menggunakan sistem digital terbaru
+        </p>
+        <div class="progress mb-2">
+          <div
+            class="progress-bar bg-sunny-morning"
+            style="width: 0%"
+            role="progressbar"
+          ></div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">Belum dimulai</small>
+          <small class="text-muted">5 modul tersedia</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="content-card">
+  <div class="card-header">
+    <h5 class="mb-0">
+      <i class="bi bi-lightning me-2"></i>Quick Actions
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <a [routerLink]="['/courses']" class="quick-action-card">
+          <div class="quick-action-icon bg-malibu-beach">
+            <i class="bi bi-book"></i>
+          </div>
+          <div class="quick-action-content">
+            <h6>Browse Courses</h6>
+            <p class="text-muted">Explore available courses</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a [routerLink]="['/certificates']" class="quick-action-card">
+          <div class="quick-action-icon bg-grow-early">
+            <i class="bi bi-award"></i>
+          </div>
+          <div class="quick-action-content">
+            <h6>My Certificates</h6>
+            <p class="text-muted">View earned certificates</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a [routerLink]="['/profile']" class="quick-action-card">
+          <div class="quick-action-icon bg-malibu-beach">
+            <i class="bi bi-person-gear"></i>
+          </div>
+          <div class="quick-action-content">
+            <h6>Edit Profile</h6>
+            <p class="text-muted">Update your information</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

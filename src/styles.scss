@@ -197,8 +197,6 @@ body {
 }
 .course-info,
 .student-info {
-  z-index: 2;
-  position: absolute;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(91, 76, 255, 0.12);
@@ -239,6 +237,25 @@ body {
 .btn-gradient:hover {
   background: linear-gradient(90deg, #1565c0 0%, #4142b3 100%);
   box-shadow: 0 4px 24px rgba(25, 118, 210, 0.18);
+}
+
+// Global outline gradient button with malibu beach theme
+.btn-outline-gradient {
+  background: transparent;
+  border: 2px solid;
+  border-image: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%) 1;
+  color: #4facfe !important;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(79, 172, 254, 0.1);
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d6efd !important;
 }
 
 @media (max-width: 900px) {

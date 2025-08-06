@@ -5,62 +5,113 @@ import { SEO_CONFIG } from './config/seo.config';
 import { LoginComponent } from './pages/login/login.component';
 import { DaftarComponent } from './pages/daftar/daftar.component';
 import { PusatBantuanComponent } from './pages/pusat-bantuan/pusat-bantuan.component';
+import { authGuard } from './guards/auth.guard';
+import { OuterLayoutComponent } from './layouts/outer-layout.component';
+import { InnerLayoutComponent } from './layouts/inner-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeModule),
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.home },
+    component: OuterLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/home/home.module').then((m) => m.HomeModule),
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.home },
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.login },
+      },
+      {
+        path: 'daftar',
+        component: DaftarComponent,
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.daftar },
+      },
+      {
+        path: 'pusat-bantuan',
+        component: PusatBantuanComponent,
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.pusatBantuan },
+      },
+      {
+        path: 'courses',
+        loadChildren: () =>
+          import('./pages/courses/courses.module').then((m) => m.CoursesModule),
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.courses },
+      },
+      {
+        path: 'articles',
+        loadChildren: () =>
+          import('./pages/articles/articles.module').then(
+            (m) => m.ArticlesModule
+          ),
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.articles },
+      },
+      {
+        path: 'services',
+        loadChildren: () =>
+          import('./pages/services/services.module').then(
+            (m) => m.ServicesModule
+          ),
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.services },
+      },
+    ],
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.login },
-  },
-  {
-    path: 'daftar',
-    component: DaftarComponent,
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.daftar },
-  },
-  {
-    path: 'pusat-bantuan',
-    component: PusatBantuanComponent,
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.pusatBantuan },
-  },
-  {
-    path: 'courses',
-    loadChildren: () =>
-      import('./pages/courses/courses.module').then((m) => m.CoursesModule),
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.courses },
-  },
-  {
-    path: 'articles',
-    loadChildren: () =>
-      import('./pages/articles/articles.module').then((m) => m.ArticlesModule),
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.articles },
-  },
-  {
-    path: 'services',
-    loadChildren: () =>
-      import('./pages/services/services.module').then((m) => m.ServicesModule),
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.services },
+    path: '',
+    component: InnerLayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import(
+            './pages/dashboard/dashboard-home/dashboard-home.component'
+          ).then((m) => m.DashboardHomeComponent),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/profile/profile.component').then(
+            (m) => m.ProfileComponent
+          ),
+      },
+      {
+        path: 'certificates',
+        loadComponent: () =>
+          import('./pages/certificates/certificates.component').then(
+            (m) => m.CertificatesComponent
+          ),
+      },
+      {
+        path: 'my-courses',
+        loadComponent: () =>
+          import('./pages/my-courses/my-courses.component').then(
+            (m) => m.MyCoursesComponent
+          ),
+      },
+    ],
   },
   {
     path: '**',
-    loadChildren: () =>
-      import('./pages/not-found/not-found.component').then(
-        (m) => m.NotFoundComponent
-      ),
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.notfound },
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/not-found/not-found.component').then(
+            (m) => m.NotFoundComponent
+          ),
+      },
+    ],
   },
 ];
 
