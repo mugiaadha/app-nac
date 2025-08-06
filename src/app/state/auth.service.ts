@@ -17,14 +17,19 @@ interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'https://backend.nacademy.my.id/api';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
-  private userSubject = new BehaviorSubject<User | null>(
-    this.getUserFromToken()
+  private readonly apiUrl = 'https://backend.nacademy.my.id/api';
+
+  // State management subjects
+  private readonly isLoggedInSubject = new BehaviorSubject<boolean>(
+    this.hasToken()
+  );
+  private readonly userSubject = new BehaviorSubject<User | null>(
+    this.getUserFromStorage()
   );
 
   constructor(private http: HttpClient) {}
 
+  // Public observables for components to subscribe to
   get isLoggedIn$(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
@@ -34,29 +39,18 @@ export class AuthService {
   }
 
   get userEmail$(): Observable<string | null> {
-    return this.userSubject.pipe(map((user) => (user ? user.email : null)));
+    return this.userSubject.pipe(map((user) => user?.email || null));
   }
 
+  // Authentication methods
   login(email: string, password: string): Observable<boolean> {
     const loginData = { email, password };
 
     return this.http
       .post<LoginResponse>(`${this.apiUrl}/login`, loginData)
       .pipe(
-        map((response) => {
-          if (response.success && response.data.access_token) {
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            this.isLoggedInSubject.next(true);
-            this.userSubject.next(response.data.user);
-            return true;
-          }
-          return false;
-        }),
-        catchError((error) => {
-          console.error('Login error:', error);
-          return of(false);
-        })
+        map((response) => this.handleLoginResponse(response)),
+        catchError((error) => this.handleLoginError(error))
       );
   }
 
@@ -64,52 +58,93 @@ export class AuthService {
     const token = this.getToken();
 
     if (!token) {
-      // Jika tidak ada token, langsung logout local
-      this.clearLocalAuth();
+      // No token exists, perform local logout only
+      this.performLocalLogout();
       return of(true);
     }
 
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
-    return this.http.post(`${this.apiUrl}/logout`, {}, { headers }).pipe(
+    // Send logout request to server
+    return this.sendLogoutRequest(token).pipe(
       map(() => {
-        this.clearLocalAuth();
+        this.performLocalLogout();
         return true;
       }),
-      catchError((error) => {
-        this.clearLocalAuth();
+      catchError(() => {
+        // Even if server logout fails, clear local auth
+        this.performLocalLogout();
         return of(true);
       })
     );
   }
 
+  // Token management
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
+  // Private helper methods
   private hasToken(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  private getUserFromToken(): User | null {
-    const user = localStorage.getItem('user');
-    if (user) {
-      try {
-        const userData = JSON.parse(user);
-        return userData || null;
-      } catch {
-        return null;
-      }
+  private getUserFromStorage(): User | null {
+    const userJson = localStorage.getItem('user');
+
+    if (!userJson) {
+      return null;
     }
-    return null;
+
+    try {
+      return JSON.parse(userJson) as User;
+    } catch (error) {
+      console.error('Error parsing user data from localStorage:', error);
+      return null;
+    }
   }
 
-  private clearLocalAuth(): void {
+  private handleLoginResponse(response: LoginResponse): boolean {
+    if (!response.success || !response.data.access_token) {
+      return false;
+    }
+
+    // Store authentication data
+    this.storeAuthData(response.data.access_token, response.data.user);
+
+    // Update state
+    this.updateAuthState(true, response.data.user);
+
+    return true;
+  }
+
+  private handleLoginError(error: any): Observable<boolean> {
+    console.error('Login error:', error);
+    return of(false);
+  }
+
+  private storeAuthData(token: string, user: User): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  private updateAuthState(isLoggedIn: boolean, user: User | null): void {
+    this.isLoggedInSubject.next(isLoggedIn);
+    this.userSubject.next(user);
+  }
+
+  private sendLogoutRequest(token: string): Observable<any> {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    return this.http.post(`${this.apiUrl}/logout`, {}, { headers });
+  }
+
+  private performLocalLogout(): void {
+    // Clear stored data
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.isLoggedInSubject.next(false);
-    this.userSubject.next(null);
+
+    // Update state
+    this.updateAuthState(false, null);
   }
 }
