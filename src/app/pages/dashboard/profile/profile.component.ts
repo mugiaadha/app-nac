@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../state/auth.service';
-import { User } from '../../models/user.model';
+import { AuthService } from '../../../state/auth.service';
+import { User } from '../../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

@@ -83,21 +83,21 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./pages/profile/profile.component').then(
+          import('./pages/dashboard/profile/profile.component').then(
             (m) => m.ProfileComponent
           ),
       },
       {
         path: 'certificates',
         loadComponent: () =>
-          import('./pages/certificates/certificates.component').then(
+          import('./pages/dashboard/certificates/certificates.component').then(
             (m) => m.CertificatesComponent
           ),
       },
       {
         path: 'my-courses',
         loadComponent: () =>
-          import('./pages/my-courses/my-courses.component').then(
+          import('./pages/dashboard/my-courses/my-courses.component').then(
             (m) => m.MyCoursesComponent
           ),
       },

@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  CourseData,
-  CourseFilter,
-  MY_COURSES_DATA,
   COURSE_FILTERS,
   COURSE_STATUS_CONFIG,
-  COURSE_ACTIONS,
-  DROPDOWN_ACTIONS,
+  CourseData,
+  CourseFilter,
   LEARNING_STATS_CONFIG,
-  EMPTY_STATE_CONFIG,
-  MY_COURSES_PAGE_CONFIG
-} from '../../config/my-courses.config';
+  MY_COURSES_DATA,
+  MY_COURSES_PAGE_CONFIG,
+} from '../../../config/my-courses.config';
 
 @Component({
   selector: 'app-my-courses',
@@ -27,12 +24,9 @@ export class MyCoursesComponent implements OnInit {
   filteredCourses: CourseData[] = [];
   filters: CourseFilter[] = COURSE_FILTERS;
   statusConfig = COURSE_STATUS_CONFIG;
-  courseActions = COURSE_ACTIONS;
-  dropdownActions = DROPDOWN_ACTIONS;
   learningStats = LEARNING_STATS_CONFIG;
-  emptyStateConfig = EMPTY_STATE_CONFIG;
   pageConfig = MY_COURSES_PAGE_CONFIG;
-  
+
   // Component state
   activeFilter: string = MY_COURSES_PAGE_CONFIG.defaultFilter;
 
@@ -48,13 +42,15 @@ export class MyCoursesComponent implements OnInit {
     if (status === 'all') {
       this.filteredCourses = this.courses;
     } else {
-      this.filteredCourses = this.courses.filter(course => course.status === status);
+      this.filteredCourses = this.courses.filter(
+        (course) => course.status === status
+      );
     }
   }
 
   getFilterCount(filterKey: string): number {
     if (filterKey === 'all') return this.courses.length;
-    return this.courses.filter(course => course.status === filterKey).length;
+    return this.courses.filter((course) => course.status === filterKey).length;
   }
 
   // Status methods
@@ -146,26 +142,9 @@ export class MyCoursesComponent implements OnInit {
     // Implement unenroll logic
   }
 
-  // Statistics methods
-  getCompletedCount(): number {
-    return this.courses.filter(c => c.status === 'completed').length;
-  }
-
-  getInProgressCount(): number {
-    return this.courses.filter(c => c.status === 'in-progress').length;
-  }
-
-  getNotStartedCount(): number {
-    return this.courses.filter(c => c.status === 'not-started').length;
-  }
-
-  getTotalCompletedLessons(): number {
-    return this.courses.reduce((total, course) => total + course.completedLessons, 0);
-  }
-
   // Get statistic value using config
   getStatValue(statKey: string): number {
-    const stat = this.learningStats.find(s => s.key === statKey);
+    const stat = this.learningStats.find((s) => s.key === statKey);
     return stat ? stat.getValue(this.courses) : 0;
   }
 

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../state/auth.service';
-import { CertificateTemplateComponent, CertificateData } from './certificate-template/certificate-template.component';
+import { AuthService } from '../../../state/auth.service';
+import {
+  CertificateData,
+  CertificateTemplateComponent,
+} from './certificate-template/certificate-template.component';
 
 interface Certificate {
   id: string;
@@ -33,7 +36,7 @@ export class CertificatesComponent implements OnInit {
       courseImage: '/images/courses/courseone.webp',
       instructor: 'Dr. Sari Widiastuti',
       completionScore: 95,
-      downloadUrl: '#'
+      downloadUrl: '#',
     },
     {
       id: '2',
@@ -44,7 +47,7 @@ export class CertificatesComponent implements OnInit {
       courseImage: '/images/courses/coursetwo.webp',
       instructor: 'Prof. Bambang Sutrisno',
       completionScore: 88,
-      downloadUrl: '#'
+      downloadUrl: '#',
     },
     {
       id: '3',
@@ -54,8 +57,8 @@ export class CertificatesComponent implements OnInit {
       status: 'pending',
       courseImage: '/images/courses/coursethree.webp',
       instructor: 'Dra. Lestari Handayani',
-      completionScore: 92
-    }
+      completionScore: 92,
+    },
   ];
 
   // Modal properties
@@ -75,33 +78,44 @@ export class CertificatesComponent implements OnInit {
 
   getStatusBadgeClass(status: string): string {
     switch (status) {
-      case 'issued': return 'bg-grow-early';
-      case 'pending': return 'bg-sunny-morning text-dark';
-      case 'expired': return 'bg-love-kiss';
-      default: return 'bg-secondary';
+      case 'issued':
+        return 'bg-grow-early';
+      case 'pending':
+        return 'bg-sunny-morning text-dark';
+      case 'expired':
+        return 'bg-love-kiss';
+      default:
+        return 'bg-secondary';
     }
   }
 
   getStatusText(status: string): string {
     switch (status) {
-      case 'issued': return 'Issued';
-      case 'pending': return 'Pending';
-      case 'expired': return 'Expired';
-      default: return 'Unknown';
+      case 'issued':
+        return 'Issued';
+      case 'pending':
+        return 'Pending';
+      case 'expired':
+        return 'Expired';
+      default:
+        return 'Unknown';
     }
   }
 
   getIssuedCount(): number {
-    return this.certificates.filter(c => c.status === 'issued').length;
+    return this.certificates.filter((c) => c.status === 'issued').length;
   }
 
   getPendingCount(): number {
-    return this.certificates.filter(c => c.status === 'pending').length;
+    return this.certificates.filter((c) => c.status === 'pending').length;
   }
 
   getAverageScore(): number {
     if (this.certificates.length === 0) return 0;
-    const total = this.certificates.reduce((sum, c) => sum + c.completionScore, 0);
+    const total = this.certificates.reduce(
+      (sum, c) => sum + c.completionScore,
+      0
+    );
     return Math.round(total / this.certificates.length);
   }
 
@@ -113,7 +127,7 @@ export class CertificatesComponent implements OnInit {
       completionDate: certificate.issueDate,
       certificateNumber: certificate.certificateNumber,
       duration: '40 hours', // This should come from course data
-      grade: this.getGrade(certificate.completionScore)
+      grade: this.getGrade(certificate.completionScore),
     };
     this.showCertificateModal = true;
   }
