@@ -1,0 +1,72 @@
+// Global Styles - Minimal
+:root {
+  --primary: #2563eb;
+  --secondary: #38bdf8;
+  --accent: #5b4cff;
+  --success: #1ecb6c;
+  --bg: #edf3fe;
+  --text-primary: #2d3a5b;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 24px rgba(91,76,255,0.12);
+  --radius-md: 20px;
+  --radius-lg: 24px;
+}
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg);
+}
+
+// Utility Gradients
+.bg-gradient-primary { background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%); }
+.bg-gradient-accent { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.text-gradient { 
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Card Components
+.card-modern {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: none;
+  transition: all 0.3s ease;
+  &:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+}
+
+// Buttons
+.btn-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  color: white;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  &:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+}
+
+// Badge Styles
+.badge-progress { background: #e3f2fd; color: var(--primary); }
+.badge-completed { background: #e8f5e8; color: var(--success); }
+.badge-new { background: #fff3e0; color: #f57c00; }
+.badge-advanced { background: #fce4ec; color: #e91e63; }
+.badge-beginner { background: #e0f2f1; color: #00897b; }
+.badge-intermediate { background: #fff8e1; color: #ffa000; }
+
+// Modern scrollbar
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { 
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+  &:hover { background: var(--accent); }
+}
+
+// Responsive utilities
+@media (max-width: 768px) {
+  .d-mobile-none { display: none !important; }
+  .container-fluid { padding: 0 1rem; }
+}
