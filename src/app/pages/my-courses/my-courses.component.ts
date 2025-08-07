@@ -1,22 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  progress: number;
-  status: 'not-started' | 'in-progress' | 'completed';
-  instructor: string;
-  duration: string;
-  enrolledDate: Date;
-  lastAccessed?: Date;
-  image: string;
-  totalLessons: number;
-  completedLessons: number;
-  category: string;
-}
+import {
+  CourseData,
+  CourseFilter,
+  MY_COURSES_DATA,
+  COURSE_FILTERS,
+  COURSE_STATUS_CONFIG,
+  COURSE_ACTIONS,
+  DROPDOWN_ACTIONS,
+  LEARNING_STATS_CONFIG,
+  EMPTY_STATE_CONFIG,
+  MY_COURSES_PAGE_CONFIG
+} from '../../config/my-courses.config';
 
 @Component({
   selector: 'app-my-courses',
@@ -26,55 +22,19 @@ interface Course {
   styleUrls: ['./my-courses.component.scss'],
 })
 export class MyCoursesComponent implements OnInit {
-  courses: Course[] = [
-    {
-      id: '1',
-      title: 'Fundamental Akuntansi',
-      description: 'Pelajari dasar-dasar akuntansi dari nol hingga mahir dengan praktik langsung',
-      progress: 75,
-      status: 'in-progress',
-      instructor: 'Dr. Sari Widiastuti',
-      duration: '8 weeks',
-      enrolledDate: new Date('2024-01-10'),
-      lastAccessed: new Date('2024-02-15'),
-      image: '/images/courses/courseone.webp',
-      totalLessons: 24,
-      completedLessons: 18,
-      category: 'Accounting'
-    },
-    {
-      id: '2',
-      title: 'Pajak Penghasilan',
-      description: 'Memahami perhitungan dan pelaporan PPh untuk perusahaan dan individu',
-      progress: 100,
-      status: 'completed',
-      instructor: 'Prof. Bambang Sutrisno',
-      duration: '6 weeks',
-      enrolledDate: new Date('2023-12-01'),
-      lastAccessed: new Date('2024-01-20'),
-      image: '/images/courses/coursetwo.webp',
-      totalLessons: 18,
-      completedLessons: 18,
-      category: 'Tax'
-    },
-    {
-      id: '3',
-      title: 'Pelaporan Pajak Digital',
-      description: 'Pelajari cara pelaporan pajak menggunakan sistem digital terbaru DJP',
-      progress: 0,
-      status: 'not-started',
-      instructor: 'Dra. Lestari Handayani',
-      duration: '4 weeks',
-      enrolledDate: new Date('2024-02-20'),
-      image: '/images/courses/coursethree.webp',
-      totalLessons: 12,
-      completedLessons: 0,
-      category: 'Digital Tax'
-    }
-  ];
-
-  filteredCourses: Course[] = [];
-  activeFilter: string = 'all';
+  // Data from config
+  courses: CourseData[] = MY_COURSES_DATA;
+  filteredCourses: CourseData[] = [];
+  filters: CourseFilter[] = COURSE_FILTERS;
+  statusConfig = COURSE_STATUS_CONFIG;
+  courseActions = COURSE_ACTIONS;
+  dropdownActions = DROPDOWN_ACTIONS;
+  learningStats = LEARNING_STATS_CONFIG;
+  emptyStateConfig = EMPTY_STATE_CONFIG;
+  pageConfig = MY_COURSES_PAGE_CONFIG;
+  
+  // Component state
+  activeFilter: string = MY_COURSES_PAGE_CONFIG.defaultFilter;
 
   constructor() {}
 
@@ -82,6 +42,7 @@ export class MyCoursesComponent implements OnInit {
     this.filteredCourses = this.courses;
   }
 
+  // Filter methods
   filterCourses(status: string) {
     this.activeFilter = status;
     if (status === 'all') {
@@ -91,32 +52,101 @@ export class MyCoursesComponent implements OnInit {
     }
   }
 
+  getFilterCount(filterKey: string): number {
+    if (filterKey === 'all') return this.courses.length;
+    return this.courses.filter(course => course.status === filterKey).length;
+  }
+
+  // Status methods
   getStatusBadgeClass(status: string): string {
-    switch (status) {
-      case 'completed': return 'bg-grow-early';
-      case 'in-progress': return 'bg-malibu-beach';
-      case 'not-started': return 'bg-sunny-morning text-dark';
-      default: return 'bg-secondary';
-    }
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.badge : 'badge-secondary';
   }
 
   getStatusText(status: string): string {
-    switch (status) {
-      case 'completed': return 'Completed';
-      case 'in-progress': return 'In Progress';
-      case 'not-started': return 'Not Started';
-      default: return 'Unknown';
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.text : 'Unknown';
+  }
+
+  getProgressBarClass(status: string): string {
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.progressColor : 'bg-malibu-beach';
+  }
+
+  // Action methods
+  executeAction(action: string, course: CourseData) {
+    switch (action) {
+      case 'startCourse':
+        this.startCourse(course);
+        break;
+      case 'continueCourse':
+        this.continueCourse(course);
+        break;
+      case 'downloadCertificate':
+        this.downloadCertificate(course);
+        break;
+      case 'viewCertificate':
+        this.viewCertificate(course);
+        break;
+      case 'viewDetails':
+        this.viewDetails(course);
+        break;
+      case 'toggleBookmark':
+        this.toggleBookmark(course);
+        break;
+      case 'shareCourse':
+        this.shareCourse(course);
+        break;
+      case 'unenrollCourse':
+        this.unenrollCourse(course);
+        break;
+      default:
+        console.log('Unknown action:', action);
     }
   }
 
-  continueCourse(course: Course) {
-    console.log('Continue course:', course.title);
+  // Course action methods
+  startCourse(course: CourseData) {
+    console.log('Starting course:', course.title);
+    // Implement course start logic
   }
 
-  startCourse(course: Course) {
-    console.log('Start course:', course.title);
+  continueCourse(course: CourseData) {
+    console.log('Continuing course:', course.title);
+    // Implement course continue logic
   }
 
+  downloadCertificate(course: CourseData) {
+    console.log('Downloading certificate for:', course.title);
+    // Implement certificate download logic
+  }
+
+  viewCertificate(course: CourseData) {
+    console.log('Viewing certificate for:', course.title);
+    // Implement certificate view logic
+  }
+
+  viewDetails(course: CourseData) {
+    console.log('Viewing details for:', course.title);
+    // Implement course details logic
+  }
+
+  toggleBookmark(course: CourseData) {
+    console.log('Toggling bookmark for:', course.title);
+    // Implement bookmark logic
+  }
+
+  shareCourse(course: CourseData) {
+    console.log('Sharing course:', course.title);
+    // Implement share logic
+  }
+
+  unenrollCourse(course: CourseData) {
+    console.log('Unenrolling from course:', course.title);
+    // Implement unenroll logic
+  }
+
+  // Statistics methods
   getCompletedCount(): number {
     return this.courses.filter(c => c.status === 'completed').length;
   }
@@ -131,5 +161,16 @@ export class MyCoursesComponent implements OnInit {
 
   getTotalCompletedLessons(): number {
     return this.courses.reduce((total, course) => total + course.completedLessons, 0);
+  }
+
+  // Get statistic value using config
+  getStatValue(statKey: string): number {
+    const stat = this.learningStats.find(s => s.key === statKey);
+    return stat ? stat.getValue(this.courses) : 0;
+  }
+
+  // Clear filter
+  clearFilter() {
+    this.filterCourses('all');
   }
 }

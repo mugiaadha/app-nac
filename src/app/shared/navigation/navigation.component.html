@@ -1,0 +1,123 @@
+<!-- Sidebar Navigation -->
+<div *ngIf="type === 'sidebar'" class="navigation-sidebar">
+  <div class="content-card" *ngIf="showTitle">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="bi {{ titleIcon }} me-2"></i>{{ title }}
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="sidebar-menu">
+        <ng-container *ngFor="let item of navigationItems">
+          <a
+            *ngIf="item.type === 'link'"
+            [routerLink]="[item.route]"
+            [class]="getItemClasses(item)"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
+            (click)="onItemClick(item)"
+          >
+            <i class="bi {{ item.icon }}"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div *ngIf="type === 'mobile'" class="mobile-bottom-nav d-lg-none">
+  <div class="mobile-nav-container">
+    <ng-container *ngFor="let item of navigationItems">
+      <a
+        *ngIf="item.type === 'link'"
+        [routerLink]="[item.route]"
+        class="mobile-nav-item"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
+        (click)="onItemClick(item)"
+      >
+        <i class="bi {{ item.icon }}"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </ng-container>
+    
+    <!-- More Menu with Dropdown -->
+    <div class="mobile-nav-item mobile-nav-dropdown" [class.show]="showMobileDropdown">
+      <button 
+        class="mobile-nav-btn" 
+        (click)="toggleMobileDropdown()"
+        type="button"
+      >
+        <i class="bi bi-three-dots"></i>
+        <span>More</span>
+      </button>
+      
+      <!-- Dropdown Menu -->
+      <div class="mobile-dropdown-menu" [class.show]="showMobileDropdown">
+        <ng-container *ngFor="let item of getDropdownNavigation()">
+          <!-- Divider -->
+          <div *ngIf="item.type === 'divider'" class="mobile-dropdown-divider"></div>
+          
+          <!-- Link -->
+          <a 
+            *ngIf="item.type === 'link'"
+            [routerLink]="[item.route]"
+            class="mobile-dropdown-item"
+            (click)="onItemClick(item)"
+          >
+            <i [class]="getIconClasses(item)"></i>
+            <span [class]="getTextClasses(item)">{{ item.label }}</span>
+          </a>
+          
+          <!-- Button -->
+          <button 
+            *ngIf="item.type === 'button'"
+            class="mobile-dropdown-item logout-btn"
+            (click)="onItemClick(item, $event)"
+          >
+            <i [class]="getIconClasses(item)"></i>
+            <span [class]="getTextClasses(item)">{{ item.label }}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Backdrop for dropdown -->
+  <div 
+    class="mobile-dropdown-backdrop" 
+    [class.show]="showMobileDropdown"
+    (click)="closeMobileDropdown()"
+  ></div>
+</div>
+
+<!-- Dropdown Navigation -->
+<div *ngIf="type === 'dropdown'" class="mobile-dropdown-menu" [class.show]="showMobileDropdown">
+  <ng-container *ngFor="let item of navigationItems">
+    <!-- Divider -->
+    <div *ngIf="item.type === 'divider'" [class]="getItemClasses(item)"></div>
+    
+    <!-- Link -->
+    <a 
+      *ngIf="item.type === 'link'"
+      [routerLink]="[item.route]"
+      [class]="getItemClasses(item)"
+      (click)="onItemClick(item)"
+    >
+      <i [class]="getIconClasses(item)"></i>
+      <span [class]="getTextClasses(item)">{{ item.label }}</span>
+    </a>
+    
+    <!-- Button -->
+    <button 
+      *ngIf="item.type === 'button'"
+      [class]="getItemClasses(item)"
+      (click)="onItemClick(item, $event)"
+    >
+      <i [class]="getIconClasses(item)"></i>
+      <span [class]="getTextClasses(item)">{{ item.label }}</span>
+    </button>
+  </ng-container>
+</div>

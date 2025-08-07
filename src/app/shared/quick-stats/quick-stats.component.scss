@@ -1,0 +1,50 @@
+.content-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+
+  .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 1.25rem;
+
+    h5 {
+      color: #495057;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+  }
+
+  .card-body {
+    padding: 1.25rem;
+
+    .quick-stat-item {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .text-muted {
+        font-size: 0.875rem;
+      }
+
+      .fw-semibold {
+        font-size: 0.875rem;
+      }
+
+      .progress {
+        height: 6px;
+        border-radius: 3px;
+        background-color: #f1f3f4;
+
+        .progress-bar {
+          border-radius: 3px;
+          transition: width 0.3s ease;
+        }
+      }
+    }
+  }
+}

@@ -42,6 +42,11 @@ import { SiteSettingsService } from '../../state/site-settings.service';
                   <i class="bi bi-speedometer2 me-2"></i>Dashboard
                 </a>
               </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/profile']">
+                  <i class="bi bi-person me-2"></i>Profile
+                </a>
+              </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
                 <a

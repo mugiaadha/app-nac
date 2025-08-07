@@ -19,150 +19,57 @@
   box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
 }
 
-// Profile Card Styles (in sidebar)
-.profile-avatar img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border: 3px solid #e2e8f0;
-}
-
-.default-avatar-icon {
-  font-size: 80px;
-  display: block;
-  line-height: 1;
-}
-
-.content-card {
-  background: white;
-  border-radius: 16px;
-  border: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-}
-
-.card-header {
-  background: white;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 20px 24px;
-  border-radius: 16px 16px 0 0;
-}
-
-.card-body {
-  padding: 24px;
-}
-
 // Sidebar Layout
 .dashboard-sidebar {
   position: sticky;
   top: 20px;
+  
+  // Add spacing between navigation and quick stats
+  app-navigation {
+    margin-bottom: 1rem; // Reduced from 1.5rem
+  }
+  
+  // Ensure quick stats are above mobile navigation
+  app-quick-stats {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
+// Mobile content spacing (to account for sticky bottom nav)
+.mobile-content-spacer {
+  padding-bottom: 40px; // Space for mobile bottom navigation (further reduced)
+  
+  @media (min-width: 992px) {
+    padding-bottom: 0; // Remove spacing on desktop
+  }
 }
 
-// Mobile Navigation
-.mobile-nav {
-  flex-direction: row;
-  overflow-x: auto;
-  padding: 8px 0;
-  gap: 8px;
-}
-
-.mobile-nav .sidebar-item {
-  flex-shrink: 0;
-  white-space: nowrap;
-  border-bottom: none;
-  border-radius: 8px;
-  margin: 0 4px;
-  min-width: 80px;
-  flex-direction: column;
-  text-align: center;
-  padding: 12px 8px;
-  font-size: 12px;
-}
-
-.mobile-nav .sidebar-item i {
-  margin-right: 0;
-  margin-bottom: 4px;
-  font-size: 18px;
-}
-
-.mobile-nav .sidebar-item.active {
-  border-left: none;
-  border: 2px solid #1d4ed8;
-}
-
-// Sidebar Navigation Items
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
-  color: #64748b;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.sidebar-item:hover {
-  background-color: #f8fafc;
-  color: #1e293b;
-  text-decoration: none;
-}
-
-.sidebar-item.active {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-  border-left: 3px solid #1d4ed8;
-}
-
-.sidebar-item i {
-  width: 20px;
-  margin-right: 12px;
-  font-size: 16px;
-}
-
-.sidebar-item:last-child {
-  border-bottom: none;
-}
-
-// Quick Stats in Sidebar
-.quick-stat-item {
-  margin-bottom: 16px;
-}
-
-.quick-stat-item:last-child {
-  margin-bottom: 0;
-}
-
-.progress {
-  height: 6px;
-  border-radius: 3px;
-  background: #e2e8f0;
-  overflow: hidden;
-}
-
-.progress-bar {
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-// Responsive Design
-@media (max-width: 992px) {
+// Responsive adjustments
+@media (max-width: 991.98px) {
+  .dashboard-container {
+    padding-bottom: 50px; // Extra space for mobile nav (further reduced)
+  }
+  
   .dashboard-sidebar {
     position: static;
-    margin-bottom: 24px;
+    margin-bottom: 16px; // Reduced from 24px
+    
+    // Ensure sidebar content doesn't get covered by mobile nav
+    app-navigation,
+    app-quick-stats {
+      margin-bottom: 0.75rem; // Reduced from 1rem
+    }
   }
 }
 
 @media (max-width: 768px) {
-  .card-body {
-    padding: 16px;
+  .dashboard-container {
+    padding: 1rem;
+    padding-bottom: 60px; // More space for mobile nav (further reduced)
   }
-
-  .card-header {
-    padding: 16px;
+  
+  .dashboard-sidebar {
+    margin-bottom: 1rem; // Further reduced margin
   }
 }

@@ -1,0 +1,24 @@
+<div class="content-card">
+  <div class="card-header">
+    <h5 class="mb-0">
+      <i class="bi bi-bar-chart me-2"></i>Quick Stats
+    </h5>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let stat of quickStats" class="quick-stat-item">
+      <div class="d-flex justify-content-between">
+        <span class="text-muted">{{ stat.label }}</span>
+        <span class="fw-semibold" [class]="stat.type === 'text' ? stat.color : ''">
+          {{ getDisplayValue(stat) }}
+        </span>
+      </div>
+      <div *ngIf="stat.type === 'progress'" class="progress mt-1">
+        <div
+          class="progress-bar"
+          [class]="stat.color"
+          [style.width.%]="getProgressValue(stat)"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
