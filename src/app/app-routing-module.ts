@@ -8,6 +8,7 @@ import { PusatBantuanComponent } from './pages/pusat-bantuan/pusat-bantuan.compo
 import { authGuard } from './guards/auth.guard';
 import { OuterLayoutComponent } from './layouts/outer-layout.component';
 import { InnerLayoutComponent } from './layouts/inner-layout.component';
+import { QuizLayoutComponent } from './layouts/quiz-layout/quiz-layout.component';
 
 export const routes: Routes = [
   {
@@ -108,18 +109,34 @@ export const routes: Routes = [
             './pages/dashboard/course-detail/course-detail.component'
           ).then((m) => m.CourseDetailComponent),
       },
+    ],
+  },
+  {
+    path: '',
+    canActivate: [authGuard],
+    component: QuizLayoutComponent,
+    resolve: { seo: SeoResolver },
+    data: { seo: SEO_CONFIG.dashboard },
+    children: [
       {
         path: 'course-learning/:id',
         loadComponent: () =>
-          import('./pages/dashboard/course-learning/course-learning.component').then(
-            (m) => m.CourseLearningComponent
-          ),
+          import(
+            './pages/dashboard/course-learning/course-learning.component'
+          ).then((m) => m.CourseLearningComponent),
       },
       {
         path: 'course-learning/:id/:lessonId',
         loadComponent: () =>
-          import('./pages/dashboard/course-learning/course-learning.component').then(
-            (m) => m.CourseLearningComponent
+          import(
+            './pages/dashboard/course-learning/course-learning.component'
+          ).then((m) => m.CourseLearningComponent),
+      },
+      {
+        path: 'quiz/:courseId/:lessonId',
+        loadComponent: () =>
+          import('./pages/dashboard/quiz/quiz.component').then(
+            (m) => m.QuizComponent
           ),
       },
     ],

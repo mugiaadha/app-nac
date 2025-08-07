@@ -28,33 +28,42 @@
     <!-- Header Bar -->
     <div class="learning-header">
       <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <button class="btn btn-outline-secondary me-3" (click)="goBack()">
-            <i class="bi bi-arrow-left"></i>
-          </button>
-          <div class="course-info">
-            <h6 class="mb-0">{{ course.title }}</h6>
-            <small class="text-muted">{{ currentLesson.title }}</small>
+        <div
+          class="d-flex align-items-center"
+          style="flex: 1; min-width: 0; margin-right: 1rem"
+        >
+          <div class="course-info" style="min-width: 0">
+            <h6 class="mb-0 text-truncate">{{ course.title }}</h6>
+            <small class="text-muted text-truncate d-block">{{
+              currentLesson.title
+            }}</small>
           </div>
         </div>
 
-        <div class="header-controls d-flex align-items-center gap-2">
+        <div class="header-controls">
           <button
-            class="btn btn-outline-secondary btn-sm"
+            class="btn btn-outline-secondary btn-sm header-btn"
+            (click)="goBack()"
+          >
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm header-btn"
             (click)="toggleSidebar()"
           >
             <i class="bi bi-list"></i>
           </button>
           <button
-            class="btn btn-outline-secondary btn-sm"
+            class="btn btn-outline-secondary btn-sm header-btn"
             (click)="toggleFullscreen()"
           >
             <i
+              class="bi"
               [class]="isFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen'"
             ></i>
           </button>
           <button
-            class="btn btn-outline-secondary btn-sm"
+            class="btn btn-outline-secondary btn-sm header-btn"
             (click)="goToCourseDetail()"
           >
             <i class="bi bi-info-circle"></i>
@@ -103,6 +112,7 @@
                 [class.active]="currentLesson && currentLesson.id === lesson.id"
                 [class.completed]="lesson.isCompleted"
                 [class.locked]="lesson.isLocked"
+                [attr.data-lesson-id]="lesson.id"
                 (click)="!lesson.isLocked && selectLesson(lesson.id)"
               >
                 <div class="d-flex align-items-center">
@@ -251,8 +261,14 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-warning btn-lg" (click)="startQuiz()">
+              <button class="btn btn-warning btn-sm" (click)="startQuiz()">
                 <i class="bi bi-play-circle me-2"></i>Start Quiz
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm ms-3"
+                (click)="startQuizFullscreen()"
+              >
+                <i class="bi bi-fullscreen me-2"></i>Quiz Mode
               </button>
             </div>
 
@@ -394,7 +410,6 @@
                         (click)="previousQuestion()"
                       >
                         <i class="bi bi-chevron-left"></i>
-                        <span class="d-none d-sm-inline ms-1">Previous</span>
                       </button>
                     </div>
                     <div class="col-6">
@@ -403,24 +418,20 @@
                         [disabled]="question.userAnswer === undefined"
                         (click)="nextQuestion()"
                       >
-                        <span
+                        <i
                           *ngIf="
                             currentQuestionIndex <
                             (currentLesson.questions?.length || 0) - 1
                           "
-                        >
-                          <span class="d-none d-sm-inline me-1">Next</span>
-                          <i class="bi bi-chevron-right"></i>
-                        </span>
-                        <span
+                          class="bi bi-chevron-right"
+                        ></i>
+                        <i
                           *ngIf="
                             currentQuestionIndex ===
                             (currentLesson.questions?.length || 0) - 1
                           "
-                        >
-                          <span class="d-none d-sm-inline me-1">Finish</span>
-                          <i class="bi bi-check-circle"></i>
-                        </span>
+                          class="bi bi-check-circle"
+                        ></i>
                       </button>
                     </div>
                   </div>
@@ -455,7 +466,7 @@
                     [disabled]="currentQuestionIndex === 0"
                     (click)="previousQuestion()"
                   >
-                    <i class="bi bi-chevron-left me-2"></i>Previous
+                    <i class="bi bi-chevron-left"></i>
                   </button>
 
                   <div class="quiz-actions d-flex gap-2">
@@ -482,22 +493,20 @@
                     [disabled]="question.userAnswer === undefined"
                     (click)="nextQuestion()"
                   >
-                    <span
+                    <i
                       *ngIf="
                         currentQuestionIndex <
                         (currentLesson.questions?.length || 0) - 1
                       "
-                    >
-                      Next<i class="bi bi-chevron-right ms-2"></i>
-                    </span>
-                    <span
+                      class="bi bi-chevron-right"
+                    ></i>
+                    <i
                       *ngIf="
                         currentQuestionIndex ===
                         (currentLesson.questions?.length || 0) - 1
                       "
-                    >
-                      Finish Quiz<i class="bi bi-check-circle ms-2"></i>
-                    </span>
+                      class="bi bi-check-circle"
+                    ></i>
                   </button>
                 </div>
               </div>
@@ -596,6 +605,7 @@
             <button
               class="btn btn-outline-secondary"
               (click)="previousLesson()"
+              style="min-width: 100px"
             >
               <i class="bi bi-chevron-left me-2"></i>Previous
             </button>
@@ -605,11 +615,12 @@
                 class="btn btn-success me-3"
                 *ngIf="!currentLesson.isCompleted"
                 (click)="markLessonComplete()"
+                style="min-width: 100%"
               >
                 <i class="bi bi-check-circle me-2"></i>Mark Complete
               </button>
               <span
-                class="badge bg-success p-2"
+                class="badge bg-success p-3"
                 *ngIf="currentLesson.isCompleted"
               >
                 <i class="bi bi-check-circle me-1"></i>Completed

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -46,14 +46,14 @@ interface CourseModule {
   templateUrl: './course-learning.component.html',
   styleUrls: ['./course-learning.component.scss'],
 })
-export class CourseLearningComponent implements OnInit, OnDestroy {
+export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit {
   course: CourseData | null = null;
   currentLesson: Lesson | null = null;
   modules: CourseModule[] = [];
   isLoading: boolean = true;
   error: string | null = null;
   statusConfig = COURSE_STATUS_CONFIG;
-  
+
   // Learning state
   isSidebarCollapsed: boolean = window.innerWidth <= 768; // Auto collapse on mobile
   isFullscreen: boolean = false;
@@ -77,10 +77,10 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const courseId = params['id'];
       const lessonId = params['lessonId'];
-      
+
       if (courseId) {
         this.loadCourse(courseId, lessonId);
       } else {
@@ -92,6 +92,15 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Cleanup if needed
+  }
+
+  ngAfterViewInit() {
+    // Auto scroll to current lesson after view is initialized
+    setTimeout(() => {
+      if (this.currentLesson) {
+        this.scrollToCurrentLesson(this.currentLesson.id);
+      }
+    }, 200);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -110,21 +119,28 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
     // Simulate API call
     setTimeout(() => {
-      const foundCourse = MY_COURSES_DATA.find(c => c.id === courseId);
-      
+      const foundCourse = MY_COURSES_DATA.find((c) => c.id === courseId);
+
       if (foundCourse) {
         this.course = foundCourse;
         this.generateModulesAndLessons();
-        
+
         if (lessonId) {
           this.selectLesson(lessonId);
         } else {
           this.selectFirstAvailableLesson();
         }
+        
+        // Auto scroll to current lesson after everything is loaded
+        setTimeout(() => {
+          if (this.currentLesson) {
+            this.scrollToCurrentLesson(this.currentLesson.id);
+          }
+        }, 100);
       } else {
         this.error = 'Course not found';
       }
-      
+
       this.isLoading = false;
     }, 500);
   }
@@ -143,13 +159,13 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     for (let i = 0; i < modulesCount; i++) {
       const lessonsInModule = Math.min(4, totalLessons - lessonIndex);
       const moduleTitle = `Module ${i + 1}`;
-      
+
       const lessons: Lesson[] = [];
       for (let j = 0; j < lessonsInModule; j++) {
         const currentLessonIndex = lessonIndex + j;
         const isCompleted = currentLessonIndex < completedLessons;
         const isLocked = currentLessonIndex > completedLessons; // Next lesson after last completed
-        
+
         lessons.push({
           id: `lesson-${currentLessonIndex + 1}`,
           title: `${moduleTitle} - Lesson ${j + 1}`,
@@ -158,13 +174,17 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
           isCompleted,
           isLocked,
           content: this.generateLessonContent(moduleTitle, j + 1),
-          videoUrl: this.getLessonType(j) === 'video' ? 'sample-video-url' : undefined,
-          questions: this.getLessonType(j) === 'quiz' ? this.generateQuizQuestions() : undefined,
+          videoUrl:
+            this.getLessonType(j) === 'video' ? 'sample-video-url' : undefined,
+          questions:
+            this.getLessonType(j) === 'quiz'
+              ? this.generateQuizQuestions()
+              : undefined,
         });
       }
 
-      const moduleCompleted = lessons.every(l => l.isCompleted);
-      
+      const moduleCompleted = lessons.every((l) => l.isCompleted);
+
       this.modules.push({
         id: `module-${i + 1}`,
         title: moduleTitle,
@@ -177,12 +197,22 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getLessonType(index: number): 'video' | 'reading' | 'quiz' | 'assignment' {
-    const types: ('video' | 'reading' | 'quiz' | 'assignment')[] = ['video', 'reading', 'quiz', 'assignment'];
+  private getLessonType(
+    index: number
+  ): 'video' | 'reading' | 'quiz' | 'assignment' {
+    const types: ('video' | 'reading' | 'quiz' | 'assignment')[] = [
+      'video',
+      'reading',
+      'quiz',
+      'assignment',
+    ];
     return types[index % types.length];
   }
 
-  private generateLessonContent(moduleTitle: string, lessonNumber: number): string {
+  private generateLessonContent(
+    moduleTitle: string,
+    lessonNumber: number
+  ): string {
     return `
       <h3>Welcome to ${moduleTitle} - Lesson ${lessonNumber}</h3>
       <p>This lesson covers important concepts related to ${this.course?.category.toLowerCase()}.</p>
@@ -207,10 +237,11 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
           'To avoid paying taxes entirely',
           'To minimize tax liability legally',
           'To delay tax payments indefinitely',
-          'To increase business expenses'
+          'To increase business expenses',
         ],
         correctAnswer: 1,
-        explanation: 'Tax planning aims to minimize tax liability through legal means while ensuring compliance with tax laws.'
+        explanation:
+          'Tax planning aims to minimize tax liability through legal means while ensuring compliance with tax laws.',
       },
       {
         id: 'q2',
@@ -218,7 +249,8 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 0,
-        explanation: 'Tax deductions reduce the amount of income that is subject to tax, thereby lowering your taxable income.'
+        explanation:
+          'Tax deductions reduce the amount of income that is subject to tax, thereby lowering your taxable income.',
       },
       {
         id: 'q3',
@@ -228,10 +260,11 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
           'Office rent',
           'Personal vacation',
           'Family dinner',
-          'Home mortgage'
+          'Home mortgage',
         ],
         correctAnswer: 0,
-        explanation: 'Office rent is a legitimate business expense as it is necessary for conducting business operations.'
+        explanation:
+          'Office rent is a legitimate business expense as it is necessary for conducting business operations.',
       },
       {
         id: 'q4',
@@ -239,7 +272,8 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 1,
-        explanation: 'The standard deduction varies based on filing status, age, and other factors.'
+        explanation:
+          'The standard deduction varies based on filing status, age, and other factors.',
       },
       {
         id: 'q5',
@@ -249,11 +283,12 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
           'Annual Gross Income',
           'Adjusted Gross Income',
           'Average General Income',
-          'Additional Government Income'
+          'Additional Government Income',
         ],
         correctAnswer: 1,
-        explanation: 'AGI stands for Adjusted Gross Income, which is your total income minus specific deductions.'
-      }
+        explanation:
+          'AGI stands for Adjusted Gross Income, which is your total income minus specific deductions.',
+      },
     ];
 
     // Shuffle questions and return random 3-4 questions
@@ -262,11 +297,32 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
   }
 
   private selectFirstAvailableLesson() {
+    // Find the last incomplete lesson that is not locked
+    let lastIncompleteLesson: Lesson | null = null;
+    
     for (const module of this.modules) {
       for (const lesson of module.lessons) {
         if (!lesson.isLocked) {
-          this.currentLesson = lesson;
-          return;
+          if (!lesson.isCompleted) {
+            lastIncompleteLesson = lesson;
+          }
+        }
+      }
+    }
+
+    // If we found an incomplete lesson, select it, otherwise select the first available
+    if (lastIncompleteLesson) {
+      this.currentLesson = lastIncompleteLesson;
+      this.scrollToCurrentLesson(lastIncompleteLesson.id);
+    } else {
+      // Fallback to first available lesson
+      for (const module of this.modules) {
+        for (const lesson of module.lessons) {
+          if (!lesson.isLocked) {
+            this.currentLesson = lesson;
+            this.scrollToCurrentLesson(lesson.id);
+            return;
+          }
         }
       }
     }
@@ -275,23 +331,51 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
   // Lesson navigation
   selectLesson(lessonId: string) {
     for (const module of this.modules) {
-      const lesson = module.lessons.find(l => l.id === lessonId);
+      const lesson = module.lessons.find((l) => l.id === lessonId);
       if (lesson && !lesson.isLocked) {
         this.currentLesson = lesson;
-        
+
         // Reset quiz state when changing lessons
         this.resetQuizState();
-        
+
         // Update URL without reloading
-        this.router.navigate(['/course-learning', this.course?.id, lessonId], { replaceUrl: true });
-        
+        this.router.navigate(['/course-learning', this.course?.id, lessonId], {
+          replaceUrl: true,
+        });
+
         // Auto close sidebar on mobile after lesson selection
         if (window.innerWidth <= 768) {
           this.isSidebarCollapsed = true;
         }
+
+        // Scroll to current lesson in sidebar
+        this.scrollToCurrentLesson(lessonId);
         break;
       }
     }
+  }
+
+  private scrollToCurrentLesson(lessonId: string) {
+    // Use setTimeout to ensure DOM is updated
+    setTimeout(() => {
+      const lessonElement = document.querySelector(`[data-lesson-id="${lessonId}"]`);
+      if (lessonElement) {
+        const sidebarContent = document.querySelector('.sidebar-content');
+        if (sidebarContent) {
+          const lessonTop = (lessonElement as HTMLElement).offsetTop;
+          const sidebarHeight = sidebarContent.clientHeight;
+          const lessonHeight = (lessonElement as HTMLElement).offsetHeight;
+          
+          // Calculate scroll position to center the lesson in the sidebar
+          const scrollTop = lessonTop - (sidebarHeight / 2) + (lessonHeight / 2);
+          
+          sidebarContent.scrollTo({
+            top: Math.max(0, scrollTop),
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 100);
   }
 
   private resetQuizState() {
@@ -340,7 +424,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     if (!this.currentLesson || this.currentLesson.isCompleted) return;
 
     this.currentLesson.isCompleted = true;
-    
+
     // Unlock next lesson
     let found = false;
     for (const module of this.modules) {
@@ -358,8 +442,10 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     // Update course progress
     if (this.course) {
       this.course.completedLessons++;
-      this.course.progress = Math.round((this.course.completedLessons / this.course.totalLessons) * 100);
-      
+      this.course.progress = Math.round(
+        (this.course.completedLessons / this.course.totalLessons) * 100
+      );
+
       if (this.course.completedLessons >= this.course.totalLessons) {
         this.course.status = 'completed';
       } else if (this.course.status === 'not-started') {
@@ -375,7 +461,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
   toggleFullscreen() {
     this.isFullscreen = !this.isFullscreen;
-    
+
     if (this.isFullscreen) {
       document.documentElement.requestFullscreen?.();
     } else {
@@ -405,15 +491,20 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
   // Utility methods
   getModuleProgress(module: CourseModule): number {
-    const completedLessons = module.lessons.filter(l => l.isCompleted).length;
+    const completedLessons = module.lessons.filter((l) => l.isCompleted).length;
     return Math.round((completedLessons / module.lessons.length) * 100);
   }
 
-  getCurrentModuleAndLesson(): { module: CourseModule | null, lessonIndex: number } {
+  getCurrentModuleAndLesson(): {
+    module: CourseModule | null;
+    lessonIndex: number;
+  } {
     if (!this.currentLesson) return { module: null, lessonIndex: -1 };
 
     for (const module of this.modules) {
-      const index = module.lessons.findIndex(l => l.id === this.currentLesson?.id);
+      const index = module.lessons.findIndex(
+        (l) => l.id === this.currentLesson?.id
+      );
       if (index !== -1) {
         return { module, lessonIndex: index };
       }
@@ -423,21 +514,31 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
   getLessonIcon(type: string): string {
     switch (type) {
-      case 'video': return 'bi-play-circle';
-      case 'reading': return 'bi-file-text';
-      case 'quiz': return 'bi-question-circle';
-      case 'assignment': return 'bi-clipboard-check';
-      default: return 'bi-circle';
+      case 'video':
+        return 'bi-play-circle';
+      case 'reading':
+        return 'bi-file-text';
+      case 'quiz':
+        return 'bi-question-circle';
+      case 'assignment':
+        return 'bi-clipboard-check';
+      default:
+        return 'bi-circle';
     }
   }
 
   getLessonTypeColor(type: string): string {
     switch (type) {
-      case 'video': return 'text-primary';
-      case 'reading': return 'text-success';
-      case 'quiz': return 'text-warning';
-      case 'assignment': return 'text-info';
-      default: return 'text-muted';
+      case 'video':
+        return 'text-primary';
+      case 'reading':
+        return 'text-success';
+      case 'quiz':
+        return 'text-warning';
+      case 'assignment':
+        return 'text-info';
+      default:
+        return 'text-muted';
     }
   }
 
@@ -448,13 +549,20 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     this.quizCompleted = false;
     this.quizScore = 0;
     this.showExplanation = false;
-    
+
     // Reset all user answers
     if (this.currentLesson?.questions) {
-      this.currentLesson.questions.forEach(q => {
+      this.currentLesson.questions.forEach((q) => {
         q.userAnswer = undefined;
         q.isCorrect = undefined;
       });
+    }
+  }
+
+  startQuizFullscreen() {
+    if (this.course && this.currentLesson) {
+      // Navigate to dedicated quiz page
+      this.router.navigate(['/quiz', this.course.id, this.currentLesson.id]);
     }
   }
 
@@ -488,8 +596,10 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
     if (!this.currentLesson?.questions) return;
 
     this.quizCompleted = true;
-    this.quizScore = this.currentLesson.questions.filter(q => q.isCorrect).length;
-    
+    this.quizScore = this.currentLesson.questions.filter(
+      (q) => q.isCorrect
+    ).length;
+
     // Mark lesson as complete if score is >= 70%
     const passingScore = Math.ceil(this.currentLesson.questions.length * 0.7);
     if (this.quizScore >= passingScore) {
@@ -512,12 +622,17 @@ export class CourseLearningComponent implements OnInit, OnDestroy {
 
   getQuizProgress(): number {
     if (!this.currentLesson?.questions || !this.quizStarted) return 0;
-    return Math.round(((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) * 100);
+    return Math.round(
+      ((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) *
+        100
+    );
   }
 
   getScorePercentage(): number {
     if (!this.currentLesson?.questions || this.quizScore === 0) return 0;
-    return Math.round((this.quizScore / this.currentLesson.questions.length) * 100);
+    return Math.round(
+      (this.quizScore / this.currentLesson.questions.length) * 100
+    );
   }
 
   getScoreColor(): string {

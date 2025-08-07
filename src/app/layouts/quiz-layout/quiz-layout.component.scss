@@ -1,0 +1,75 @@
+// Inner Layout Styles - Dashboard Layout with Sidebar
+
+.inner-layout {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.dashboard-main {
+  min-height: calc(100vh - 80px);
+}
+
+.dashboard-container {
+  background: #f8fafc;
+  min-height: calc(100vh - 80px);
+}
+
+.welcome-card {
+  border: none;
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
+}
+
+// Sidebar Layout
+.dashboard-sidebar {
+  position: sticky;
+  top: 20px;
+  
+  // Add spacing between navigation and quick stats
+  app-navigation {
+    margin-bottom: 1rem; // Reduced from 1.5rem
+  }
+  
+  // Ensure quick stats are above mobile navigation
+  app-quick-stats {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Mobile content spacing (to account for sticky bottom nav)
+.mobile-content-spacer {
+  padding-bottom: 40px; // Space for mobile bottom navigation (further reduced)
+  
+  @media (min-width: 992px) {
+    padding-bottom: 0; // Remove spacing on desktop
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 991.98px) {
+  .dashboard-container {
+    padding-bottom: 50px; // Extra space for mobile nav (further reduced)
+  }
+  
+  .dashboard-sidebar {
+    position: static;
+    margin-bottom: 16px; // Reduced from 24px
+    
+    // Ensure sidebar content doesn't get covered by mobile nav
+    app-navigation,
+    app-quick-stats {
+      margin-bottom: 0.75rem; // Reduced from 1rem
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+    padding-bottom: 60px; // More space for mobile nav (further reduced)
+  }
+  
+  .dashboard-sidebar {
+    margin-bottom: 1rem; // Further reduced margin
+  }
+}

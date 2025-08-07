@@ -1,7 +1,7 @@
 .course-learning-container {
   height: 100vh;
   background: #f8f9fa;
-  
+
   &.fullscreen {
     position: fixed;
     top: 0;
@@ -27,22 +27,92 @@
   top: 0;
   z-index: 100;
 
+  @media (max-width: 576px) {
+    padding: 0.75rem 1rem;
+  }
+
+  .d-flex {
+    &.justify-content-between {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+
+      @media (max-width: 576px) {
+        gap: 0.25rem;
+      }
+    }
+  }
+
+  .back-btn {
+    @media (max-width: 576px) {
+      padding: 0.25rem 0.5rem !important;
+      font-size: 0.875rem;
+      min-width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .course-info {
+    overflow: hidden;
+
     h6 {
       font-weight: 600;
       color: #2c3e50;
       margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 576px) {
+        font-size: 0.9rem;
+        max-width: 200px;
+      }
     }
 
     small {
       color: #6c757d;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+
+      @media (max-width: 576px) {
+        font-size: 0.75rem;
+        max-width: 200px;
+      }
     }
   }
 
   .header-controls {
-    .btn {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+
+    @media (max-width: 576px) {
+      gap: 2px;
+    }
+
+    .header-btn {
       border-radius: 6px;
-      
+      flex-shrink: 0 !important;
+      min-width: 32px;
+
+      @media (max-width: 576px) {
+        padding: 0.25rem !important;
+        font-size: 0.875rem;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       &:hover {
         transform: translateY(-1px);
       }
@@ -135,7 +205,7 @@
   &.locked {
     cursor: not-allowed;
     opacity: 0.6;
-    
+
     &:hover {
       background: white;
     }
@@ -159,22 +229,22 @@
     .badge {
       font-size: 0.7rem;
       text-transform: uppercase;
-      
+
       &.bg-video {
         background-color: #e3f2fd !important;
         color: #1976d2;
       }
-      
+
       &.bg-reading {
         background-color: #e8f5e8 !important;
         color: #388e3c;
       }
-      
+
       &.bg-quiz {
         background-color: #fff3e0 !important;
         color: #f57c00;
       }
-      
+
       &.bg-assignment {
         background-color: #e1f5fe !important;
         color: #0288d1;
@@ -393,7 +463,7 @@
 
     .header-controls {
       flex-shrink: 0;
-      
+
       .btn {
         padding: 0.375rem 0.5rem;
         font-size: 0.875rem;
@@ -533,7 +603,7 @@
 
       .btn-group {
         width: 100%;
-        
+
         .btn {
           flex: 1;
           font-size: 0.75rem;
@@ -782,7 +852,8 @@
     }
 
     .course-info {
-      h6, small {
+      h6,
+      small {
         color: white;
       }
     }
@@ -1075,16 +1146,90 @@
 
     .quiz-navigation {
       .btn-sm {
-        font-size: 0.75rem;
-        padding: 0.25rem 0.5rem;
-        
+        font-size: 0.5rem;
+        padding: 0.15rem 0.2rem;
+
         &.w-100 {
-          padding: 0.375rem 0.5rem;
+          padding: 0.2rem 0.05rem;
+          white-space: nowrap !important;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-height: 28px;
+
+          // Ensure flex layout for button content
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 0.05rem !important;
+
+          // Prevent wrapping inside buttons
+          span {
+            white-space: nowrap !important;
+            font-size: 0.45rem !important;
+
+            &.d-flex {
+              gap: 0.05rem !important;
+            }
+
+            &.d-none.d-sm-inline {
+              @media (max-width: 650px) {
+                display: none !important;
+              }
+            }
+          }
+
+          i {
+            flex-shrink: 0 !important;
+            font-size: 0.6rem !important;
+          }
+
+          @media (max-width: 576px) {
+            padding: 0.15rem 0.03rem !important;
+            font-size: 0.45rem !important;
+            gap: 0.03rem !important;
+            min-height: 26px;
+
+            span {
+              font-size: 0.4rem !important;
+            }
+
+            i {
+              font-size: 0.55rem !important;
+            }
+          }
+
+          @media (max-width: 400px) {
+            padding: 0.1rem 0.02rem !important;
+            font-size: 0.4rem !important;
+            min-height: 24px;
+
+            span {
+              font-size: 0.35rem !important;
+            }
+
+            i {
+              font-size: 0.5rem !important;
+            }
+          }
+
+          @media (max-width: 350px) {
+            padding: 0.08rem 0.01rem !important;
+            font-size: 0.35rem !important;
+            min-height: 22px;
+
+            span {
+              font-size: 0.3rem !important;
+            }
+
+            i {
+              font-size: 0.45rem !important;
+            }
+          }
         }
       }
 
       .small {
-        font-size: 0.75rem;
+        font-size: 0.5rem;
       }
     }
 
@@ -1110,7 +1255,7 @@
       .btn-sm {
         font-size: 0.7rem;
         padding: 0.2rem 0.4rem;
-        
+
         &.w-100 {
           padding: 0.3rem 0.4rem;
         }
