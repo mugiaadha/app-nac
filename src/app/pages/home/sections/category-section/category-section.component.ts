@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CATEGORIES } from '../../config/categories.config';
+import { CATEGORIES } from '../../../../config/categories.config';
 
 @Component({
   selector: 'app-category-section',
@@ -20,7 +20,10 @@ export class CategorySectionComponent {
 
   showMoreCategories() {
     if (this.visibleCount < this.categories.length) {
-      this.visibleCount = Math.min(this.visibleCount + 12, this.categories.length);
+      this.visibleCount = Math.min(
+        this.visibleCount + 12,
+        this.categories.length
+      );
     }
   }
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { COURSES_DATA } from '../../config/courses.config';
 import { RouterLink } from '@angular/router';
+import { COURSES_DATA } from '../../../../config/courses.config';
 
 @Component({
   selector: 'app-newest-section',
