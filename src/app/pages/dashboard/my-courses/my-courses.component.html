@@ -124,7 +124,7 @@
                 <!-- Not Started Actions -->
                 <div *ngSwitchCase="'not-started'">
                   <button
-                    class="btn btn-primary btn-sm mb-2 w-100"
+                    class="btn btn-default btn-sm mb-2 w-100"
                     (click)="executeAction('startCourse', course)"
                   >
                     <i class="bi bi-play-circle me-1"></i>
@@ -135,7 +135,7 @@
                 <!-- In Progress Actions -->
                 <div *ngSwitchCase="'in-progress'">
                   <button
-                    class="btn bg-malibu-beach btn-sm mb-2 w-100"
+                    class="btn bg-malibu-purple btn-sm mb-2 w-100"
                     (click)="executeAction('continueCourse', course)"
                   >
                     <i class="bi bi-play-circle me-1"></i>
@@ -171,7 +171,7 @@
                 </div>
               </ng-container>
 
-              <!-- Common Dropdown Actions -->
+              <!-- Common Actions Menu -->
               <div class="mt-2">
                 <div class="dropdown">
                   <button
@@ -182,22 +182,25 @@
                     <i class="bi bi-three-dots"></i>
                   </button>
                   <ul class="dropdown-menu">
-                    <li *ngFor="let action of dropdownActions">
-                      <div *ngIf="action.key === 'divider'">
-                        <hr class="dropdown-divider" />
-                      </div>
-                      <a
-                        *ngIf="action.key !== 'divider'"
-                        class="dropdown-item"
-                        [class]="action.color"
-                        href="#"
-                        (click)="
-                          executeAction(action.action, course);
-                          $event.preventDefault()
-                        "
-                      >
-                        <i [class]="action.icon" class="me-2"></i
-                        >{{ action.label }}
+                    <li>
+                      <a class="dropdown-item text-primary" href="#" (click)="executeAction('viewDetails', course); $event.preventDefault()">
+                        <i class="bi bi-info-circle me-2"></i>Course Details
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-secondary" href="#" (click)="executeAction('toggleBookmark', course); $event.preventDefault()">
+                        <i class="bi bi-bookmark me-2"></i>Bookmark
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-secondary" href="#" (click)="executeAction('shareCourse', course); $event.preventDefault()">
+                        <i class="bi bi-share me-2"></i>Share
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item text-danger" href="#" (click)="executeAction('unenrollCourse', course); $event.preventDefault()">
+                        <i class="bi bi-x-circle me-2"></i>Unenroll
                       </a>
                     </li>
                   </ul>
@@ -214,47 +217,48 @@
   <div class="text-center py-5" *ngIf="filteredCourses.length === 0">
     <div class="empty-state">
       <i
-        [class]="
-          activeFilter === 'all'
-            ? emptyStateConfig.all.icon
-            : emptyStateConfig.filtered.icon
-        "
-        class="text-muted"
+        class="bi bi-book text-muted"
         style="font-size: 4rem"
+        *ngIf="activeFilter === 'all'"
       ></i>
-      <h4 class="mt-3 text-muted">
-        {{
-          activeFilter === "all"
-            ? emptyStateConfig.all.title
-            : emptyStateConfig.filtered.title
-        }}
+      <i
+        class="bi bi-funnel text-muted"
+        style="font-size: 4rem"
+        *ngIf="activeFilter !== 'all'"
+      ></i>
+      
+      <h4 class="mt-3 text-muted" *ngIf="activeFilter === 'all'">
+        No courses found
       </h4>
-      <p class="text-muted mb-4">
-        {{
-          activeFilter === "all"
-            ? emptyStateConfig.all.message
-            : emptyStateConfig.filtered.message
-        }}
+      <h4 class="mt-3 text-muted" *ngIf="activeFilter !== 'all'">
+        No courses found
+      </h4>
+      
+      <p class="text-muted mb-4" *ngIf="activeFilter === 'all'">
+        You haven't enrolled in any courses yet.
+      </p>
+      <p class="text-muted mb-4" *ngIf="activeFilter !== 'all'">
+        No courses match the selected filter.
       </p>
 
       <!-- Action button for 'all' filter -->
       <button
         *ngIf="activeFilter === 'all'"
-        class="btn {{ emptyStateConfig.all.action.color }}"
-        [routerLink]="emptyStateConfig.all.action.route"
+        class="btn btn-gradient"
+        routerLink="/courses"
       >
-        <i [class]="emptyStateConfig.all.action.icon" class="me-2"></i>
-        {{ emptyStateConfig.all.action.label }}
+        <i class="bi bi-plus-circle me-2"></i>
+        Browse Courses
       </button>
 
       <!-- Action button for filtered results -->
       <button
         *ngIf="activeFilter !== 'all'"
-        class="btn btn-{{ emptyStateConfig.filtered.action.color }}"
+        class="btn btn-outline-primary"
         (click)="clearFilter()"
       >
-        <i [class]="emptyStateConfig.filtered.action.icon" class="me-2"></i>
-        {{ emptyStateConfig.filtered.action.label }}
+        <i class="bi bi-arrow-left me-2"></i>
+        View All Courses
       </button>
     </div>
   </div>
