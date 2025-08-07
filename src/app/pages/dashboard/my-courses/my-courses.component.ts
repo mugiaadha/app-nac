@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
   COURSE_FILTERS,
   COURSE_STATUS_CONFIG,
@@ -30,7 +30,7 @@ export class MyCoursesComponent implements OnInit {
   // Component state
   activeFilter: string = MY_COURSES_PAGE_CONFIG.defaultFilter;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.filteredCourses = this.courses;
@@ -104,12 +104,12 @@ export class MyCoursesComponent implements OnInit {
   // Course action methods
   startCourse(course: CourseData) {
     console.log('Starting course:', course.title);
-    // Implement course start logic
+    this.router.navigate(['/course-learning', course.id]);
   }
 
   continueCourse(course: CourseData) {
     console.log('Continuing course:', course.title);
-    // Implement course continue logic
+    this.router.navigate(['/course-learning', course.id]);
   }
 
   downloadCertificate(course: CourseData) {
@@ -123,8 +123,8 @@ export class MyCoursesComponent implements OnInit {
   }
 
   viewDetails(course: CourseData) {
-    console.log('Viewing details for:', course.title);
-    // Implement course details logic
+    console.log('Navigating to course details for:', course.title);
+    this.router.navigate(['/my-courses', course.id]);
   }
 
   toggleBookmark(course: CourseData) {

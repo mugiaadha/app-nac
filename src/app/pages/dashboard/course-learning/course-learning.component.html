@@ -1,0 +1,627 @@
+<div
+  class="course-learning-container"
+  [class.fullscreen]="isFullscreen"
+  [class.sidebar-open]="!isSidebarCollapsed"
+>
+  <!-- Loading State -->
+  <div class="text-center py-5" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading course content...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="text-center py-5" *ngIf="error && !isLoading">
+    <i
+      class="bi bi-exclamation-triangle text-warning"
+      style="font-size: 4rem"
+    ></i>
+    <h4 class="mt-3 text-muted">{{ error }}</h4>
+    <button class="btn btn-primary mt-3" (click)="goToMyCourses()">
+      <i class="bi bi-arrow-left me-2"></i>Back to My Courses
+    </button>
+  </div>
+
+  <!-- Main Learning Interface -->
+  <div *ngIf="course && currentLesson && !isLoading" class="learning-interface">
+    <!-- Header Bar -->
+    <div class="learning-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-outline-secondary me-3" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          <div class="course-info">
+            <h6 class="mb-0">{{ course.title }}</h6>
+            <small class="text-muted">{{ currentLesson.title }}</small>
+          </div>
+        </div>
+
+        <div class="header-controls d-flex align-items-center gap-2">
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="toggleSidebar()"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="toggleFullscreen()"
+          >
+            <i
+              [class]="isFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen'"
+            ></i>
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="goToCourseDetail()"
+          >
+            <i class="bi bi-info-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="learning-content d-flex">
+      <!-- Mobile Overlay -->
+      <div
+        class="mobile-overlay"
+        [class.show]="!isSidebarCollapsed"
+        (click)="toggleSidebar()"
+      ></div>
+
+      <!-- Sidebar - Course Content -->
+      <div class="sidebar" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header p-3">
+          <h6 class="mb-2">Course Content</h6>
+          <div class="progress mb-2" style="height: 6px">
+            <div
+              class="progress-bar bg-success"
+              [style.width.%]="course.progress"
+            ></div>
+          </div>
+          <small class="text-muted">{{ course.progress }}% Complete</small>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="module" *ngFor="let module of modules">
+            <div class="module-header p-3 border-bottom">
+              <div class="d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">{{ module.title }}</h6>
+                <span class="badge bg-light text-dark"
+                  >{{ getModuleProgress(module) }}%</span
+                >
+              </div>
+              <small class="text-muted">{{ module.description }}</small>
+            </div>
+
+            <div class="lessons">
+              <div
+                class="lesson-item p-3 border-bottom"
+                *ngFor="let lesson of module.lessons"
+                [class.active]="currentLesson && currentLesson.id === lesson.id"
+                [class.completed]="lesson.isCompleted"
+                [class.locked]="lesson.isLocked"
+                (click)="!lesson.isLocked && selectLesson(lesson.id)"
+              >
+                <div class="d-flex align-items-center">
+                  <div class="lesson-icon me-3">
+                    <i
+                      [class]="getLessonIcon(lesson.type)"
+                      [ngClass]="getLessonTypeColor(lesson.type)"
+                    ></i>
+                  </div>
+                  <div class="lesson-info flex-grow-1">
+                    <div class="lesson-title small fw-medium">
+                      {{ lesson.title }}
+                    </div>
+                    <div class="lesson-meta d-flex align-items-center gap-2">
+                      <small class="text-muted">{{ lesson.duration }}</small>
+                      <span
+                        class="badge badge-sm"
+                        [class]="'bg-' + lesson.type"
+                        >{{ lesson.type }}</span
+                      >
+                    </div>
+                  </div>
+                  <div class="lesson-status">
+                    <i
+                      class="bi"
+                      [class.bi-check-circle-fill]="lesson.isCompleted"
+                      [class.bi-lock-fill]="lesson.isLocked"
+                      [class.bi-play-circle]="
+                        !lesson.isCompleted && !lesson.isLocked
+                      "
+                      [class.text-success]="lesson.isCompleted"
+                      [class.text-muted]="lesson.isLocked"
+                      [class.text-primary]="
+                        !lesson.isCompleted && !lesson.isLocked
+                      "
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="main-content flex-grow-1">
+        <div class="content-area">
+          <!-- Video Content -->
+          <div class="video-content" *ngIf="currentLesson.type === 'video'">
+            <div class="video-player">
+              <div class="video-placeholder">
+                <i
+                  class="bi bi-play-circle text-primary"
+                  style="font-size: 4rem"
+                ></i>
+                <p class="mt-3 text-muted">Video: {{ currentLesson.title }}</p>
+                <p class="small text-muted">
+                  Duration: {{ currentLesson.duration }}
+                </p>
+              </div>
+            </div>
+
+            <div class="video-controls mt-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="playback-controls">
+                  <span class="small text-muted me-3">Speed:</span>
+                  <div class="btn-group btn-group-sm">
+                    <button
+                      class="btn"
+                      [class.btn-primary]="playbackSpeed === 0.5"
+                      [class.btn-outline-secondary]="playbackSpeed !== 0.5"
+                      (click)="changePlaybackSpeed(0.5)"
+                    >
+                      0.5x
+                    </button>
+                    <button
+                      class="btn"
+                      [class.btn-primary]="playbackSpeed === 1"
+                      [class.btn-outline-secondary]="playbackSpeed !== 1"
+                      (click)="changePlaybackSpeed(1)"
+                    >
+                      1x
+                    </button>
+                    <button
+                      class="btn"
+                      [class.btn-primary]="playbackSpeed === 1.5"
+                      [class.btn-outline-secondary]="playbackSpeed !== 1.5"
+                      (click)="changePlaybackSpeed(1.5)"
+                    >
+                      1.5x
+                    </button>
+                    <button
+                      class="btn"
+                      [class.btn-primary]="playbackSpeed === 2"
+                      [class.btn-outline-secondary]="playbackSpeed !== 2"
+                      (click)="changePlaybackSpeed(2)"
+                    >
+                      2x
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reading Content -->
+          <div
+            class="reading-content p-4"
+            *ngIf="currentLesson.type === 'reading'"
+          >
+            <div [innerHTML]="currentLesson.content"></div>
+          </div>
+
+          <!-- Quiz Content -->
+          <div class="quiz-content p-4" *ngIf="currentLesson.type === 'quiz'">
+            <!-- Quiz Start Screen -->
+            <div class="text-center" *ngIf="!quizStarted && !quizCompleted">
+              <i
+                class="bi bi-question-circle text-warning"
+                style="font-size: 4rem"
+              ></i>
+              <h4 class="mt-3">Quiz: {{ currentLesson.title }}</h4>
+              <p class="text-muted">
+                Test your knowledge with this interactive quiz.
+              </p>
+              <div
+                class="quiz-info bg-light p-3 rounded mb-4"
+                *ngIf="currentLesson.questions"
+              >
+                <div class="row text-center">
+                  <div class="col-4">
+                    <div class="h5 text-primary mb-1">
+                      {{ currentLesson.questions.length }}
+                    </div>
+                    <small class="text-muted">Questions</small>
+                  </div>
+                  <div class="col-4">
+                    <div class="h5 text-success mb-1">
+                      {{ currentLesson.duration }}
+                    </div>
+                    <small class="text-muted">Duration</small>
+                  </div>
+                  <div class="col-4">
+                    <div class="h5 text-warning mb-1">70%</div>
+                    <small class="text-muted">Pass Score</small>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-warning btn-lg" (click)="startQuiz()">
+                <i class="bi bi-play-circle me-2"></i>Start Quiz
+              </button>
+            </div>
+
+            <!-- Quiz Questions -->
+            <div
+              *ngIf="
+                quizStarted &&
+                !quizCompleted &&
+                getCurrentQuestion() as question
+              "
+            >
+              <!-- Progress Bar -->
+              <div class="quiz-progress mb-4">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="fw-medium"
+                    >Question {{ currentQuestionIndex + 1 }} of
+                    {{ currentLesson.questions?.length }}</span
+                  >
+                  <span class="text-muted"
+                    >{{ getQuizProgress() }}% Complete</span
+                  >
+                </div>
+                <div class="progress" style="height: 8px">
+                  <div
+                    class="progress-bar bg-warning"
+                    [style.width.%]="getQuizProgress()"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Question -->
+              <div class="question-card bg-light p-4 rounded mb-4">
+                <h5 class="question-text mb-4">{{ question.question }}</h5>
+
+                <!-- Multiple Choice Options -->
+                <div
+                  class="options"
+                  *ngIf="question.type === 'multiple-choice'"
+                >
+                  <div
+                    class="option-item p-3 mb-2 border rounded cursor-pointer"
+                    *ngFor="let option of question.options; let i = index"
+                    [class.selected]="question.userAnswer === i"
+                    [class.correct]="
+                      showExplanation && i === question.correctAnswer
+                    "
+                    [class.incorrect]="
+                      showExplanation &&
+                      question.userAnswer === i &&
+                      i !== question.correctAnswer
+                    "
+                    (click)="
+                      !showExplanation && selectAnswer(currentQuestionIndex, i)
+                    "
+                  >
+                    <div class="d-flex align-items-center">
+                      <div class="option-indicator me-3">
+                        <div
+                          class="circle"
+                          [class.filled]="question.userAnswer === i"
+                          [class.correct]="
+                            showExplanation && i === question.correctAnswer
+                          "
+                          [class.incorrect]="
+                            showExplanation &&
+                            question.userAnswer === i &&
+                            i !== question.correctAnswer
+                          "
+                        >
+                          <span class="option-letter">{{
+                            String.fromCharCode(65 + i)
+                          }}</span>
+                        </div>
+                      </div>
+                      <span>{{ option }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- True/False Options -->
+                <div class="options" *ngIf="question.type === 'true-false'">
+                  <div
+                    class="option-item p-3 mb-2 border rounded cursor-pointer"
+                    *ngFor="let option of question.options; let i = index"
+                    [class.selected]="question.userAnswer === i"
+                    [class.correct]="
+                      showExplanation && i === question.correctAnswer
+                    "
+                    [class.incorrect]="
+                      showExplanation &&
+                      question.userAnswer === i &&
+                      i !== question.correctAnswer
+                    "
+                    (click)="
+                      !showExplanation && selectAnswer(currentQuestionIndex, i)
+                    "
+                  >
+                    <div
+                      class="d-flex align-items-center justify-content-center"
+                    >
+                      <i
+                        class="me-2"
+                        [class.bi-check-circle]="i === 0"
+                        [class.bi-x-circle]="i === 1"
+                        [class.text-success]="i === 0"
+                        [class.text-danger]="i === 1"
+                      ></i>
+                      <span class="fw-medium">{{ option }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Explanation -->
+              <div
+                class="explanation bg-info bg-opacity-10 p-3 rounded mb-4"
+                *ngIf="showExplanation"
+              >
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-info-circle text-info me-2 mt-1"></i>
+                  <div>
+                    <h6 class="text-info mb-2">Explanation</h6>
+                    <p class="mb-0">{{ question.explanation }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Navigation Buttons -->
+              <div class="quiz-navigation">
+                <!-- Mobile Layout -->
+                <div class="d-md-none">
+                  <div class="row g-2 mb-3">
+                    <div class="col-6">
+                      <button
+                        class="btn btn-outline-secondary btn-sm w-100"
+                        [disabled]="currentQuestionIndex === 0"
+                        (click)="previousQuestion()"
+                      >
+                        <i class="bi bi-chevron-left"></i>
+                        <span class="d-none d-sm-inline ms-1">Previous</span>
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button
+                        class="btn btn-warning btn-sm w-100"
+                        [disabled]="question.userAnswer === undefined"
+                        (click)="nextQuestion()"
+                      >
+                        <span
+                          *ngIf="
+                            currentQuestionIndex <
+                            (currentLesson.questions?.length || 0) - 1
+                          "
+                        >
+                          <span class="d-none d-sm-inline me-1">Next</span>
+                          <i class="bi bi-chevron-right"></i>
+                        </span>
+                        <span
+                          *ngIf="
+                            currentQuestionIndex ===
+                            (currentLesson.questions?.length || 0) - 1
+                          "
+                        >
+                          <span class="d-none d-sm-inline me-1">Finish</span>
+                          <i class="bi bi-check-circle"></i>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button
+                      class="btn btn-outline-info btn-sm px-3"
+                      *ngIf="
+                        question.userAnswer !== undefined && !showExplanation
+                      "
+                      (click)="toggleExplanation()"
+                    >
+                      <i class="bi bi-lightbulb me-1"></i>
+                      <span class="small">Explanation</span>
+                    </button>
+                    <button
+                      class="btn btn-outline-info btn-sm px-3"
+                      *ngIf="showExplanation"
+                      (click)="toggleExplanation()"
+                    >
+                      <i class="bi bi-eye-slash me-1"></i>
+                      <span class="small">Hide</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Desktop Layout -->
+                <div
+                  class="d-none d-md-flex justify-content-between align-items-center"
+                >
+                  <button
+                    class="btn btn-outline-secondary"
+                    [disabled]="currentQuestionIndex === 0"
+                    (click)="previousQuestion()"
+                  >
+                    <i class="bi bi-chevron-left me-2"></i>Previous
+                  </button>
+
+                  <div class="quiz-actions d-flex gap-2">
+                    <button
+                      class="btn btn-outline-info btn-sm"
+                      *ngIf="
+                        question.userAnswer !== undefined && !showExplanation
+                      "
+                      (click)="toggleExplanation()"
+                    >
+                      <i class="bi bi-lightbulb me-1"></i>Show Explanation
+                    </button>
+                    <button
+                      class="btn btn-outline-info btn-sm"
+                      *ngIf="showExplanation"
+                      (click)="toggleExplanation()"
+                    >
+                      <i class="bi bi-eye-slash me-1"></i>Hide Explanation
+                    </button>
+                  </div>
+
+                  <button
+                    class="btn btn-warning"
+                    [disabled]="question.userAnswer === undefined"
+                    (click)="nextQuestion()"
+                  >
+                    <span
+                      *ngIf="
+                        currentQuestionIndex <
+                        (currentLesson.questions?.length || 0) - 1
+                      "
+                    >
+                      Next<i class="bi bi-chevron-right ms-2"></i>
+                    </span>
+                    <span
+                      *ngIf="
+                        currentQuestionIndex ===
+                        (currentLesson.questions?.length || 0) - 1
+                      "
+                    >
+                      Finish Quiz<i class="bi bi-check-circle ms-2"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quiz Results -->
+            <div class="text-center" *ngIf="quizCompleted">
+              <div class="quiz-results">
+                <i
+                  class="mb-3"
+                  style="font-size: 4rem"
+                  [class.bi-trophy-fill]="getScorePercentage() >= 70"
+                  [class.bi-emoji-frown]="getScorePercentage() < 70"
+                  [class.text-success]="getScorePercentage() >= 70"
+                  [class.text-warning]="getScorePercentage() < 70"
+                ></i>
+
+                <h4 class="mb-3">Quiz Completed!</h4>
+
+                <div class="score-card bg-light p-4 rounded mb-4">
+                  <div class="row text-center">
+                    <div class="col-4">
+                      <div class="h3 mb-1" [ngClass]="getScoreColor()">
+                        {{ quizScore }}
+                      </div>
+                      <small class="text-muted">Correct</small>
+                    </div>
+                    <div class="col-4">
+                      <div class="h3 mb-1">
+                        {{ currentLesson.questions?.length || 0 }}
+                      </div>
+                      <small class="text-muted">Total</small>
+                    </div>
+                    <div class="col-4">
+                      <div class="h3 mb-1" [ngClass]="getScoreColor()">
+                        {{ getScorePercentage() }}%
+                      </div>
+                      <small class="text-muted">Score</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-message mb-4" [ngClass]="getScoreColor()">
+                  <p class="mb-0" *ngIf="getScorePercentage() >= 70">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Congratulations! You passed the quiz.
+                  </p>
+                  <p class="mb-0" *ngIf="getScorePercentage() < 70">
+                    <i class="bi bi-x-circle me-2"></i>
+                    You need 70% to pass. Review the material and try again.
+                  </p>
+                </div>
+
+                <div class="quiz-actions">
+                  <button class="btn btn-warning me-2" (click)="restartQuiz()">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Retake Quiz
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    *ngIf="getScorePercentage() >= 70"
+                    (click)="nextLesson()"
+                  >
+                    Continue<i class="bi bi-chevron-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignment Content -->
+          <div
+            class="assignment-content p-4"
+            *ngIf="currentLesson.type === 'assignment'"
+          >
+            <div class="text-center">
+              <i
+                class="bi bi-clipboard-check text-info"
+                style="font-size: 4rem"
+              ></i>
+              <h4 class="mt-3">Assignment: {{ currentLesson.title }}</h4>
+              <p class="text-muted">
+                Complete this practical assignment to reinforce your learning.
+              </p>
+              <button class="btn btn-info mt-3">
+                <i class="bi bi-download me-2"></i>Download Assignment
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-navigation">
+          <div
+            class="d-flex justify-content-between align-items-center p-4 border-top"
+          >
+            <button
+              class="btn btn-outline-secondary"
+              (click)="previousLesson()"
+            >
+              <i class="bi bi-chevron-left me-2"></i>Previous
+            </button>
+
+            <div class="lesson-actions">
+              <button
+                class="btn btn-success me-3"
+                *ngIf="!currentLesson.isCompleted"
+                (click)="markLessonComplete()"
+              >
+                <i class="bi bi-check-circle me-2"></i>Mark Complete
+              </button>
+              <span
+                class="badge bg-success p-2"
+                *ngIf="currentLesson.isCompleted"
+              >
+                <i class="bi bi-check-circle me-1"></i>Completed
+              </span>
+            </div>
+
+            <button class="btn btn-primary" (click)="nextLesson()">
+              Next<i class="bi bi-chevron-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

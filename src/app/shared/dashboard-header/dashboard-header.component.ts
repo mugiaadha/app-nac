@@ -24,7 +24,7 @@ import { SiteSettingsService } from '../../state/site-settings.service';
         <div class="d-flex gap-2">
           <div *ngIf="auth.isLoggedIn$ | async" class="dropdown">
             <button
-              class="btn btn-outline-primary rounded-pill dropdown-toggle"
+              class="btn btn-default dropdown-toggle"
               type="button"
               id="userDropdown"
               data-bs-toggle="dropdown"

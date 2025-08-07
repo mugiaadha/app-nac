@@ -68,8 +68,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: InnerLayoutComponent,
     canActivate: [authGuard],
+    component: InnerLayoutComponent,
     resolve: { seo: SeoResolver },
     data: { seo: SEO_CONFIG.dashboard },
     children: [
@@ -99,6 +99,27 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/dashboard/my-courses/my-courses.component').then(
             (m) => m.MyCoursesComponent
+          ),
+      },
+      {
+        path: 'my-courses/:id',
+        loadComponent: () =>
+          import(
+            './pages/dashboard/course-detail/course-detail.component'
+          ).then((m) => m.CourseDetailComponent),
+      },
+      {
+        path: 'course-learning/:id',
+        loadComponent: () =>
+          import('./pages/dashboard/course-learning/course-learning.component').then(
+            (m) => m.CourseLearningComponent
+          ),
+      },
+      {
+        path: 'course-learning/:id/:lessonId',
+        loadComponent: () =>
+          import('./pages/dashboard/course-learning/course-learning.component').then(
+            (m) => m.CourseLearningComponent
           ),
       },
     ],

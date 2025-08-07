@@ -18,8 +18,6 @@ export interface CourseData {
   lastAccessed?: Date;
   rating?: number;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
-  price?: number;
-  originalPrice?: number;
   tags: string[];
 }
 
@@ -212,8 +210,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     lastAccessed: new Date('2024-07-20'),
     rating: 4.8,
     level: 'Advanced',
-    price: 299,
-    originalPrice: 399,
     tags: ['Tax Planning', 'Business', 'Strategy'],
   },
   {
@@ -233,8 +229,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     lastAccessed: new Date('2024-01-05'),
     rating: 4.9,
     level: 'Intermediate',
-    price: 199,
-    originalPrice: 249,
     tags: ['Corporate Tax', 'Compliance', 'Regulations'],
   },
   {
@@ -253,8 +247,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     enrolledDate: new Date('2024-07-01'),
     rating: 4.6,
     level: 'Beginner',
-    price: 149,
-    originalPrice: 199,
     tags: ['Personal Tax', 'Fundamentals', 'Beginner'],
   },
   {
@@ -274,8 +266,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     lastAccessed: new Date('2024-07-25'),
     rating: 4.7,
     level: 'Advanced',
-    price: 449,
-    originalPrice: 599,
     tags: ['International Tax', 'Cross-border', 'Advanced'],
   },
   {
@@ -295,8 +285,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     lastAccessed: new Date('2024-05-15'),
     rating: 4.8,
     level: 'Intermediate',
-    price: 249,
-    originalPrice: 299,
     tags: ['Technology', 'Software', 'Automation'],
   },
   {
@@ -315,8 +303,6 @@ export const MY_COURSES_DATA: CourseData[] = [
     enrolledDate: new Date('2024-07-20'),
     rating: 4.5,
     level: 'Advanced',
-    price: 399,
-    originalPrice: 499,
     tags: ['Estate Planning', 'Gift Tax', 'Wealth Management'],
   },
 ];

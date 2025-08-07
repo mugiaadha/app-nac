@@ -183,23 +183,47 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item text-primary" href="#" (click)="executeAction('viewDetails', course); $event.preventDefault()">
+                      <a
+                        class="dropdown-item text-primary"
+                        [routerLink]="['/my-courses', course.id]"
+                      >
                         <i class="bi bi-info-circle me-2"></i>Course Details
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item text-secondary" href="#" (click)="executeAction('toggleBookmark', course); $event.preventDefault()">
+                      <a
+                        class="dropdown-item text-secondary"
+                        href="#"
+                        (click)="
+                          executeAction('toggleBookmark', course);
+                          $event.preventDefault()
+                        "
+                      >
                         <i class="bi bi-bookmark me-2"></i>Bookmark
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item text-secondary" href="#" (click)="executeAction('shareCourse', course); $event.preventDefault()">
+                      <a
+                        class="dropdown-item text-secondary"
+                        href="#"
+                        (click)="
+                          executeAction('shareCourse', course);
+                          $event.preventDefault()
+                        "
+                      >
                         <i class="bi bi-share me-2"></i>Share
                       </a>
                     </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
-                      <a class="dropdown-item text-danger" href="#" (click)="executeAction('unenrollCourse', course); $event.preventDefault()">
+                      <a
+                        class="dropdown-item text-danger"
+                        href="#"
+                        (click)="
+                          executeAction('unenrollCourse', course);
+                          $event.preventDefault()
+                        "
+                      >
                         <i class="bi bi-x-circle me-2"></i>Unenroll
                       </a>
                     </li>
@@ -226,14 +250,14 @@
         style="font-size: 4rem"
         *ngIf="activeFilter !== 'all'"
       ></i>
-      
+
       <h4 class="mt-3 text-muted" *ngIf="activeFilter === 'all'">
         No courses found
       </h4>
       <h4 class="mt-3 text-muted" *ngIf="activeFilter !== 'all'">
         No courses found
       </h4>
-      
+
       <p class="text-muted mb-4" *ngIf="activeFilter === 'all'">
         You haven't enrolled in any courses yet.
       </p>

@@ -22,11 +22,7 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
         <ng-container *ngFor="let menu of menus">
           <li *ngIf="!menu.children" class="nav-item">
-            <a
-              class="nav-link"
-              [routerLink]="[menu.link]"
-              >{{ menu.label }}</a
-            >
+            <a class="nav-link" [routerLink]="[menu.link]">{{ menu.label }}</a>
           </li>
           <li *ngIf="menu.children" class="nav-item dropdown">
             <a
