@@ -22,7 +22,7 @@ export class BrevetPajakComponent {
       level: 'Beginner',
       icon: 'bi-1-circle-fill',
       color: 'text-primary',
-      bgColor: 'bg-primary bg-opacity-10',
+      bgColor: 'bg-malibu-purple bg-opacity-10',
       features: [
         'Pengenalan Sistem Pajak Indonesia',
         'Pajak Penghasilan (PPh) Dasar',

@@ -119,9 +119,9 @@ export const routes: Routes = [
       {
         path: 'brevet-pajak/:id',
         loadComponent: () =>
-          import('./pages/brevet-pajak/brevet-detail.component').then(
-            (m) => m.BrevetDetailComponent
-          ),
+          import(
+            './pages/brevet-pajak/brevet-detail/brevet-detail.component'
+          ).then((m) => m.BrevetDetailComponent),
       },
     ],
   },

@@ -1,82 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MY_COURSES_DATA, CourseData, COURSE_STATUS_CONFIG } from '../../../config/my-courses.config';
+import {
+  COURSE_FILTERS,
+  COURSE_STATUS_CONFIG,
+  CourseData,
+  CourseFilter,
+  LEARNING_STATS_CONFIG,
+  MY_COURSES_DATA,
+  MY_COURSES_PAGE_CONFIG,
+} from '../../../config/my-courses.config';
 
 @Component({
   selector: 'app-my-courses',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './my-courses.component.html',
-  styleUrls: ['./my-courses.component.scss']
+  styleUrls: ['./my-courses.component.scss'],
 })
 export class MyCoursesComponent implements OnInit {
-  allCourses: CourseData[] = [];
+  // Data from config
+  courses: CourseData[] = MY_COURSES_DATA;
   filteredCourses: CourseData[] = [];
+  filters: CourseFilter[] = COURSE_FILTERS;
+  statusConfig = COURSE_STATUS_CONFIG;
+  learningStats = LEARNING_STATS_CONFIG;
+  pageConfig = MY_COURSES_PAGE_CONFIG;
+
+  // Component state
+  activeFilter: string = MY_COURSES_PAGE_CONFIG.defaultFilter;
   searchTerm: string = '';
-  selectedFilter: string = 'all';
   selectedCategory: string = 'all';
-  
-  // Filter options
-  statusFilters = [
-    { key: 'all', label: 'Semua Status', count: 0 },
-    { key: 'in-progress', label: 'Sedang Berjalan', count: 0 },
-    { key: 'completed', label: 'Selesai', count: 0 },
-    { key: 'not-started', label: 'Belum Dimulai', count: 0 }
-  ];
-
-  categories = [
-    { key: 'all', label: 'Semua Kategori' },
-    { key: 'UMKM', label: 'UMKM' },
-    { key: 'Regulasi', label: 'Regulasi' },
-    { key: 'Startup', label: 'Startup' },
-    { key: 'Pajak Pribadi', label: 'Pajak Pribadi' },
-    { key: 'E-Commerce', label: 'E-Commerce' },
-    { key: 'Perpajakan Dasar', label: 'Perpajakan Dasar' },
-    { key: 'Perpajakan Menengah', label: 'Perpajakan Menengah' },
-    { key: 'Perpajakan Lanjut', label: 'Perpajakan Lanjut' }
-  ];
-
-  sortOptions = [
-    { key: 'recent', label: 'Terbaru Diakses' },
-    { key: 'progress', label: 'Progress' },
-    { key: 'title', label: 'Nama A-Z' },
-    { key: 'duration', label: 'Durasi' }
-  ];
-
   selectedSort: string = 'recent';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.loadCourses();
-    this.updateFilterCounts();
-    this.applyFilters();
+    this.filteredCourses = this.courses;
   }
 
-  loadCourses() {
-    // Get all courses data
-    this.allCourses = [...MY_COURSES_DATA];
-  }
-
-  updateFilterCounts() {
-    this.statusFilters.forEach(filter => {
-      if (filter.key === 'all') {
-        filter.count = this.allCourses.length;
-      } else {
-        filter.count = this.allCourses.filter(course => course.status === filter.key).length;
-      }
-    });
-  }
-
+  // Search and Filter methods
   onSearchChange(event: any) {
     this.searchTerm = event.target.value;
-    this.applyFilters();
-  }
-
-  onFilterChange(filterKey: string) {
-    this.selectedFilter = filterKey;
     this.applyFilters();
   }
 
@@ -91,88 +57,162 @@ export class MyCoursesComponent implements OnInit {
   }
 
   applyFilters() {
-    let filtered = [...this.allCourses];
-
-    // Apply search filter
-    if (this.searchTerm.trim()) {
-      const searchLower = this.searchTerm.toLowerCase();
-      filtered = filtered.filter(course => 
-        course.title.toLowerCase().includes(searchLower) ||
-        course.description.toLowerCase().includes(searchLower) ||
-        course.instructor.toLowerCase().includes(searchLower) ||
-        course.category.toLowerCase().includes(searchLower)
-      );
-    }
+    let filtered = this.courses;
 
     // Apply status filter
-    if (this.selectedFilter !== 'all') {
-      filtered = filtered.filter(course => course.status === this.selectedFilter);
+    if (this.activeFilter !== 'all') {
+      filtered = filtered.filter(course => course.status === this.activeFilter);
     }
 
     // Apply category filter
     if (this.selectedCategory !== 'all') {
-      filtered = filtered.filter(course => course.category === this.selectedCategory);
+      filtered = filtered.filter(course => 
+        course.category.toLowerCase() === this.selectedCategory.toLowerCase()
+      );
+    }
+
+    // Apply search filter
+    if (this.searchTerm) {
+      const searchLower = this.searchTerm.toLowerCase();
+      filtered = filtered.filter(course =>
+        course.title.toLowerCase().includes(searchLower) ||
+        course.description.toLowerCase().includes(searchLower) ||
+        course.instructor.toLowerCase().includes(searchLower)
+      );
     }
 
     // Apply sorting
-    filtered = this.sortCourses(filtered);
+    switch (this.selectedSort) {
+      case 'title':
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'progress':
+        filtered.sort((a, b) => b.progress - a.progress);
+        break;
+      case 'enrolled':
+        filtered.sort((a, b) => new Date(b.enrolledDate).getTime() - new Date(a.enrolledDate).getTime());
+        break;
+      case 'recent':
+      default:
+        filtered.sort((a, b) => {
+          const aDate = a.lastAccessed || a.enrolledDate;
+          const bDate = b.lastAccessed || b.enrolledDate;
+          return new Date(bDate).getTime() - new Date(aDate).getTime();
+        });
+        break;
+    }
 
     this.filteredCourses = filtered;
   }
 
-  sortCourses(courses: CourseData[]): CourseData[] {
-    return courses.sort((a, b) => {
-      switch (this.selectedSort) {
-        case 'recent':
-          return new Date(b.lastAccessed || 0).getTime() - new Date(a.lastAccessed || 0).getTime();
-        case 'progress':
-          return b.progress - a.progress;
-        case 'title':
-          return a.title.localeCompare(b.title);
-        case 'duration':
-          return this.parseDuration(a.duration) - this.parseDuration(b.duration);
-        default:
-          return 0;
-      }
-    });
+  // Filter methods
+  filterCourses(status: string) {
+    this.activeFilter = status;
+    this.applyFilters();
   }
 
-  parseDuration(duration: string): number {
-    // Convert duration string to minutes for comparison
-    const hours = parseInt(duration.match(/(\d+)\s*jam/i)?.[1] || '0');
-    const minutes = parseInt(duration.match(/(\d+)\s*menit/i)?.[1] || '0');
-    return hours * 60 + minutes;
+  getFilterCount(filterKey: string): number {
+    if (filterKey === 'all') return this.courses.length;
+    return this.courses.filter((course) => course.status === filterKey).length;
   }
 
-  getStatusConfig(status: string) {
-    return COURSE_STATUS_CONFIG[status as keyof typeof COURSE_STATUS_CONFIG] || COURSE_STATUS_CONFIG['not-started'];
+  // Status methods
+  getStatusBadgeClass(status: string): string {
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.badge : 'bg-grow-early';
   }
 
-  getProgressWidth(progress: number): string {
-    return `${Math.max(0, Math.min(100, progress))}%`;
+  getStatusText(status: string): string {
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.text : 'Unknown';
   }
 
-  continueCourse(courseId: string) {
-    // Navigate to course learning
-    console.log('Continue course:', courseId);
+  getProgressBarClass(status: string): string {
+    const config = this.statusConfig[status as keyof typeof this.statusConfig];
+    return config ? config.progressColor : 'bg-malibu-beach';
   }
 
-  viewCourseDetails(courseId: string) {
-    // Navigate to course details
-    console.log('View course details:', courseId);
+  // Action methods
+  executeAction(action: string, course: CourseData) {
+    switch (action) {
+      case 'startCourse':
+        this.startCourse(course);
+        break;
+      case 'continueCourse':
+        this.continueCourse(course);
+        break;
+      case 'downloadCertificate':
+        this.downloadCertificate(course);
+        break;
+      case 'viewCertificate':
+        this.viewCertificate(course);
+        break;
+      case 'viewDetails':
+        this.viewDetails(course);
+        break;
+      case 'toggleBookmark':
+        this.toggleBookmark(course);
+        break;
+      case 'shareCourse':
+        this.shareCourse(course);
+        break;
+      case 'unenrollCourse':
+        this.unenrollCourse(course);
+        break;
+      default:
+        console.log('Unknown action:', action);
+    }
   }
 
-  getLastAccessedText(date: Date | undefined): string {
-    if (!date) return 'Belum pernah diakses';
-    
-    const now = new Date();
-    const lastAccessed = new Date(date);
-    const diffTime = Math.abs(now.getTime() - lastAccessed.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) return 'Kemarin';
-    if (diffDays < 7) return `${diffDays} hari lalu`;
-    if (diffDays < 30) return `${Math.ceil(diffDays / 7)} minggu lalu`;
-    return `${Math.ceil(diffDays / 30)} bulan lalu`;
+  // Course action methods
+  startCourse(course: CourseData) {
+    console.log('Starting course:', course.title);
+    this.router.navigate(['/course-learning', course.id]);
+  }
+
+  continueCourse(course: CourseData) {
+    console.log('Continuing course:', course.title);
+    this.router.navigate(['/course-learning', course.id]);
+  }
+
+  downloadCertificate(course: CourseData) {
+    console.log('Downloading certificate for:', course.title);
+    // Implement certificate download logic
+  }
+
+  viewCertificate(course: CourseData) {
+    console.log('Viewing certificate for:', course.title);
+    // Implement certificate view logic
+  }
+
+  viewDetails(course: CourseData) {
+    console.log('Navigating to course details for:', course.title);
+    this.router.navigate(['/my-courses', course.id]);
+  }
+
+  toggleBookmark(course: CourseData) {
+    console.log('Toggling bookmark for:', course.title);
+    // Implement bookmark logic
+  }
+
+  shareCourse(course: CourseData) {
+    console.log('Sharing course:', course.title);
+    // Implement share logic
+  }
+
+  unenrollCourse(course: CourseData) {
+    console.log('Unenrolling from course:', course.title);
+    // Implement unenroll logic
+  }
+
+  // Get statistic value using config
+  getStatValue(statKey: string): number {
+    const stat = this.learningStats.find((s) => s.key === statKey);
+    return stat ? stat.getValue(this.courses) : 0;
+  }
+
+  // Clear filter
+  clearFilter() {
+    this.filterCourses('all');
   }
 }
