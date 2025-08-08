@@ -1,0 +1,212 @@
+<div class="brevet-detail-page" *ngIf="program">
+  <!-- Hero Section -->
+  <div class="hero-section text-white py-5" [ngClass]="program.bgColor">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb text-white-50">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/']" class="text-white text-decoration-none">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/brevet-pajak']" class="text-white text-decoration-none">Brevet Pajak</a>
+              </li>
+              <li class="breadcrumb-item active text-white" aria-current="page">{{ program.title }}</li>
+            </ol>
+          </nav>
+          
+          <h1 class="display-4 fw-bold mb-3">{{ program.title }}</h1>
+          <p class="lead mb-4">{{ program.description }}</p>
+          
+          <div class="hero-info d-flex flex-wrap gap-4">
+            <div class="info-item">
+              <i class="bi bi-clock me-2"></i>
+              <span>{{ program.duration }}</span>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-collection me-2"></i>
+              <span>{{ program.modules }} Modul</span>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-bar-chart me-2"></i>
+              <span>{{ program.level }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center">
+          <div class="hero-card bg-white bg-opacity-10 p-4 rounded-4">
+            <h5 class="mb-3">Jadwal Pelatihan</h5>
+            <div class="schedule-info">
+              <div class="mb-2">
+                <i class="bi bi-calendar me-2"></i>
+                <span>{{ program.schedule.startDate }} - {{ program.schedule.endDate }}</span>
+              </div>
+              <div class="mb-2">
+                <i class="bi bi-clock me-2"></i>
+                <span>{{ program.schedule.time }}</span>
+              </div>
+              <div class="mb-3">
+                <i class="bi bi-arrow-repeat me-2"></i>
+                <span>{{ program.schedule.days }}</span>
+              </div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-light btn-lg" (click)="enrollNow()">
+                  <i class="bi bi-play-circle me-2"></i>
+                  Mulai Program
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <!-- Curriculum Section -->
+        <div class="content-section mb-5">
+          <h2 class="section-title mb-4">
+            <i class="bi bi-book me-3" [ngClass]="program.color"></i>
+            Kurikulum Pembelajaran
+          </h2>
+          <div class="curriculum-list">
+            <div class="curriculum-item" *ngFor="let item of program.curriculum; let i = index">
+              <div class="curriculum-number" [ngClass]="program.bgColor">
+                {{ i + 1 }}
+              </div>
+              <div class="curriculum-content">
+                <h6 class="mb-1">Modul {{ i + 1 }}</h6>
+                <p class="mb-0 text-muted">{{ item }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="content-section mb-5">
+          <h2 class="section-title mb-4">
+            <i class="bi bi-trophy me-3" [ngClass]="program.color"></i>
+            Manfaat Program
+          </h2>
+          <div class="row g-3">
+            <div class="col-md-6" *ngFor="let benefit of program.benefits">
+              <div class="benefit-item d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
+                <span>{{ benefit }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requirements Section -->
+        <div class="content-section mb-5">
+          <h2 class="section-title mb-4">
+            <i class="bi bi-list-check me-3" [ngClass]="program.color"></i>
+            Persyaratan
+          </h2>
+          <ul class="requirements-list">
+            <li *ngFor="let requirement of program.requirements">
+              <i class="bi bi-arrow-right me-2" [ngClass]="program.color"></i>
+              {{ requirement }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="sidebar-card card shadow-sm border-0 sticky-top">
+          <div class="card-header" [ngClass]="program.bgColor + ' text-white'">
+            <h5 class="mb-0">
+              <i class="bi bi-info-circle me-2"></i>
+              Informasi Program
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="program-details">
+              <div class="detail-item mb-3">
+                <div class="detail-label fw-bold">Durasi</div>
+                <div class="detail-value">{{ program.duration }}</div>
+              </div>
+              <div class="detail-item mb-3">
+                <div class="detail-label fw-bold">Jumlah Modul</div>
+                <div class="detail-value">{{ program.modules }} Modul</div>
+              </div>
+              <div class="detail-item mb-3">
+                <div class="detail-label fw-bold">Level</div>
+                <div class="detail-value">
+                  <span class="badge bg-secondary">{{ program.level }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <button class="btn btn-lg" [ngClass]="program.bgColor + ' text-white'" (click)="enrollNow()">
+                <i class="bi bi-person-plus me-2"></i>
+                Mulai Program
+              </button>
+              <button class="btn btn-outline-secondary" (click)="downloadBrochure()">
+                <i class="bi bi-download me-2"></i>
+                Download Brosur
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-card card shadow-sm border-0 mt-4">
+          <div class="card-body text-center">
+            <h6 class="fw-bold mb-3">Butuh Konsultasi?</h6>
+            <p class="small text-muted mb-3">Tim kami siap membantu Anda memilih program yang tepat.</p>
+            <div class="d-grid">
+              <a href="tel:+6281234567890" class="btn btn-outline-primary">
+                <i class="bi bi-telephone me-2"></i>
+                Hubungi Kami
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Programs -->
+  <div class="related-section bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Program Brevet Lainnya</h2>
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let relatedProgram of getRelatedPrograms()">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+              <i class="bi bi-award display-4 mb-3" [ngClass]="relatedProgram.color"></i>
+              <h5 class="card-title">{{ relatedProgram.title }}</h5>
+              <p class="card-text text-muted">{{ relatedProgram.subtitle }}</p>
+              <a [routerLink]="['/brevet-pajak', relatedProgram.id]" class="btn btn-outline-primary">
+                Lihat Detail
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Program Not Found -->
+<div class="container py-5 text-center" *ngIf="!program">
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <i class="bi bi-exclamation-triangle display-1 text-warning mb-4"></i>
+      <h2 class="mb-3">Program Tidak Ditemukan</h2>
+      <p class="text-muted mb-4">Program Brevet Pajak yang Anda cari tidak tersedia.</p>
+      <a [routerLink]="['/brevet-pajak']" class="btn btn-primary">
+        <i class="bi bi-arrow-left me-2"></i>
+        Kembali ke Daftar Program
+      </a>
+    </div>
+  </div>
+</div>

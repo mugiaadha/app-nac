@@ -1,0 +1,178 @@
+<div class="brevet-pajak-page">
+  <!-- Hero Section -->
+  <div class="hero-section bg-gradient-primary text-white rounded-top-4 py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-3">Program Brevet Pajak</h1>
+          <p class="lead mb-4">
+            Tingkatkan kompetensi perpajakan Anda dengan program Brevet Pajak
+            yang tersertifikasi. Dari dasar hingga tingkat profesional untuk
+            menjadi ahli pajak yang kompeten.
+          </p>
+          <div class="hero-stats d-flex flex-wrap gap-4">
+            <div class="stat-item">
+              <div class="stat-number h4 mb-0">500+</div>
+              <div class="stat-label small">Alumni Tersertifikasi</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number h4 mb-0">95%</div>
+              <div class="stat-label small">Tingkat Kelulusan</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number h4 mb-0">3</div>
+              <div class="stat-label small">Tingkat Program</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center">
+          <i class="bi bi-award display-1 text-warning opacity-75"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Programs Section -->
+  <div class="programs-section py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let program of brevetPrograms">
+          <div class="program-card card h-100 shadow-sm border-0">
+            <div class="card-header text-center" [ngClass]="program.bgColor">
+              <h4 class="mt-3 mb-1" [ngClass]="program.color">
+                {{ program.title }}
+              </h4>
+              <p class="text-muted mb-0">{{ program.subtitle }}</p>
+            </div>
+
+            <div class="card-body">
+              <p class="text-muted mb-3">{{ program.description }}</p>
+
+              <!-- Program Info -->
+              <div class="program-info mb-4">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <div class="info-item text-center p-2 bg-light rounded">
+                      <i class="bi bi-clock text-primary"></i>
+                      <div class="small fw-medium">{{ program.duration }}</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="info-item text-center p-2 bg-light rounded">
+                      <i class="bi bi-collection text-success"></i>
+                      <div class="small fw-medium">
+                        {{ program.modules }} Modul
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Features -->
+              <div class="features mb-4">
+                <h6 class="fw-bold mb-3">Materi yang Dipelajari:</h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2" *ngFor="let feature of program.features">
+                    <i class="bi bi-check-circle text-success me-2"></i>
+                    <small>{{ feature }}</small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card-footer bg-transparent">
+              <div class="d-grid gap-2">
+                <button
+                  class="btn btn-success btn-lg"
+                  (click)="startProgram(program.id)"
+                >
+                  <i class="bi bi-play-circle me-1"></i>
+                  Mulai Program
+                </button>
+                <a
+                  [routerLink]="['/brevet-pajak', program.id]"
+                  class="btn btn-outline-primary"
+                >
+                  <i class="bi bi-info-circle me-1"></i>
+                  Lihat Detail
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <div class="why-choose-section bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="fw-bold mb-4">
+            Mengapa Memilih Program Brevet Pajak Kami?
+          </h2>
+          <div class="row g-4 mt-4">
+            <div class="col-md-3">
+              <div class="feature-item text-center">
+                <i class="bi bi-award display-5 text-primary mb-3"></i>
+                <h5>Tersertifikasi</h5>
+                <p class="small text-muted">
+                  Sertifikat resmi yang diakui industri
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="feature-item text-center">
+                <i class="bi bi-people display-5 text-success mb-3"></i>
+                <h5>Instruktur Expert</h5>
+                <p class="small text-muted">
+                  Praktisi dan akademisi berpengalaman
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="feature-item text-center">
+                <i class="bi bi-laptop display-5 text-warning mb-3"></i>
+                <h5>Online & Offline</h5>
+                <p class="small text-muted">
+                  Fleksibilitas pembelajaran hybrid
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="feature-item text-center">
+                <i class="bi bi-trophy display-5 text-danger mb-3"></i>
+                <h5>Job Placement</h5>
+                <p class="small text-muted">Bantuan penempatan kerja</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta-section bg-gradient-secondary text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h3 class="fw-bold mb-2">
+            Siap Memulai Karir sebagai Konsultan Pajak?
+          </h3>
+          <p class="mb-0">
+            Konsultasi gratis dengan tim kami untuk menentukan program yang
+            tepat untuk Anda.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="#" class="btn btn-light btn-lg">
+            <i class="bi bi-telephone me-2"></i>
+            Konsultasi Gratis
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

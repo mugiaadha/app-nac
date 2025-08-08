@@ -7,6 +7,11 @@ import {
   MY_COURSES_DATA,
   COURSE_STATUS_CONFIG,
 } from '../../../config/my-courses.config';
+import {
+  BrevetCourse,
+  BREVET_COURSES,
+  getBrevetCourseById
+} from '../../../config/brevet-courses.config';
 
 interface QuizQuestion {
   id: string;
@@ -119,7 +124,16 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
 
     // Simulate API call
     setTimeout(() => {
-      const foundCourse = MY_COURSES_DATA.find((c) => c.id === courseId);
+      let foundCourse = MY_COURSES_DATA.find((c) => c.id === courseId);
+      
+      // Check if it's a brevet course
+      if (!foundCourse && courseId.startsWith('brevet-')) {
+        const brevetCourse = getBrevetCourseById(courseId);
+        if (brevetCourse) {
+          // Convert brevet course to standard course format
+          foundCourse = this.convertBrevetToStandardCourse(brevetCourse);
+        }
+      }
 
       if (foundCourse) {
         this.course = foundCourse;
@@ -143,6 +157,27 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
 
       this.isLoading = false;
     }, 500);
+  }
+
+  private convertBrevetToStandardCourse(brevetCourse: BrevetCourse): CourseData {
+    return {
+      id: brevetCourse.id,
+      title: brevetCourse.title,
+      description: brevetCourse.description,
+      instructor: 'NAC Tax Center',
+      duration: brevetCourse.duration,
+      category: brevetCourse.category,
+      image: brevetCourse.img,
+      status: brevetCourse.progress > 0 ? 'in-progress' : 'not-started',
+      progress: brevetCourse.progress,
+      completedLessons: 0,
+      totalLessons: brevetCourse.totalLessons,
+      enrolledDate: new Date(),
+      lastAccessed: new Date(),
+      rating: 5.0,
+      level: brevetCourse.level,
+      tags: ['Brevet', 'Pajak', brevetCourse.level]
+    };
   }
 
   private generateModulesAndLessons() {

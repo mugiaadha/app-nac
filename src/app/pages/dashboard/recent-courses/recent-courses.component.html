@@ -1,0 +1,227 @@
+<div class="recent-courses-page">
+  <!-- Page Header -->
+  <div class="page-header mb-4">
+    <div class="d-flex justify-content-between align-items-start">
+      <div>
+        <h1 class="h3 fw-bold mb-2">Recent Courses</h1>
+        <p class="text-muted mb-0">Kelola dan lanjutkan pembelajaran Anda</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline-secondary me-2">
+          <i class="bi bi-download me-1"></i>
+          Export
+        </button>
+        <button class="btn btn-primary">
+          <i class="bi bi-plus-lg me-1"></i>
+          Browse Courses
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters & Search -->
+  <div class="filters-section mb-4">
+    <div class="row g-3">
+      <!-- Search -->
+      <div class="col-md-4">
+        <div class="search-box">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control border-start-0" 
+              placeholder="Cari courses..."
+              [(ngModel)]="searchTerm"
+              (input)="onSearchChange($event)"
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="col-md-2">
+        <select 
+          class="form-select" 
+          [value]="selectedCategory"
+          (change)="onCategoryChange($event)"
+        >
+          <option *ngFor="let category of categories" [value]="category.key">
+            {{ category.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort -->
+      <div class="col-md-2">
+        <select 
+          class="form-select" 
+          [value]="selectedSort"
+          (change)="onSortChange($event)"
+        >
+          <option *ngFor="let sort of sortOptions" [value]="sort.key">
+            {{ sort.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Results Count -->
+      <div class="col-md-4 d-flex align-items-center justify-content-end">
+        <span class="text-muted small">
+          Menampilkan {{ filteredCourses.length }} dari {{ allCourses.length }} courses
+        </span>
+      </div>
+    </div>
+
+    <!-- Status Filter Tabs -->
+    <div class="status-filters mt-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item" *ngFor="let filter of statusFilters">
+          <button 
+            class="nav-link"
+            [class.active]="selectedFilter === filter.key"
+            (click)="onFilterChange(filter.key)"
+          >
+            {{ filter.label }}
+            <span class="badge bg-light text-dark ms-2">{{ filter.count }}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="courses-grid" *ngIf="filteredCourses.length > 0">
+    <div class="row g-4">
+      <div class="col-xl-4 col-lg-6" *ngFor="let course of filteredCourses">
+        <div class="course-card card h-100 shadow-sm border-0">
+          <!-- Course Image -->
+          <div class="course-image-container">
+            <img 
+              [src]="course.image" 
+              [alt]="course.title"
+              class="card-img-top course-image"
+              loading="lazy"
+            >
+            <div class="course-overlay">
+              <div class="course-actions">
+                <button 
+                  class="btn btn-light btn-sm"
+                  (click)="viewCourseDetails(course.id)"
+                  title="Lihat Detail"
+                >
+                  <i class="bi bi-info-circle"></i>
+                </button>
+              </div>
+            </div>
+            <!-- Status Badge -->
+            <div class="status-badge">
+              <span 
+                class="badge"
+                [ngClass]="getStatusConfig(course.status).badge"
+              >
+                {{ getStatusConfig(course.status).text }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <!-- Course Info -->
+            <div class="course-meta mb-2">
+              <span class="badge bg-light text-dark me-2">{{ course.category }}</span>
+              <span class="badge bg-secondary">{{ course.level }}</span>
+            </div>
+
+            <h5 class="card-title fw-bold mb-2">{{ course.title }}</h5>
+            <p class="card-text text-muted small mb-3">{{ course.description }}</p>
+
+            <!-- Progress Bar -->
+            <div class="progress mb-3" style="height: 6px;">
+              <div 
+                class="progress-bar"
+                [ngClass]="getStatusConfig(course.status).progressColor"
+                [style.width]="getProgressWidth(course.progress)"
+                role="progressbar"
+              ></div>
+            </div>
+
+            <!-- Course Stats -->
+            <div class="course-stats row g-2 mb-3">
+              <div class="col-6">
+                <div class="stat-item">
+                  <i class="bi bi-clock text-primary me-1"></i>
+                  <small class="text-muted">{{ course.duration }}</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="stat-item">
+                  <i class="bi bi-collection text-success me-1"></i>
+                  <small class="text-muted">{{ course.completedLessons }}/{{ course.totalLessons }}</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="stat-item">
+                  <i class="bi bi-person text-info me-1"></i>
+                  <small class="text-muted">{{ course.instructor }}</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="stat-item">
+                  <i class="bi bi-calendar text-warning me-1"></i>
+                  <small class="text-muted">{{ getLastAccessedText(course.lastAccessed) }}</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Info -->
+            <div class="progress-info mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="small text-muted">Progress</span>
+                <span class="small fw-medium">{{ course.progress }}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer bg-transparent">
+            <div class="d-grid gap-2">
+              <button 
+                class="btn btn-primary"
+                (click)="continueCourse(course.id)"
+                [disabled]="course.status === 'completed'"
+              >
+                <i class="bi bi-play-circle me-1"></i>
+                {{ course.status === 'completed' ? 'Selesai' : course.status === 'not-started' ? 'Mulai Course' : 'Lanjutkan' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state text-center py-5" *ngIf="filteredCourses.length === 0">
+    <div class="empty-icon mb-3">
+      <i class="bi bi-collection display-1 text-muted"></i>
+    </div>
+    <h4 class="text-muted mb-3">Tidak ada courses ditemukan</h4>
+    <p class="text-muted mb-4">
+      <span *ngIf="searchTerm">Coba ubah kata kunci pencarian atau filter yang digunakan.</span>
+      <span *ngIf="!searchTerm">Belum ada courses yang sesuai dengan filter yang dipilih.</span>
+    </p>
+    <button class="btn btn-primary" (click)="selectedFilter = 'all'; selectedCategory = 'all'; searchTerm = ''; applyFilters()">
+      <i class="bi bi-arrow-clockwise me-1"></i>
+      Reset Filter
+    </button>
+  </div>
+
+  <!-- Load More (if needed for pagination) -->
+  <div class="load-more text-center mt-4" *ngIf="filteredCourses.length > 0 && filteredCourses.length >= 12">
+    <button class="btn btn-outline-primary">
+      <i class="bi bi-arrow-down-circle me-1"></i>
+      Load More Courses
+    </button>
+  </div>
+</div>

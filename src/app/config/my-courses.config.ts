@@ -39,10 +39,10 @@ export interface CourseAction {
 // Course Status Configuration
 export const COURSE_STATUS_CONFIG = {
   'not-started': {
-    badge: 'badge-secondary',
+    badge: 'bg-midnight-bloom',
     text: 'Not Started',
     color: '#6c757d',
-    progressColor: 'bg-default',
+    progressColor: 'bg-midnight-bloom',
   },
   'in-progress': {
     badge: 'bg-malibu-purple',
@@ -51,7 +51,7 @@ export const COURSE_STATUS_CONFIG = {
     progressColor: 'bg-malibu-purple',
   },
   completed: {
-    badge: 'badge-success',
+    badge: 'bg-grow-early',
     text: 'Completed',
     color: '#27ae60',
     progressColor: 'bg-grow-early',

@@ -109,6 +109,27 @@ export const routes: Routes = [
             './pages/dashboard/course-detail/course-detail.component'
           ).then((m) => m.CourseDetailComponent),
       },
+      {
+        path: 'brevet-pajak',
+        loadComponent: () =>
+          import('./pages/brevet-pajak/brevet-pajak.component').then(
+            (m) => m.BrevetPajakComponent
+          ),
+      },
+      {
+        path: 'brevet-pajak/:id',
+        loadComponent: () =>
+          import('./pages/brevet-pajak/brevet-detail.component').then(
+            (m) => m.BrevetDetailComponent
+          ),
+      },
+      {
+        path: 'recent-courses',
+        loadComponent: () =>
+          import('./pages/dashboard/recent-courses/recent-courses.component').then(
+            (m) => m.RecentCoursesComponent
+          ),
+      },
     ],
   },
   {

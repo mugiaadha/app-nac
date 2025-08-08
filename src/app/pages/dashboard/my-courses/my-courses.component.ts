@@ -56,7 +56,7 @@ export class MyCoursesComponent implements OnInit {
   // Status methods
   getStatusBadgeClass(status: string): string {
     const config = this.statusConfig[status as keyof typeof this.statusConfig];
-    return config ? config.badge : 'badge-secondary';
+    return config ? config.badge : 'bg-grow-early';
   }
 
   getStatusText(status: string): string {

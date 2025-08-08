@@ -49,6 +49,20 @@ export const SEO_CONFIG = {
     keywords:
       'layanan pajak, jasa pajak, NAC Tax Center, pajak bisnis, pajak individu',
   },
+  brevetPajak: {
+    title: 'Program Brevet Pajak - NAC Tax Center',
+    description:
+      'Program pelatihan Brevet Pajak A, B, C untuk menjadi konsultan pajak bersertifikat. Tingkatkan kompetensi perpajakan Anda.',
+    keywords:
+      'brevet pajak, pelatihan pajak, konsultan pajak, sertifikasi pajak, NAC Tax Center',
+  },
+  brevetDetail: {
+    title: 'Detail Program Brevet Pajak - NAC Tax Center',
+    description:
+      'Informasi lengkap program Brevet Pajak dengan kurikulum, jadwal, dan manfaat yang didapat.',
+    keywords:
+      'detail brevet pajak, kurikulum pajak, jadwal pelatihan, NAC Tax Center',
+  },
   notfound: {
     title: 'Halaman Tidak Ditemukan - NAC Tax Center',
     description:

@@ -3,23 +3,9 @@
   <main class="dashboard-main">
     <div class="dashboard-container">
       <div class="container-fluid py-4">
-        <!-- Header Welcome -->
-        <div class="row mb-4">
-          <div class="col-12">
-            <div class="welcome-card bg-plum-plate rounded-4 p-4 text-white">
-              <h1 class="h3 mb-2">
-                Selamat datang, {{ user?.name || "User" }}!
-              </h1>
-              <p class="mb-0 opacity-90">
-                Kelola aktivitas pembelajaran Anda di sini
-              </p>
-            </div>
-          </div>
-        </div>
-
         <!-- Mobile Navigation (Hidden on desktop) -->
         <!-- Mobile Bottom Navigation (Sticky at bottom) -->
-        <app-navigation 
+        <app-navigation
           type="mobile"
           [showTitle]="false"
           (onNavigate)="onNavigationItemClick($event)"
@@ -32,7 +18,7 @@
           <div class="col-lg-3 d-none d-lg-block">
             <div class="dashboard-sidebar">
               <!-- Navigation Menu -->
-              <app-navigation 
+              <app-navigation
                 type="sidebar"
                 [showTitle]="true"
                 title="Navigation"

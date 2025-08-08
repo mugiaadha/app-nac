@@ -1,0 +1,125 @@
+.brevet-pajak-page {
+  min-height: 100vh;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  .hero-stats {
+    .stat-item {
+      text-align: center;
+      
+      .stat-number {
+        font-weight: 700;
+        color: #fff;
+      }
+      
+      .stat-label {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}
+
+.program-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .card-header {
+    border-bottom: none;
+    padding: 2rem 1.5rem 1rem;
+  }
+  
+  .program-info {
+    .info-item {
+      i {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+      }
+    }
+  }
+  
+  .features {
+    ul li {
+      padding: 0.25rem 0;
+      
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .pricing {
+    .current-price {
+      font-weight: 700;
+    }
+    
+    .original-price {
+      opacity: 0.7;
+    }
+  }
+}
+
+.why-choose-section {
+  .feature-item {
+    padding: 1.5rem;
+    
+    i {
+      margin-bottom: 1rem;
+    }
+    
+    h5 {
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .hero-section {
+    .display-4 {
+      font-size: 2.5rem;
+    }
+    
+    .hero-stats {
+      justify-content: center;
+      gap: 2rem !important;
+    }
+  }
+  
+  .program-card {
+    .card-header {
+      padding: 1.5rem 1rem 0.5rem;
+      
+      .display-4 {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  
+  .why-choose-section {
+    .feature-item {
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+// Gradient backgrounds
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}

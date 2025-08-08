@@ -25,7 +25,19 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: true,
     showInMobile: true,
     showInDropdown: false,
-    requiresAuth: true
+    requiresAuth: true,
+  },
+  {
+    id: 'brevet-pajak',
+    label: 'Brevet Pajak',
+    icon: 'bi-file-earmark-text',
+    route: '/brevet-pajak',
+    type: 'link',
+    description: 'Program Brevet Pajak A, B, C',
+    showInSidebar: true,
+    showInMobile: true,
+    showInDropdown: false,
+    requiresAuth: true,
   },
   {
     id: 'my-courses',
@@ -37,7 +49,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: true,
     showInMobile: true,
     showInDropdown: false,
-    requiresAuth: true
+    requiresAuth: true,
   },
   {
     id: 'certificates',
@@ -49,7 +61,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: true,
     showInMobile: true,
     showInDropdown: false,
-    requiresAuth: true
+    requiresAuth: true,
   },
   {
     id: 'profile',
@@ -61,7 +73,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: false,
     showInMobile: false,
     showInDropdown: true,
-    requiresAuth: true
+    requiresAuth: true,
   },
   {
     id: 'divider-1',
@@ -71,7 +83,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     type: 'divider',
     showInSidebar: false,
     showInMobile: false,
-    showInDropdown: true
+    showInDropdown: true,
   },
   {
     id: 'browse-courses',
@@ -83,7 +95,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: false,
     showInMobile: false,
     showInDropdown: true,
-    requiresAuth: false
+    requiresAuth: false,
   },
   {
     id: 'articles',
@@ -95,7 +107,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: false,
     showInMobile: false,
     showInDropdown: true,
-    requiresAuth: false
+    requiresAuth: false,
   },
   {
     id: 'services',
@@ -107,7 +119,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: false,
     showInMobile: false,
     showInDropdown: true,
-    requiresAuth: false
+    requiresAuth: false,
   },
   {
     id: 'help-center',
@@ -119,7 +131,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInSidebar: false,
     showInMobile: false,
     showInDropdown: true,
-    requiresAuth: false
+    requiresAuth: false,
   },
   {
     id: 'divider-2',
@@ -129,7 +141,7 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     type: 'divider',
     showInSidebar: false,
     showInMobile: false,
-    showInDropdown: true
+    showInDropdown: true,
   },
   {
     id: 'logout',
@@ -142,8 +154,8 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     showInMobile: false,
     showInDropdown: true,
     cssClass: 'text-danger',
-    requiresAuth: true
-  }
+    requiresAuth: true,
+  },
 ];
 
 // Quick stats configuration
@@ -164,7 +176,7 @@ export const DASHBOARD_QUICK_STATS: QuickStatItem[] = [
     value: 75,
     color: 'bg-malibu-beach',
     type: 'progress',
-    description: 'Progress keseluruhan kursus'
+    description: 'Progress keseluruhan kursus',
   },
   {
     id: 'monthly-goal',
@@ -172,7 +184,7 @@ export const DASHBOARD_QUICK_STATS: QuickStatItem[] = [
     value: 60,
     color: 'bg-grow-early',
     type: 'progress',
-    description: 'Target bulanan pembelajaran'
+    description: 'Target bulanan pembelajaran',
   },
   {
     id: 'streak',
@@ -180,6 +192,6 @@ export const DASHBOARD_QUICK_STATS: QuickStatItem[] = [
     value: '🔥 7 days',
     color: 'text-warning',
     type: 'text',
-    description: 'Streak belajar harian'
-  }
+    description: 'Streak belajar harian',
+  },
 ];
