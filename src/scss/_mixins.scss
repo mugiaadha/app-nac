@@ -1,0 +1,125 @@
+// ===============================================
+// GLOBAL MIXINS - REUSABLE COMPONENT PATTERNS
+// ===============================================
+
+@use "sass:map";
+@use "sass:color";
+@use "variables" as *;
+
+// Button variant mixin
+@mixin button-variant($bg-color, $border-color: $bg-color, $color: null) {
+  $hover-bg: color.scale($bg-color, $lightness: -15%);
+  $hover-border: color.scale($border-color, $lightness: -20%);
+  $active-bg: color.scale($bg-color, $lightness: -20%);
+  $active-border: color.scale($border-color, $lightness: -25%);
+  
+  background-color: $bg-color;
+  border-color: $border-color;
+  color: $color or map.get($colors, "white");
+  
+  &:hover {
+    background-color: $hover-bg;
+    border-color: $hover-border;
+    color: $color or map.get($colors, "white");
+  }
+  
+  &:focus,
+  &.focus {
+    background-color: $hover-bg;
+    border-color: $hover-border;
+    box-shadow: 0 0 0 0.2rem rgba($bg-color, 0.5);
+  }
+  
+  &:active,
+  &.active {
+    background-color: $active-bg;
+    border-color: $active-border;
+  }
+}
+
+// Card hover effect
+@mixin card-hover($scale: 1.02, $shadow: map.get($shadows, "lg")) {
+  transition: map.get($transitions, "normal");
+  border-radius: map.get($border-radii, "lg");
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow;
+  }
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+// Animation helpers
+@mixin fade-in($duration: 0.3s) {
+  opacity: 0;
+  animation: fadeIn $duration ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin slide-up($duration: 0.3s, $distance: 20px) {
+  transform: translateY($distance);
+  opacity: 0;
+  animation: slideUp $duration ease-out forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Text utilities
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

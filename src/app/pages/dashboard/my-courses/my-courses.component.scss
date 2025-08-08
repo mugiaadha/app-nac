@@ -1,53 +1,15 @@
 // ===============================================
-// MY COURSES - EFFICIENT SCSS
+// MY COURSES - EFFICIENT SCSS (CLEAN VERSION)
 // ===============================================
 
-// Variables
+@use "sass:map";
+@use "../../../../scss/variables" as *;
+@use "../../../../scss/mixins" as *;
+
+// Local variables (only what's unique to this component)
 $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$border-radius-sm: 6px;
-$border-radius-md: 8px;
-$border-radius-lg: 12px;
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-$shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
-$transition: all 0.3s ease;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
 
-// Colors
-$colors: (
-  primary: #0d6efd,
-  success: #198754,
-  warning: #ffc107,
-  secondary: #6c757d,
-  white: #ffffff,
-  light: #f8f9fa,
-  dark: #2c3e50,
-);
-
-// Spacing
-$spacers: (
-  xs: 0.25rem,
-  sm: 0.5rem,
-  md: 1rem,
-  lg: 1.5rem,
-  xl: 2rem,
-);
-
-// Mixins
-@mixin button-variant(
-  $bg-color,
-  $border-color: $bg-color,
-  $hover-bg: darken($bg-color, 10%)
-) {
-  background-color: $bg-color;
-  border-color: $border-color;
-
-  &:hover {
-    background-color: $hover-bg;
-    border-color: darken($border-color, 10%);
-  }
-}
-
+// Glass effect mixin
 @mixin glass-effect($opacity: 0.1) {
   background-color: rgba(255, 255, 255, $opacity);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -58,21 +20,6 @@ $spacers: (
   }
 }
 
-@mixin card-hover {
-  transition: $transition;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-hover;
-  }
-}
-
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 // Component Styles
 .my-courses-page {
   padding: 0;
@@ -81,28 +28,28 @@ $spacers: (
   // Page Header
   .page-header {
     background: $primary-gradient;
-    color: map-get($colors, white);
-    padding: map-get($spacers, xl);
-    border-radius: $border-radius-lg;
-    margin-bottom: map-get($spacers, xl);
+    color: map.get($colors, "white");
+    padding: map.get($spacers, "xl");
+    border-radius: map.get($border-radii, "lg");
+    margin-bottom: map.get($spacers, "xl");
 
     h1 {
       color: inherit;
-      margin-bottom: map-get($spacers, sm);
+      margin-bottom: map.get($spacers, "sm");
     }
 
     .header-actions {
       .btn {
-        border-radius: $border-radius-md;
+        border-radius: map.get($border-radii, "md");
 
         &.btn-outline-secondary {
           @include glass-effect();
-          color: map-get($colors, white);
+          color: map.get($colors, "white");
         }
 
         &.btn-primary {
           @include glass-effect(0.2);
-          color: map-get($colors, white);
+          color: map.get($colors, "white");
         }
       }
     }
@@ -111,7 +58,7 @@ $spacers: (
     @media (max-width: 768px) {
       .d-flex {
         flex-direction: column;
-        gap: map-get($spacers, md);
+        gap: map.get($spacers, "md");
       }
 
       .header-actions {
@@ -119,7 +66,7 @@ $spacers: (
 
         .btn {
           width: 100%;
-          margin-bottom: map-get($spacers, sm);
+          margin-bottom: map.get($spacers, "sm");
 
           &:last-child {
             margin-bottom: 0;
@@ -131,36 +78,36 @@ $spacers: (
 
   // Filters Section
   .filters-section {
-    background: map-get($colors, white);
-    padding: map-get($spacers, lg);
-    border-radius: $border-radius-lg;
-    box-shadow: $shadow-sm;
-    margin-bottom: map-get($spacers, xl);
+    background: map.get($colors, "white");
+    padding: map.get($spacers, "lg");
+    border-radius: map.get($border-radii, "lg");
+    box-shadow: map.get($shadows, "sm");
+    margin-bottom: map.get($spacers, "xl");
 
     .search-box,
     .form-select {
       .input-group-text,
       &.form-control,
       &.form-select {
-        border-color: $border-color;
-        border-radius: $border-radius-md;
+        border-color: map.get($colors, "border");
+        border-radius: map.get($border-radii, "md");
 
         &:focus {
           border-color: #86b7fe;
-          box-shadow: 0 0 0 0.25rem rgba(map-get($colors, primary), 0.25);
+          box-shadow: 0 0 0 0.25rem rgba(map.get($colors, "primary"), 0.25);
         }
       }
     }
 
     .status-filters {
       .nav-pills .nav-link {
-        color: $text-muted;
+        color: map.get($colors, "muted");
         background: transparent;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-md;
-        margin-right: map-get($spacers, sm);
-        padding: map-get($spacers, sm) map-get($spacers, md);
-        transition: $transition;
+        border: 1px solid map.get($colors, "border");
+        border-radius: map.get($border-radii, "md");
+        margin-right: map.get($spacers, "sm");
+        padding: map.get($spacers, "sm") map.get($spacers, "md");
+        transition: map.get($transitions, "normal");
 
         &:hover {
           background-color: #f8f9fa;
@@ -168,12 +115,12 @@ $spacers: (
         }
 
         &.active {
-          @include button-variant(map-get($colors, primary));
-          color: map-get($colors, white);
+          @include button-variant(map.get($colors, "primary"));
+          color: map.get($colors, "white");
 
           .badge {
             background-color: rgba(255, 255, 255, 0.2) !important;
-            color: map-get($colors, white) !important;
+            color: map.get($colors, "white") !important;
           }
         }
 
@@ -186,13 +133,13 @@ $spacers: (
 
   // Course Cards
   .course-card {
-    @include card-hover;
-    border: 1px solid $border-color;
+    @include card-hover();
+    border: 1px solid map.get($colors, "border");
 
     .course-image {
       position: relative;
       overflow: hidden;
-      border-radius: $border-radius-md;
+      border-radius: map.get($border-radii, "md");
 
       img {
         width: 100%;
@@ -203,8 +150,8 @@ $spacers: (
 
       .status-overlay {
         position: absolute;
-        top: $border-radius-md;
-        right: $border-radius-md;
+        top: map.get($border-radii, "md");
+        right: map.get($border-radii, "md");
       }
 
       &:hover img {
@@ -213,30 +160,30 @@ $spacers: (
     }
 
     .course-content {
-      padding: map-get($spacers, md);
+      padding: map.get($spacers, "md");
 
       .course-title {
         font-size: 1rem;
         font-weight: 600;
-        color: map-get($colors, dark);
-        margin-bottom: map-get($spacers, sm);
+        color: map.get($colors, "dark");
+        margin-bottom: map.get($spacers, "sm");
         line-height: 1.4;
       }
 
       .course-meta {
         font-size: 0.875rem;
-        color: $text-muted;
+        color: map.get($colors, "muted");
         margin-bottom: 0.75rem;
       }
 
       .progress-section {
-        margin-bottom: map-get($spacers, md);
+        margin-bottom: map.get($spacers, "md");
 
         .progress {
           height: 6px;
           border-radius: 3px;
-          background-color: $border-color;
-          margin-bottom: map-get($spacers, sm);
+          background-color: map.get($colors, "border");
+          margin-bottom: map.get($spacers, "sm");
 
           .progress-bar {
             border-radius: 3px;
@@ -245,7 +192,7 @@ $spacers: (
 
         .progress-text {
           font-size: 0.75rem;
-          color: $text-muted;
+          color: map.get($colors, "muted");
           display: flex;
           justify-content: space-between;
         }
@@ -253,32 +200,32 @@ $spacers: (
 
       .course-actions {
         display: flex;
-        gap: map-get($spacers, sm);
+        gap: map.get($spacers, "sm");
 
         .btn {
           flex: 1;
           font-size: 0.875rem;
-          padding: map-get($spacers, sm) map-get($spacers, md);
-          border-radius: $border-radius-sm;
+          padding: map.get($spacers, "sm") map.get($spacers, "md");
+          border-radius: map.get($border-radii, "sm");
           font-weight: 500;
-          transition: $transition;
+          transition: map.get($transitions, "normal");
 
           &.btn-primary {
-            @include button-variant(map-get($colors, primary));
+            @include button-variant(map.get($colors, "primary"));
           }
 
           &.btn-success {
-            @include button-variant(map-get($colors, success));
+            @include button-variant(map.get($colors, "success"));
           }
 
           &.btn-outline-secondary {
-            color: $text-muted;
-            border-color: $text-muted;
+            color: map.get($colors, "muted");
+            border-color: map.get($colors, "muted");
 
             &:hover {
-              background-color: $text-muted;
-              border-color: $text-muted;
-              color: map-get($colors, white);
+              background-color: map.get($colors, "muted");
+              border-color: map.get($colors, "muted");
+              color: map.get($colors, "white");
             }
           }
         }
@@ -287,21 +234,10 @@ $spacers: (
   }
 }
 
-// Badge Utilities
-@each $name, $color in $colors {
-  .badge.bg-#{$name} {
-    background-color: $color !important;
-
-    @if $name == "warning" {
-      color: #000 !important;
-    }
-  }
-}
-
 // Mobile Optimizations
 @media (max-width: 768px) {
   .my-courses-page {
-    padding: map-get($spacers, md) 0;
+    padding: map.get($spacers, "md") 0;
 
     .course-card .course-content {
       padding: 0.75rem;
