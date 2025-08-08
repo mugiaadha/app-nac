@@ -123,13 +123,6 @@ export const routes: Routes = [
             (m) => m.BrevetDetailComponent
           ),
       },
-      {
-        path: 'recent-courses',
-        loadComponent: () =>
-          import('./pages/dashboard/recent-courses/recent-courses.component').then(
-            (m) => m.RecentCoursesComponent
-          ),
-      },
     ],
   },
   {
