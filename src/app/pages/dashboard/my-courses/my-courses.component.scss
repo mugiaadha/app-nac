@@ -1,82 +1,32 @@
-// ===============================================
-// MY COURSES - EFFICIENT SCSS (CLEAN VERSION)
-// ===============================================
-
-@use "sass:map";
 @use "../../../../scss/variables" as *;
 @use "../../../../scss/mixins" as *;
 
-// Local variables (only what's unique to this component)
-$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-// Glass effect mixin
-@mixin glass-effect($opacity: 0.1) {
-  background-color: rgba(255, 255, 255, $opacity);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  &:hover {
-    background-color: rgba(255, 255, 255, $opacity + 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-// Component Styles
 .my-courses-page {
-  padding: 0;
   min-height: 100vh;
 
-  // Page Header
   .page-header {
-    background: $primary-gradient;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: map.get($colors, "white");
     padding: map.get($spacers, "xl");
     border-radius: map.get($border-radii, "lg");
     margin-bottom: map.get($spacers, "xl");
 
-    h1 {
-      color: inherit;
-      margin-bottom: map.get($spacers, "sm");
-    }
-
-    .header-actions {
-      .btn {
-        border-radius: map.get($border-radii, "md");
-
-        &.btn-outline-secondary {
-          @include glass-effect();
-          color: map.get($colors, "white");
-        }
-
-        &.btn-primary {
-          @include glass-effect(0.2);
-          color: map.get($colors, "white");
-        }
-      }
-    }
-
-    // Responsive
-    @media (max-width: 768px) {
-      .d-flex {
-        flex-direction: column;
-        gap: map.get($spacers, "md");
-      }
-
-      .header-actions {
-        align-self: stretch;
-
-        .btn {
-          width: 100%;
-          margin-bottom: map.get($spacers, "sm");
-
-          &:last-child {
-            margin-bottom: 0;
-          }
+    .btn {
+      border-radius: map.get($border-radii, "md");
+      color: map.get($colors, "white");
+      
+      &.btn-outline-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.5);
         }
       }
     }
   }
 
-  // Filters Section
   .filters-section {
     background: map.get($colors, "white");
     padding: map.get($spacers, "lg");
@@ -84,60 +34,23 @@ $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     box-shadow: map.get($shadows, "sm");
     margin-bottom: map.get($spacers, "xl");
 
-    .search-box,
-    .form-select {
-      .input-group-text,
-      &.form-control,
-      &.form-select {
-        border-color: map.get($colors, "border");
-        border-radius: map.get($border-radii, "md");
+    .nav-link {
+      color: map.get($colors, "muted");
+      border: 1px solid map.get($colors, "border");
+      border-radius: map.get($border-radii, "md");
+      margin-right: map.get($spacers, "sm");
+      transition: map.get($transitions, "normal");
 
-        &:focus {
-          border-color: #86b7fe;
-          box-shadow: 0 0 0 0.25rem rgba(map.get($colors, "primary"), 0.25);
-        }
-      }
-    }
-
-    .status-filters {
-      .nav-pills .nav-link {
-        color: map.get($colors, "muted");
-        background: transparent;
-        border: 1px solid map.get($colors, "border");
-        border-radius: map.get($border-radii, "md");
-        margin-right: map.get($spacers, "sm");
-        padding: map.get($spacers, "sm") map.get($spacers, "md");
-        transition: map.get($transitions, "normal");
-
-        &:hover {
-          background-color: #f8f9fa;
-          border-color: #dee2e6;
-        }
-
-        &.active {
-          @include button-variant(map.get($colors, "primary"));
-          color: map.get($colors, "white");
-
-          .badge {
-            background-color: rgba(255, 255, 255, 0.2) !important;
-            color: map.get($colors, "white") !important;
-          }
-        }
-
-        .badge {
-          font-size: 0.75rem;
-        }
-      }
+      &:hover { background-color: #f8f9fa; }
+      &.active { @include button-variant(map.get($colors, "primary")); }
     }
   }
 
-  // Course Cards
   .course-card {
     @include card-hover();
     border: 1px solid map.get($colors, "border");
 
     .course-image {
-      position: relative;
       overflow: hidden;
       border-radius: map.get($border-radii, "md");
 
@@ -154,20 +67,16 @@ $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         right: map.get($border-radii, "md");
       }
 
-      &:hover img {
-        transform: scale(1.05);
-      }
+      &:hover img { transform: scale(1.05); }
     }
 
     .course-content {
       padding: map.get($spacers, "md");
 
       .course-title {
-        font-size: 1rem;
         font-weight: 600;
         color: map.get($colors, "dark");
         margin-bottom: map.get($spacers, "sm");
-        line-height: 1.4;
       }
 
       .course-meta {
@@ -176,80 +85,44 @@ $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         margin-bottom: 0.75rem;
       }
 
-      .progress-section {
-        margin-bottom: map.get($spacers, "md");
+      .progress {
+        height: 6px;
+        border-radius: 3px;
+        background-color: map.get($colors, "border");
+        margin-bottom: map.get($spacers, "sm");
+      }
 
-        .progress {
-          height: 6px;
-          border-radius: 3px;
-          background-color: map.get($colors, "border");
-          margin-bottom: map.get($spacers, "sm");
-
-          .progress-bar {
-            border-radius: 3px;
-          }
-        }
-
-        .progress-text {
-          font-size: 0.75rem;
-          color: map.get($colors, "muted");
-          display: flex;
-          justify-content: space-between;
-        }
+      .progress-text {
+        font-size: 0.75rem;
+        color: map.get($colors, "muted");
+        @include flex-between;
       }
 
       .course-actions {
-        display: flex;
+        @include flex-center;
         gap: map.get($spacers, "sm");
 
         .btn {
           flex: 1;
           font-size: 0.875rem;
-          padding: map.get($spacers, "sm") map.get($spacers, "md");
-          border-radius: map.get($border-radii, "sm");
           font-weight: 500;
           transition: map.get($transitions, "normal");
 
-          &.btn-primary {
-            @include button-variant(map.get($colors, "primary"));
-          }
-
-          &.btn-success {
-            @include button-variant(map.get($colors, "success"));
-          }
-
-          &.btn-outline-secondary {
-            color: map.get($colors, "muted");
-            border-color: map.get($colors, "muted");
-
-            &:hover {
-              background-color: map.get($colors, "muted");
-              border-color: map.get($colors, "muted");
-              color: map.get($colors, "white");
-            }
-          }
+          &.btn-primary { @include button-variant(map.get($colors, "primary")); }
+          &.btn-success { @include button-variant(map.get($colors, "success")); }
         }
       }
     }
   }
 }
 
-// Mobile Optimizations
-@media (max-width: 768px) {
+@include mobile {
   .my-courses-page {
-    padding: map.get($spacers, "md") 0;
-
-    .course-card .course-content {
-      padding: 0.75rem;
-
-      .course-title {
-        font-size: 0.9rem;
-      }
-
-      .course-actions .btn {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
+    .page-header .d-flex { 
+      flex-direction: column; 
+      gap: map.get($spacers, "md"); 
     }
+    .course-card .course-content { padding: 0.75rem; }
+    .course-actions .btn { font-size: 0.8rem; }
   }
 }
