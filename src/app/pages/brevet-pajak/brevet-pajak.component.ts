@@ -21,7 +21,7 @@ export class BrevetPajakComponent {
       modules: 8,
       level: 'Beginner',
       icon: 'bi-1-circle-fill',
-      color: 'text-primary',
+      color: 'text-white',
       bgColor: 'bg-malibu-purple bg-opacity-10',
       features: [
         'Pengenalan Sistem Pajak Indonesia',
