@@ -9,6 +9,7 @@ import { authGuard } from './guards/auth.guard';
 import { OuterLayoutComponent } from './layouts/outer-layout.component';
 import { InnerLayoutComponent } from './layouts/inner-layout.component';
 import { QuizLayoutComponent } from './layouts/quiz-layout/quiz-layout.component';
+import { DaftarBrevetComponent } from './pages/daftar-brevet/daftar-brevet.component';
 
 export const routes: Routes = [
   {
@@ -35,10 +36,32 @@ export const routes: Routes = [
         data: { seo: SEO_CONFIG.daftar },
       },
       {
+        path: 'daftar-brevet/:type',
+        component: DaftarBrevetComponent,
+        resolve: { seo: SeoResolver },
+        data: { seo: SEO_CONFIG.daftar },
+      },
+      {
         path: 'pusat-bantuan',
         component: PusatBantuanComponent,
         resolve: { seo: SeoResolver },
         data: { seo: SEO_CONFIG.pusatBantuan },
+      },
+      {
+        path: 'syarat-ketentuan',
+        loadComponent: () =>
+          import('./pages/syarat-ketentuan/syarat-ketentuan.component').then(
+            (m) => m.SyaratKetentuanComponent
+          ),
+        data: { seo: { title: 'Syarat dan Ketentuan' } },
+      },
+      {
+        path: 'kebijakan-privasi',
+        loadComponent: () =>
+          import('./pages/kebijakan-privasi/kebijakan-privasi.component').then(
+            (m) => m.KebijakanPrivasiComponent
+          ),
+        data: { seo: { title: 'Kebijakan Privasi' } },
       },
       {
         path: 'courses',
@@ -172,7 +195,7 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled'
+      scrollPositionRestoration: 'enabled',
     }),
   ],
   exports: [RouterModule],

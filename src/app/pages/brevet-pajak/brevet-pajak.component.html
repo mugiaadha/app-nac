@@ -49,7 +49,9 @@
             <div class="card-body">
               <p class="text-muted mb-3">{{ program.description }}</p>
               <div class="price-tag text-center mb-3">
-                <h3 class="text-primary mb-0">Rp {{ program.price | number }}</h3>
+                <h3 class="text-primary mb-0">
+                  Rp {{ program.price | number }}
+                </h3>
                 <small class="text-muted">per program</small>
               </div>
 
@@ -94,7 +96,7 @@
                   (click)="startProgram(program.id)"
                 >
                   <i class="bi bi-play-circle me-1"></i>
-                  Mulai Program
+                  Daftar Brevet {{ program.id.toUpperCase() }}
                 </button>
                 <a
                   [routerLink]="['/brevet-pajak', program.id]"

@@ -88,10 +88,6 @@ export class BrevetPajakComponent {
 
   startProgram(programId: string) {
     // Start the program directly - navigate to first lesson
-    this.router.navigate([
-      '/course-learning',
-      `brevet-${programId}`,
-      'lesson-1',
-    ]);
+    this.router.navigate(['/daftar-brevet/', `${programId}`]);
   }
 }

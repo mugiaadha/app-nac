@@ -26,9 +26,12 @@ export class HeaderComponent {
 
   logout() {
     this.isLoggingOut = true;
-    this.auth.logout();
-    this.toastr.success('Logged out successfully!');
-    this.router.navigate(['/']);
-    this.isLoggingOut = false;
+    this.auth.logout().subscribe(() => {
+      setTimeout(() => {
+        this.toastr.success('Logged out successfully!');
+        this.router.navigate(['/']);
+        this.isLoggingOut = false;
+      }, 1000);
+    });
   }
 }
