@@ -17,12 +17,13 @@ export class BrevetPajakComponent {
       subtitle: 'Dasar-dasar Perpajakan',
       description:
         'Program pelatihan dasar perpajakan untuk pemahaman fundamental sistem pajak Indonesia',
+      price: 2500000,
       duration: '40 Jam',
       modules: 8,
       level: 'Beginner',
       icon: 'bi-1-circle-fill',
-      color: 'text-white',
-      bgColor: 'bg-malibu-purple bg-opacity-10',
+      color: 'text-primary',
+      bgColor: 'bg-primary bg-opacity-10',
       features: [
         'Pengenalan Sistem Pajak Indonesia',
         'Pajak Penghasilan (PPh) Dasar',
@@ -38,6 +39,7 @@ export class BrevetPajakComponent {
       subtitle: 'Perpajakan Menengah',
       description:
         'Program pelatihan perpajakan tingkat menengah untuk praktisi dan konsultan pajak',
+      price: 3500000,
       duration: '60 Jam',
       modules: 12,
       level: 'Intermediate',
@@ -59,6 +61,7 @@ export class BrevetPajakComponent {
       subtitle: 'Konsultan Pajak Profesional',
       description:
         'Program pelatihan perpajakan tingkat lanjut untuk menjadi konsultan pajak bersertifikat',
+      price: 4500000,
       duration: '80 Jam',
       modules: 16,
       level: 'Advanced',

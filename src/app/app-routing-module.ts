@@ -48,6 +48,20 @@ export const routes: Routes = [
         data: { seo: SEO_CONFIG.courses },
       },
       {
+        path: 'brevet-pajak',
+        loadComponent: () =>
+          import('./pages/brevet-pajak/brevet-pajak.component').then(
+            (m) => m.BrevetPajakComponent
+          ),
+      },
+      {
+        path: 'brevet-pajak/:id',
+        loadComponent: () =>
+          import(
+            './pages/brevet-pajak/brevet-detail/brevet-detail.component'
+          ).then((m) => m.BrevetDetailComponent),
+      },
+      {
         path: 'articles',
         loadChildren: () =>
           import('./pages/articles/articles.module').then(
@@ -109,20 +123,6 @@ export const routes: Routes = [
             './pages/dashboard/course-detail/course-detail.component'
           ).then((m) => m.CourseDetailComponent),
       },
-      {
-        path: 'brevet-pajak',
-        loadComponent: () =>
-          import('./pages/brevet-pajak/brevet-pajak.component').then(
-            (m) => m.BrevetPajakComponent
-          ),
-      },
-      {
-        path: 'brevet-pajak/:id',
-        loadComponent: () =>
-          import(
-            './pages/brevet-pajak/brevet-detail/brevet-detail.component'
-          ).then((m) => m.BrevetDetailComponent),
-      },
     ],
   },
   {
@@ -170,7 +170,11 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled'
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
