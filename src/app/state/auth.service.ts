@@ -29,6 +29,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  register(data: {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+  }): Observable<boolean> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/register`, data).pipe(
+      map((response) => this.handleLoginResponse(response)),
+      catchError((error) => this.handleLoginError(error))
+    );
+  }
+
   // Public observables for components to subscribe to
   get isLoggedIn$(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();

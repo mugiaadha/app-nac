@@ -6,7 +6,7 @@
   <app-logo></app-logo>
     </div>
     <h2 class="fw-bold mb-3 text-center">Buat Akun Baru</h2>
-    <form>
+  <form (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="nama" class="form-label">Nama Lengkap</label>
         <input
@@ -40,7 +40,19 @@
           required
         />
       </div>
-      <button type="submit" class="btn btn-gradient w-100">Daftar</button>
+      <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
+        <input
+          type="password"
+          id="password_confirmation"
+          class="form-control"
+          [(ngModel)]="password_confirmation"
+          name="password_confirmation"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-gradient w-100" [disabled]="loading">{{ loading ? 'Memproses...' : 'Daftar' }}</button>
+      <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
     </form>
     <div class="mt-3 text-center">
       Sudah punya akun? <a [routerLink]="['/login']">Masuk</a>
