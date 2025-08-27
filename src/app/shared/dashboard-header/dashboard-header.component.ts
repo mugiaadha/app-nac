@@ -4,7 +4,6 @@ import { RouterLink, Router } from '@angular/router';
 import { LogoComponent } from '../logo/logo.component';
 import { AuthService } from '../../state/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { SiteSettingsService } from '../../state/site-settings.service';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -17,7 +16,7 @@ import { SiteSettingsService } from '../../state/site-settings.service';
           class="navbar-brand d-flex align-items-center gap-2"
           [routerLink]="['/']"
         >
-          <app-logo [logo]="(siteSettings.settings$ | async)?.logo"></app-logo>
+          <app-logo></app-logo>
         </a>
 
         <!-- User Menu -->
@@ -84,7 +83,6 @@ export class DashboardHeaderComponent {
   isLoggingOut = false;
 
   constructor(
-    public siteSettings: SiteSettingsService,
     public auth: AuthService,
     private toastr: ToastrService,
     private router: Router

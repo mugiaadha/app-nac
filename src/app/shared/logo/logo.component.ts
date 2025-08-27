@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { SiteSettingsService } from '../../state/site-settings.service';
 
 @Component({
   selector: 'app-logo',
@@ -9,5 +10,10 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./logo.component.scss'],
 })
 export class LogoComponent {
-  @Input() logo?: string;
+  logoUrl: string = './logo-daftar.svg';
+  constructor(private siteSettings: SiteSettingsService) {
+    this.siteSettings.settings$.subscribe(settings => {
+      this.logoUrl = settings.logo || './logo-daftar.svg';
+    });
+  }
 }

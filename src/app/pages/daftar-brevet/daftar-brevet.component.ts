@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { SiteSettingsService } from '../../state/site-settings.service';
 
 interface BrevetProgram {
   id: string;
@@ -29,7 +28,7 @@ interface BrevetProgram {
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './daftar-brevet.component.html',
-  styleUrls: ['./daftar-brevet.component.scss']
+  styleUrls: ['./daftar-brevet.component.scss'],
 })
 export class DaftarBrevetComponent implements OnInit {
   brevetType: string | null = null;
@@ -43,7 +42,7 @@ export class DaftarBrevetComponent implements OnInit {
     phone: '',
     password: '',
     confirmPassword: '',
-    agreeToTerms: false
+    agreeToTerms: false,
   };
 
   private brevetPrograms: BrevetProgram[] = [
@@ -51,7 +50,8 @@ export class DaftarBrevetComponent implements OnInit {
       id: 'a',
       title: 'Brevet Pajak A',
       subtitle: 'Dasar-dasar Perpajakan',
-      description: 'Program pelatihan dasar perpajakan untuk pemahaman fundamental',
+      description:
+        'Program pelatihan dasar perpajakan untuk pemahaman fundamental',
       price: 2500000,
       duration: '40 Jam',
       modules: 8,
@@ -63,8 +63,8 @@ export class DaftarBrevetComponent implements OnInit {
         startDate: '15 September 2025',
         endDate: '30 Oktober 2025',
         days: 'Senin, Rabu, Jumat',
-        time: '19:00 - 22:00 WIB'
-      }
+        time: '19:00 - 22:00 WIB',
+      },
     },
     {
       id: 'b',
@@ -82,8 +82,8 @@ export class DaftarBrevetComponent implements OnInit {
         startDate: '1 Oktober 2025',
         endDate: '15 Desember 2025',
         days: 'Selasa, Kamis, Sabtu',
-        time: '19:00 - 22:00 WIB'
-      }
+        time: '19:00 - 22:00 WIB',
+      },
     },
     {
       id: 'c',
@@ -101,20 +101,12 @@ export class DaftarBrevetComponent implements OnInit {
         startDate: '15 Oktober 2025',
         endDate: '31 Januari 2026',
         days: 'Senin, Rabu, Jumat, Sabtu',
-        time: '19:00 - 22:00 WIB'
-      }
+        time: '19:00 - 22:00 WIB',
+      },
     },
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public siteSettings: SiteSettingsService
-  ) {
-    this.siteSettings.settings$.subscribe((settings) => {
-      this.logoUrl = settings.logo || './logo-daftar.svg';
-    });
-  }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -124,7 +116,8 @@ export class DaftarBrevetComponent implements OnInit {
         return;
       }
 
-      this.program = this.brevetPrograms.find((p) => p.id === this.brevetType) || null;
+      this.program =
+        this.brevetPrograms.find((p) => p.id === this.brevetType) || null;
       if (this.program) {
         this.brevetTitle = this.program.title;
       }
@@ -141,7 +134,7 @@ export class DaftarBrevetComponent implements OnInit {
     console.log('Form submitted:', {
       ...this.formData,
       brevetType: this.brevetType,
-      program: this.program?.title
+      program: this.program?.title,
     });
   }
 }
