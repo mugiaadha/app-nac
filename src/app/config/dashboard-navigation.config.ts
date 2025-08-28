@@ -28,10 +28,10 @@ export const DASHBOARD_NAVIGATION: NavigationItem[] = [
     requiresAuth: true,
   },
   {
-    id: 'brevet-pajak',
+    id: 'brevet',
     label: 'Brevet Pajak',
     icon: 'bi-file-earmark-text',
-    route: '/brevet-pajak',
+    route: '/brevet',
     type: 'link',
     description: 'Program Brevet Pajak A, B, C',
     showInSidebar: true,

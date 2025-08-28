@@ -14,7 +14,7 @@
               </li>
               <li class="breadcrumb-item">
                 <a
-                  [routerLink]="['/brevet-pajak']"
+                  [routerLink]="['/brevet']"
                   class="text-white text-decoration-none"
                   >Brevet Pajak</a
                 >
@@ -63,10 +63,10 @@
                 <span>{{ program.schedule.days }}</span>
               </div>
               <div class="d-grid gap-2">
-                <button class="btn btn-light btn-lg" (click)="enrollNow()">
+                <a [routerLink]="['/daftar-brevet', program.id]" class="btn btn-light btn-lg">
                   <i class="bi bi-play-circle me-2"></i>
-                  Mulai Program
-                </button>
+                  Daftar
+                </a>
               </div>
             </div>
           </div>
@@ -163,21 +163,14 @@
             </div>
 
             <div class="d-grid gap-2">
-              <button
+              <a
+                [routerLink]="['/daftar-brevet', program.id]"
                 class="btn btn-lg"
                 [ngClass]="program.bgColor + ' text-white'"
-                (click)="enrollNow()"
               >
                 <i class="bi bi-person-plus me-2"></i>
-                Mulai Program
-              </button>
-              <button
-                class="btn btn-outline-secondary"
-                (click)="downloadBrochure()"
-              >
-                <i class="bi bi-download me-2"></i>
-                Download Brosur
-              </button>
+                Daftar Program
+              </a>
             </div>
           </div>
         </div>
@@ -190,7 +183,11 @@
               Tim kami siap membantu Anda memilih program yang tepat.
             </p>
             <div class="d-grid">
-              <a href="tel:+6281234567890" class="btn btn-outline-primary">
+              <a
+                href="tel:+6281234567890"
+                class="btn"
+                [ngClass]="program.btnOutLine"
+              >
                 <i class="bi bi-telephone me-2"></i>
                 Hubungi Kami
               </a>
@@ -217,7 +214,7 @@
               <h5 class="card-title">{{ relatedProgram.title }}</h5>
               <p class="card-text text-muted">{{ relatedProgram.subtitle }}</p>
               <a
-                [routerLink]="['/brevet-pajak', relatedProgram.id]"
+                [routerLink]="['/brevet', relatedProgram.id]"
                 class="btn btn-outline-primary"
               >
                 Lihat Detail
@@ -240,7 +237,7 @@
       <p class="text-muted mb-4">
         Program Brevet Pajak yang Anda cari tidak tersedia.
       </p>
-      <a [routerLink]="['/brevet-pajak']" class="btn btn-primary">
+      <a [routerLink]="['/brevet']" class="btn btn-primary">
         <i class="bi bi-arrow-left me-2"></i>
         Kembali ke Daftar Program
       </a>

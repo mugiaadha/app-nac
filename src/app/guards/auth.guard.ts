@@ -10,23 +10,29 @@ export const authGuard: CanActivateFn = (route, state) => {
   return authService.user$.pipe(
     map((user) => {
       if (user) {
-        if (user.status === 'email-verif') {
-          // Only allow access to /verifikasi-email
-          if (state.url.startsWith('/verifikasi-email')) {
-            return true;
-          } else {
-            router.navigate(['/verifikasi-email']);
-            return false;
-          }
+        const statusPageMap: Record<string, string> = {
+          'email-verif': '/verifikasi-email',
+          'payment-verif': '/verifikasi-payment',
+        };
+        const allowedPage = statusPageMap[user.status];
+        const isOnAllowedPage =
+          allowedPage && state.url.startsWith(allowedPage);
+
+        // If user has a restricted status
+        if (allowedPage) {
+          if (isOnAllowedPage) return true;
+          setTimeout(() => router.navigate([allowedPage]), 0);
+          return false;
         }
-        if (user.status === 'payment-verif') {
-          // Only allow access to /payment
-          if (state.url.startsWith('/payment')) {
-            return true;
-          } else {
-            router.navigate(['/payment']);
-            return false;
-          }
+
+        // If user is active, block access to any restricted page
+        if (
+          Object.values(statusPageMap).some((page) =>
+            state.url.startsWith(page)
+          )
+        ) {
+          setTimeout(() => router.navigate(['/dashboard']), 0);
+          return false;
         }
         return true;
       } else {

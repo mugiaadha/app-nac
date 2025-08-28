@@ -40,7 +40,7 @@ export interface BrevetLesson {
 export const BREVET_COURSES: BrevetCourse[] = [
   {
     id: 'brevet-a',
-    slug: 'brevet-pajak-a',
+    slug: 'brevet-a',
     title: 'Brevet Pajak A',
     subtitle: 'Dasar-dasar Perpajakan',
     description: 'Program pelatihan dasar perpajakan untuk pemahaman fundamental sistem pajak Indonesia',
@@ -139,7 +139,7 @@ export const BREVET_COURSES: BrevetCourse[] = [
   },
   {
     id: 'brevet-b',
-    slug: 'brevet-pajak-b',
+    slug: 'brevet-b',
     title: 'Brevet Pajak B',
     subtitle: 'Perpajakan Menengah',
     description: 'Program pelatihan perpajakan tingkat menengah untuk praktisi dan konsultan pajak',
@@ -175,7 +175,7 @@ export const BREVET_COURSES: BrevetCourse[] = [
   },
   {
     id: 'brevet-c',
-    slug: 'brevet-pajak-c',
+    slug: 'brevet-c',
     title: 'Brevet Pajak C',
     subtitle: 'Konsultan Pajak Profesional',
     description: 'Program pelatihan perpajakan tingkat lanjut untuk menjadi konsultan pajak bersertifikat',

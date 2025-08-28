@@ -71,18 +71,18 @@ export const routes: Routes = [
         data: { seo: SEO_CONFIG.courses },
       },
       {
-        path: 'brevet-pajak',
+        path: 'brevet',
         loadComponent: () =>
-          import('./pages/brevet-pajak/brevet-pajak.component').then(
+          import('./pages/brevet/brevet.component').then(
             (m) => m.BrevetPajakComponent
           ),
       },
       {
-        path: 'brevet-pajak/:id',
+        path: 'brevet/:id',
         loadComponent: () =>
-          import(
-            './pages/brevet-pajak/brevet-detail/brevet-detail.component'
-          ).then((m) => m.BrevetDetailComponent),
+          import('./pages/brevet/brevet-detail/brevet-detail.component').then(
+            (m) => m.BrevetDetailComponent
+          ),
       },
       {
         path: 'articles',
@@ -163,7 +163,7 @@ export const routes: Routes = [
           ).then((m) => m.VerifikasiEmailComponent),
       },
       {
-        path: 'payment',
+        path: 'verifikasi-payment',
         loadComponent: () =>
           import(
             './pages/dashboard/verifikasi-payment/verifikasi-payment.component'

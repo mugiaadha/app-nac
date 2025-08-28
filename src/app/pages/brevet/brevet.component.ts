@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-brevet-pajak',
+  selector: 'app-brevet',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './brevet-pajak.component.html',
-  styleUrls: ['./brevet-pajak.component.scss'],
+  templateUrl: './brevet.component.html',
+  styleUrls: ['./brevet.component.scss'],
 })
 export class BrevetPajakComponent {
   brevetPrograms = [

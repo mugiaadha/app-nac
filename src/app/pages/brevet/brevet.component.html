@@ -1,4 +1,4 @@
-<div class="brevet-pajak-page">
+<div class="brevet-page">
   <!-- Hero Section -->
   <div class="hero-section bg-gradient-primary text-white rounded-top-4 py-5">
     <div class="container">
@@ -92,15 +92,15 @@
 
             <div class="card-footer bg-transparent py-3">
               <div class="d-grid gap-2">
-                <button
+                <a
+                  [routerLink]="['/daftar-brevet', program.id]"
                   class="btn btn-success btn-lg"
-                  (click)="startProgram(program.id)"
                 >
                   <i class="bi bi-play-circle me-1"></i>
                   Daftar Brevet {{ program.id.toUpperCase() }}
-                </button>
+                </a>
                 <a
-                  [routerLink]="['/brevet-pajak', program.id]"
+                  [routerLink]="['/brevet', program.id]"
                   class="btn btn-outline-success"
                 >
                   <i class="bi bi-info-circle me-1"></i>
