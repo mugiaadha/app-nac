@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../state/auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -11,14 +12,34 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
   loading = false;
   errorMsg = '';
   successMsg = '';
   selectedFile: File | null = null;
   previewUrl: string | null = null;
 
-  constructor(private toastr: ToastrService, private http: HttpClient) {}
+  constructor(
+    private toastr: ToastrService,
+    private http: HttpClient,
+    private auth: AuthService
+  ) {}
+
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.http.get<any>('https://backend.nacademy.my.id/api/user', {
+        headers: { Authorization: `Bearer ${token}` }
+      }).subscribe({
+        next: (res) => {
+          if (res && res.data) {
+            localStorage.setItem('user', JSON.stringify(res.data));
+            this.auth['userSubject'].next(res.data);
+          }
+        }
+      });
+    }
+  }
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
