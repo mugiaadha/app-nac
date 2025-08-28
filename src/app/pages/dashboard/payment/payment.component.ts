@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent {
   loading = false;
@@ -49,29 +49,36 @@ export class PaymentComponent {
     }
     this.loading = true;
     const formData = new FormData();
-    formData.append('proof', this.selectedFile);
-    this.http.post<any>('https://backend.nacademy.my.id/api/upload-payment-proof', formData, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).subscribe({
-      next: (res) => {
-        this.loading = false;
-        if (res.success) {
-          this.successMsg = res.message || 'Bukti pembayaran berhasil dikirim!';
-          this.toastr.success(this.successMsg, 'Sukses');
-          this.selectedFile = null;
-          this.previewUrl = null;
-        } else {
-          this.errorMsg = res.message || 'Gagal mengupload bukti pembayaran.';
-          this.toastr.error(this.errorMsg, 'Gagal');
+    formData.append('bukti', this.selectedFile);
+    this.http
+      .post<any>(
+        'https://backend.nacademy.my.id/api/upload-payment-proof',
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
-      },
-      error: (err) => {
-        this.loading = false;
-        let msg = 'Terjadi kesalahan server.';
-        if (err?.error?.message) msg = err.error.message;
-        this.errorMsg = msg;
-        this.toastr.error(msg, 'Gagal');
-      }
-    });
+      )
+      .subscribe({
+        next: (res) => {
+          this.loading = false;
+          if (res.success) {
+            this.successMsg =
+              res.message || 'Bukti pembayaran berhasil dikirim!';
+            this.toastr.success(this.successMsg, 'Sukses');
+            this.selectedFile = null;
+            this.previewUrl = null;
+          } else {
+            this.errorMsg = res.message || 'Gagal mengupload bukti pembayaran.';
+            this.toastr.error(this.errorMsg, 'Gagal');
+          }
+        },
+        error: (err) => {
+          this.loading = false;
+          let msg = 'Terjadi kesalahan server.';
+          if (err?.error?.message) msg = err.error.message;
+          this.errorMsg = msg;
+          this.toastr.error(msg, 'Gagal');
+        },
+      });
   }
 }
