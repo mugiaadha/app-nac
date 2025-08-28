@@ -52,7 +52,7 @@ export class DaftarBrevetComponent implements OnInit {
   private brevetPrograms: BrevetProgram[] = [
     {
       id: 'a',
-      title: 'Brevet Pajak A',
+      title: 'Brevet A',
       subtitle: 'Dasar-dasar Perpajakan',
       description:
         'Program pelatihan dasar perpajakan untuk pemahaman fundamental',
@@ -72,7 +72,7 @@ export class DaftarBrevetComponent implements OnInit {
     },
     {
       id: 'b',
-      title: 'Brevet Pajak B',
+      title: 'Brevet B',
       subtitle: 'Perpajakan Menengah',
       description: 'Program pelatihan perpajakan tingkat menengah',
       price: 3500000,
@@ -91,7 +91,7 @@ export class DaftarBrevetComponent implements OnInit {
     },
     {
       id: 'c',
-      title: 'Brevet Pajak C',
+      title: 'Brevet C',
       subtitle: 'Konsultan Pajak Profesional',
       description: 'Program pelatihan perpajakan tingkat lanjut',
       price: 4500000,
