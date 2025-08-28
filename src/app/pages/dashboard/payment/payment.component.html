@@ -1,0 +1,43 @@
+<div class="payment-container">
+  <h2>Pembayaran</h2>
+  <div class="alert alert-info text-center mb-4" style="font-size: 0.98rem">
+    <strong>Catatan Penting:</strong><br>
+    <ul class="text-start d-inline-block" style="font-size:0.97rem;max-width:500px;margin:0 auto 0 auto;text-align:left;">
+      <li>Pastikan nama merchant pada QRIS adalah <br><b>NAC TAX CENTER</b>.</li>
+      <li>Lakukan pembayaran melalui QRIS di bawah ini.</li>
+      <li>Upload bukti pembayaran setelah transfer berhasil.</li>
+      <li>Cek halaman ini secara berkala sampai admin menyetujui bukti pembayaran Anda.</li>
+      <li>Jika ada kendala, silakan hubungi admin.</li>
+    </ul>
+  </div>
+  <div class="qris-section text-center mb-4">
+    <img src="./images/qris/qris.jpg" alt="QRIS Pembayaran" class="qris-img" />
+    <div class="mt-2 text-muted" style="font-size: 0.95rem">
+      Scan QRIS di atas menggunakan aplikasi pembayaran Anda.
+    </div>
+  </div>
+  <form (ngSubmit)="onSubmit()" #paymentForm="ngForm">
+    <div class="mb-3">
+      <label for="bukti" class="form-label">Upload Bukti Transfer</label>
+      <input
+        type="file"
+        id="bukti"
+        class="form-control"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        required
+      />
+      <div *ngIf="previewUrl" class="mt-2">
+        <img [src]="previewUrl" alt="Preview Bukti" class="bukti-preview" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success w-100" [disabled]="loading">
+      <span *ngIf="loading">Mengupload...</span>
+      <span *ngIf="!loading">Kirim Bukti Pembayaran</span>
+    </button>
+    <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success mt-3">
+      {{ successMsg }}
+    </div>
+  </form>
+</div>

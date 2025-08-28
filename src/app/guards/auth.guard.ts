@@ -8,8 +8,26 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   return authService.user$.pipe(
-    map(user => {
+    map((user) => {
       if (user) {
+        if (user.status === 'email-verif') {
+          // Only allow access to /verifikasi-otp
+          if (state.url.startsWith('/verifikasi-otp')) {
+            return true;
+          } else {
+            router.navigate(['/verifikasi-otp']);
+            return false;
+          }
+        }
+        if (user.status === 'payment-verif') {
+          // Only allow access to /payment
+          if (state.url.startsWith('/payment')) {
+            return true;
+          } else {
+            router.navigate(['/payment']);
+            return false;
+          }
+        }
         return true;
       } else {
         // Simpan intended URL untuk redirect setelah login

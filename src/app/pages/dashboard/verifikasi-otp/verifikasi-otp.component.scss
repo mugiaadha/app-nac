@@ -1,0 +1,21 @@
+.otp-verification-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.08);
+}
+.otp-verification-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.otp-verification-container .btn-link {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 0.95rem;
+}
+.otp-verification-container .btn-link[disabled] {
+  color: #aaa;
+  text-decoration: none;
+}

@@ -1,0 +1,36 @@
+<div class="otp-verification-container">
+  <h2>Verifikasi OTP</h2>
+  <div class="alert alert-info text-center mb-4" style="font-size: 0.98rem">
+    Silakan cek email Anda secara berkala (termasuk folder spam).<br />
+    Kode OTP akan otomatis expired dalam 10 menit.
+  </div>
+  <form (ngSubmit)="onSubmit()" #otpForm="ngForm">
+    <div class="mb-3">
+      <label for="otp" class="form-label">Kode OTP</label>
+      <input
+        type="text"
+        id="otp"
+        class="form-control"
+        name="otp"
+        [(ngModel)]="otp"
+        maxlength="6"
+        required
+        autocomplete="one-time-code"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+      <span *ngIf="loading">Memverifikasi...</span>
+      <span *ngIf="!loading">Verifikasi</span>
+    </button>
+    <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success mt-3">
+      {{ successMsg }}
+    </div>
+  </form>
+  <div class="mt-3 text-center">
+    <button class="btn btn-link" (click)="resendOtp()" [disabled]="resending">
+      <span *ngIf="!resending">Kirim ulang kode OTP</span>
+      <span *ngIf="resending">Mengirim ulang...</span>
+    </button>
+  </div>
+</div>

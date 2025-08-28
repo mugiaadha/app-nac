@@ -12,10 +12,10 @@ import { DashboardHeaderComponent } from '../../shared/dashboard-header/dashboar
   selector: 'app-inner-layout',
   standalone: true,
   imports: [RouterOutlet, RouterModule, CommonModule, DashboardHeaderComponent],
-  templateUrl: './quiz-layout.component.html',
-  styleUrls: ['./quiz-layout.component.scss'],
+  templateUrl: './non-sidebar-layout.component.html',
+  styleUrls: ['./non-sidebar-layout.component.scss'],
 })
-export class QuizLayoutComponent implements OnInit, OnDestroy {
+export class NonSidebarLayoutComponent implements OnInit, OnDestroy {
   user: User | null = null;
   private destroy$ = new Subject<void>();
 

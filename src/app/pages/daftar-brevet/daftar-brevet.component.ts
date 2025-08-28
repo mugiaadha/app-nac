@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -113,7 +114,8 @@ export class DaftarBrevetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -134,10 +136,19 @@ export class DaftarBrevetComponent implements OnInit {
 
   onSubmit() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    this.loading = true;
     this.errorMsg = '';
+    const toastRef = this.toastr.info(
+      'Sedang memproses pendaftaran...',
+      'Mohon Tunggu',
+      {
+        disableTimeOut: true,
+        tapToDismiss: false,
+        closeButton: false,
+        positionClass: 'toast-top-right',
+      }
+    );
     if (this.formData.password !== this.formData.confirmPassword) {
-      this.loading = false;
+      this.toastr.clear();
       this.errorMsg = 'Konfirmasi sandi tidak cocok.';
       return;
     }
@@ -151,19 +162,25 @@ export class DaftarBrevetComponent implements OnInit {
       })
       .subscribe({
         next: (success) => {
-          this.loading = false;
+          this.toastr.clear();
           if (success) {
+            this.toastr.success(
+              'Registrasi berhasil! Mengalihkan ke dashboard...',
+              'Sukses'
+            );
             window.location.href = '/dashboard';
           } else {
+            this.toastr.error('Registrasi gagal. Cek data Anda.', 'Gagal');
             this.errorMsg = 'Registrasi gagal. Cek data Anda.';
           }
         },
         error: (err) => {
-          this.loading = false;
+          this.toastr.clear();
           if (err?.error) {
             const res = err.error;
+            let msg = '';
             if (res.message) {
-              this.errorMsg = res.message;
+              msg = res.message;
             }
             if (res.data && typeof res.data === 'object') {
               const fieldErrors = Object.entries(res.data)
@@ -172,10 +189,13 @@ export class DaftarBrevetComponent implements OnInit {
                 )
                 .join('\n');
               if (fieldErrors) {
-                this.errorMsg += (this.errorMsg ? '\n' : '') + fieldErrors;
+                msg += (msg ? '\n' : '') + fieldErrors;
               }
             }
+            this.toastr.error(msg || 'Registrasi gagal.', 'Gagal');
+            this.errorMsg = msg;
           } else {
+            this.toastr.error('Terjadi kesalahan server.', 'Gagal');
             this.errorMsg = 'Terjadi kesalahan server.';
           }
         },

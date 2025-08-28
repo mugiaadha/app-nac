@@ -8,7 +8,7 @@ import { PusatBantuanComponent } from './pages/pusat-bantuan/pusat-bantuan.compo
 import { authGuard } from './guards/auth.guard';
 import { OuterLayoutComponent } from './layouts/outer-layout.component';
 import { InnerLayoutComponent } from './layouts/inner-layout.component';
-import { QuizLayoutComponent } from './layouts/quiz-layout/quiz-layout.component';
+import { NonSidebarLayoutComponent } from './layouts/non-sidebar-layout/non-sidebar-layout.component';
 import { DaftarBrevetComponent } from './pages/daftar-brevet/daftar-brevet.component';
 
 export const routes: Routes = [
@@ -151,10 +151,24 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    component: QuizLayoutComponent,
+    component: NonSidebarLayoutComponent,
     resolve: { seo: SeoResolver },
     data: { seo: SEO_CONFIG.dashboard },
     children: [
+      {
+        path: 'verifikasi-otp',
+        loadComponent: () =>
+          import(
+            './pages/dashboard/verifikasi-otp/verifikasi-otp.component'
+          ).then((m) => m.VerifikasiOtpComponent),
+      },
+      {
+        path: 'payment',
+        loadComponent: () =>
+          import('./pages/dashboard/payment/payment.component').then(
+            (m) => m.PaymentComponent
+          ),
+      },
       {
         path: 'course-learning/:id',
         loadComponent: () =>
