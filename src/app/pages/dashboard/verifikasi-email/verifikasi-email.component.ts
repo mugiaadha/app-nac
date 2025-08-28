@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../state/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LogoComponent } from '../../../shared/logo/logo.component';
 
 @Component({
-  selector: 'app-verifikasi-otp',
+  selector: 'app-verifikasi-email',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './verifikasi-otp.component.html',
-  styleUrls: ['./verifikasi-otp.component.scss'],
+  imports: [CommonModule, FormsModule, LogoComponent],
+  templateUrl: './verifikasi-email.component.html',
+  styleUrls: ['./verifikasi-email.component.scss'],
 })
-export class VerifikasiOtpComponent {
+export class VerifikasiEmailComponent {
   otp = '';
   loading = false;
   resending = false;
@@ -42,11 +42,15 @@ export class VerifikasiOtpComponent {
     }
     this.loading = true;
     this.http
-      .post<any>('https://backend.nacademy.my.id/api/verify-otp', {
-        otp: this.otp,
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      .post<any>(
+        'https://backend.nacademy.my.id/api/verify-otp',
+        {
+          otp: this.otp,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .subscribe({
         next: (res) => {
           if (res.success) {

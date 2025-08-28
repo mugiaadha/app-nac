@@ -156,11 +156,11 @@ export const routes: Routes = [
     data: { seo: SEO_CONFIG.dashboard },
     children: [
       {
-        path: 'verifikasi-otp',
+        path: 'verifikasi-email',
         loadComponent: () =>
           import(
-            './pages/dashboard/verifikasi-otp/verifikasi-otp.component'
-          ).then((m) => m.VerifikasiOtpComponent),
+            './pages/dashboard/verifikasi-email/verifikasi-email.component'
+          ).then((m) => m.VerifikasiEmailComponent),
       },
       {
         path: 'payment',

@@ -1,5 +1,8 @@
 <div class="otp-verification-container">
-  <h2>Verifikasi OTP</h2>
+  <div class="text-center">
+    <app-logo></app-logo>
+    <h3 class="py-4">Verifikasi Email</h3>
+  </div>
   <div class="alert alert-info text-center mb-4" style="font-size: 0.98rem">
     Silakan cek email Anda secara berkala (termasuk folder spam).<br />
     Kode OTP akan otomatis expired dalam 10 menit.
@@ -18,7 +21,11 @@
         autocomplete="one-time-code"
       />
     </div>
-    <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+    <button
+      type="submit"
+      class="btn btn-primary bg-malibu-purple w-100"
+      [disabled]="loading"
+    >
       <span *ngIf="loading">Memverifikasi...</span>
       <span *ngIf="!loading">Verifikasi</span>
     </button>

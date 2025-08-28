@@ -11,11 +11,11 @@ export const authGuard: CanActivateFn = (route, state) => {
     map((user) => {
       if (user) {
         if (user.status === 'email-verif') {
-          // Only allow access to /verifikasi-otp
-          if (state.url.startsWith('/verifikasi-otp')) {
+          // Only allow access to /verifikasi-email
+          if (state.url.startsWith('/verifikasi-email')) {
             return true;
           } else {
-            router.navigate(['/verifikasi-otp']);
+            router.navigate(['/verifikasi-email']);
             return false;
           }
         }
