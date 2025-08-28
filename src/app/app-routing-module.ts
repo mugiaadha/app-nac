@@ -165,9 +165,9 @@ export const routes: Routes = [
       {
         path: 'payment',
         loadComponent: () =>
-          import('./pages/dashboard/payment/payment.component').then(
-            (m) => m.PaymentComponent
-          ),
+          import(
+            './pages/dashboard/verifikasi-payment/verifikasi-payment.component'
+          ).then((m) => m.PaymentComponent),
       },
       {
         path: 'course-learning/:id',

@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../state/auth.service';
 
 @Component({
-  selector: 'app-payment',
+  selector: 'app-verifikasi-payment',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss'],
+  templateUrl: './verifikasi-payment.component.html',
+  styleUrls: ['./verifikasi-payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
   loading = false;
@@ -28,16 +28,18 @@ export class PaymentComponent implements OnInit {
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.http.get<any>('https://backend.nacademy.my.id/api/user', {
-        headers: { Authorization: `Bearer ${token}` }
-      }).subscribe({
-        next: (res) => {
-          if (res && res.data) {
-            localStorage.setItem('user', JSON.stringify(res.data));
-            this.auth['userSubject'].next(res.data);
-          }
-        }
-      });
+      this.http
+        .get<any>('https://backend.nacademy.my.id/api/user', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .subscribe({
+          next: (res) => {
+            if (res && res.data) {
+              localStorage.setItem('user', JSON.stringify(res.data));
+              this.auth['userSubject'].next(res.data);
+            }
+          },
+        });
     }
   }
 
