@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-payment',
@@ -17,7 +18,7 @@ export class PaymentComponent {
   selectedFile: File | null = null;
   previewUrl: string | null = null;
 
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService, private http: HttpClient) {}
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -41,14 +42,36 @@ export class PaymentComponent {
       this.errorMsg = 'Silakan upload bukti transfer.';
       return;
     }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.errorMsg = 'Token tidak ditemukan.';
+      return;
+    }
     this.loading = true;
-    // Simulasi upload
-    setTimeout(() => {
-      this.loading = false;
-      this.successMsg = 'Bukti pembayaran berhasil dikirim!';
-      this.toastr.success('Bukti pembayaran berhasil dikirim!', 'Sukses');
-      this.selectedFile = null;
-      this.previewUrl = null;
-    }, 1500);
+    const formData = new FormData();
+    formData.append('proof', this.selectedFile);
+    this.http.post<any>('https://backend.nacademy.my.id/api/upload-payment-proof', formData, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+      next: (res) => {
+        this.loading = false;
+        if (res.success) {
+          this.successMsg = res.message || 'Bukti pembayaran berhasil dikirim!';
+          this.toastr.success(this.successMsg, 'Sukses');
+          this.selectedFile = null;
+          this.previewUrl = null;
+        } else {
+          this.errorMsg = res.message || 'Gagal mengupload bukti pembayaran.';
+          this.toastr.error(this.errorMsg, 'Gagal');
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        let msg = 'Terjadi kesalahan server.';
+        if (err?.error?.message) msg = err.error.message;
+        this.errorMsg = msg;
+        this.toastr.error(msg, 'Gagal');
+      }
+    });
   }
 }
