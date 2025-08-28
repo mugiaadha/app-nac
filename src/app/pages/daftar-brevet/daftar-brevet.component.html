@@ -132,9 +132,10 @@
                 <button
                   type="submit"
                   class="btn btn-gradient w-100"
-                  [disabled]="!formData.agreeToTerms"
+                  [disabled]="loading || !formData.agreeToTerms"
                 >
-                  Daftar {{ brevetTitle }}
+                  <span *ngIf="loading">Memproses...</span>
+                  <span *ngIf="!loading">Daftar {{ brevetTitle }}</span>
                 </button>
                 <div class="mt-3 text-center">
                   Sudah punya akun? <a [routerLink]="['/login']">Masuk</a>
