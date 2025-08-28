@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { LogoComponent } from '../../shared/logo/logo.component';
+import { AuthService } from '../../state/auth.service';
 
 interface BrevetProgram {
   id: string;
@@ -26,7 +28,7 @@ interface BrevetProgram {
 @Component({
   selector: 'app-daftar-brevet',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, LogoComponent],
   templateUrl: './daftar-brevet.component.html',
   styleUrls: ['./daftar-brevet.component.scss'],
 })
@@ -44,6 +46,8 @@ export class DaftarBrevetComponent implements OnInit {
     confirmPassword: '',
     agreeToTerms: false,
   };
+  loading = false;
+  errorMsg = '';
 
   private brevetPrograms: BrevetProgram[] = [
     {
@@ -106,7 +110,11 @@ export class DaftarBrevetComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -125,16 +133,52 @@ export class DaftarBrevetComponent implements OnInit {
   }
 
   onSubmit() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.loading = true;
+    this.errorMsg = '';
     if (this.formData.password !== this.formData.confirmPassword) {
-      // Handle password mismatch
+      this.loading = false;
+      this.errorMsg = 'Konfirmasi sandi tidak cocok.';
       return;
     }
-
-    // Handle form submission
-    console.log('Form submitted:', {
-      ...this.formData,
-      brevetType: this.brevetType,
-      program: this.program?.title,
-    });
+    this.auth
+      .register({
+        name: this.formData.nama,
+        email: this.formData.email,
+        phone: this.formData.phone,
+        password: this.formData.password,
+        password_confirmation: this.formData.confirmPassword,
+      })
+      .subscribe({
+        next: (success) => {
+          this.loading = false;
+          if (success) {
+            window.location.href = '/dashboard';
+          } else {
+            this.errorMsg = 'Registrasi gagal. Cek data Anda.';
+          }
+        },
+        error: (err) => {
+          this.loading = false;
+          if (err?.error) {
+            const res = err.error;
+            if (res.message) {
+              this.errorMsg = res.message;
+            }
+            if (res.data && typeof res.data === 'object') {
+              const fieldErrors = Object.entries(res.data)
+                .map(([field, msgs]) =>
+                  Array.isArray(msgs) ? msgs.join('\n') : msgs
+                )
+                .join('\n');
+              if (fieldErrors) {
+                this.errorMsg += (this.errorMsg ? '\n' : '') + fieldErrors;
+              }
+            }
+          } else {
+            this.errorMsg = 'Terjadi kesalahan server.';
+          }
+        },
+      });
   }
 }

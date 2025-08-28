@@ -3,11 +3,19 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="text-center mb-4">
-          <img [src]="logoUrl" alt="Logo NAC" width="100" height="48" />
+          <app-logo></app-logo>
           <h2 class="fw-bold mt-3">Pendaftaran {{ brevetTitle }}</h2>
         </div>
         <div class="card shadow-sm border-0">
           <form (ngSubmit)="onSubmit()">
+            <div *ngIf="errorMsg" class="alert alert-danger d-flex align-items-start gap-2 mb-4">
+              <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+              <div>
+                <ul class="mb-0 ps-3">
+                  <li *ngFor="let msg of errorMsg.split('\n')">{{ msg }}</li>
+                </ul>
+              </div>
+            </div>
             <!-- Data Diri & Akun Estetik -->
             <div class="row mb-4">
               <div class="col-12 mb-2">

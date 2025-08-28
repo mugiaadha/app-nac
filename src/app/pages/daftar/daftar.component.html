@@ -3,10 +3,20 @@
 >
   <div class="card p-4 shadow" style="max-width: 400px; width: 100%">
     <div class="text-center mb-3">
-  <app-logo></app-logo>
+      <app-logo></app-logo>
     </div>
     <h2 class="fw-bold mb-3 text-center">Buat Akun Baru</h2>
-  <form (ngSubmit)="submit()">
+    <form (ngSubmit)="submit()">
+      <div
+        *ngIf="errorMsg"
+        class="alert alert-danger mt-3"
+        style="white-space: pre-line"
+      >
+        <ul class="mb-0 ps-3">
+          <li *ngFor="let msg of errorMsg.split('\n')">{{ msg }}</li>
+        </ul>
+      </div>
+
       <div class="mb-3">
         <label for="nama" class="form-label">Nama Lengkap</label>
         <input
@@ -41,7 +51,9 @@
         />
       </div>
       <div class="mb-3">
-        <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
+        <label for="password_confirmation" class="form-label"
+          >Konfirmasi Kata Sandi</label
+        >
         <input
           type="password"
           id="password_confirmation"
@@ -51,8 +63,9 @@
           required
         />
       </div>
-      <button type="submit" class="btn btn-gradient w-100" [disabled]="loading">{{ loading ? 'Memproses...' : 'Daftar' }}</button>
-      <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+      <button type="submit" class="btn btn-gradient w-100" [disabled]="loading">
+        {{ loading ? "Memproses..." : "Daftar" }}
+      </button>
     </form>
     <div class="mt-3 text-center">
       Sudah punya akun? <a [routerLink]="['/login']">Masuk</a>

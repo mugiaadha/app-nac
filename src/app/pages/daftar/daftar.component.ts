@@ -19,6 +19,7 @@ export class DaftarComponent {
   password_confirmation = '';
   loading = false;
   errorMsg = '';
+  phone = '';
 
   constructor(private auth: AuthService) {}
 
@@ -29,6 +30,7 @@ export class DaftarComponent {
       .register({
         name: this.nama,
         email: this.email,
+        phone: this.phone,
         password: this.password,
         password_confirmation: this.password_confirmation,
       })
@@ -43,7 +45,26 @@ export class DaftarComponent {
         },
         error: (err) => {
           this.loading = false;
-          this.errorMsg = 'Terjadi kesalahan server.';
+          // Cek jika error response dari backend
+          if (err?.error) {
+            const res = err.error;
+            if (res.message) {
+              this.errorMsg = res.message;
+            }
+            // Gabungkan error validasi field jika ada
+            if (res.data && typeof res.data === 'object') {
+              const fieldErrors = Object.entries(res.data)
+                .map(([field, msgs]) =>
+                  Array.isArray(msgs) ? msgs.join('\n') : msgs
+                )
+                .join('\n');
+              if (fieldErrors) {
+                this.errorMsg += (this.errorMsg ? '\n' : '') + fieldErrors;
+              }
+            }
+          } else {
+            this.errorMsg = 'Terjadi kesalahan server.';
+          }
         },
       });
   }

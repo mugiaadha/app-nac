@@ -32,12 +32,12 @@ export class AuthService {
   register(data: {
     name: string;
     email: string;
+    phone: string;
     password: string;
     password_confirmation: string;
   }): Observable<boolean> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/register`, data).pipe(
-      map((response) => this.handleLoginResponse(response)),
-      catchError((error) => this.handleLoginError(error))
+      map((response) => this.handleLoginResponse(response))
     );
   }
 
