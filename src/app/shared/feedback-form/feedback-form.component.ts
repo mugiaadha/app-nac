@@ -2,21 +2,17 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { RecaptchaModule } from 'ng-recaptcha';
+// import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-feedback-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, RecaptchaModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent {
-  siteKey: string = '6LdW48ErAAAAAKqoDiyAPiJJmGE2OkpJlz8xXOva'; // Ganti dengan site key asli
-  captchaToken: string | null = '6LdW48ErAAAAAFEH4xSIzu5DM7fqpKqfhrh8BvM8';
-  onCaptchaResolved(token: string | null) {
-    this.captchaToken = token ?? null;
-  }
+  // reCAPTCHA removed
   @Input() title: string = 'Kirim Feedback';
   loading = false;
   errorMsg = '';
@@ -36,10 +32,7 @@ export class FeedbackFormComponent {
       this.errorMsg = 'Semua field wajib diisi.';
       return;
     }
-    if (!this.captchaToken) {
-      this.errorMsg = 'Captcha harus diisi.';
-      return;
-    }
+  // reCAPTCHA validation removed
     this.loading = true;
     // Simulasi kirim feedback
     setTimeout(() => {
@@ -47,7 +40,7 @@ export class FeedbackFormComponent {
       this.successMsg = 'Feedback berhasil dikirim!';
       this.toastr.success('Feedback berhasil dikirim!', 'Sukses');
       this.formData = { name: '', email: '', message: '' };
-      this.captchaToken = null;
+  // reCAPTCHA reset removed
     }, 1200);
   }
 }
