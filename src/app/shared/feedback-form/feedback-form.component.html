@@ -34,7 +34,10 @@
         required
       ></textarea>
     </div>
-  <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+    <div class="mb-3 d-block text-center">
+      <div id="recaptcha-container" class="g-recaptcha" [attr.data-sitekey]="siteKey"></div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="loading || !captchaToken">
       <span *ngIf="loading">Mengirim...</span>
       <span *ngIf="!loading">Kirim Feedback</span>
     </button>

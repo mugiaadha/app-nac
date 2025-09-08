@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SiteSettings } from '../models/site-settings.model';
+import { environment } from '../../environment';
 
-import { environment } from '../../../environment';
 const BASE_URL = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })

@@ -14,6 +14,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent {
+  siteKey: string = environment.recaptchaSiteKey;
+  captchaToken: string | null = environment.recaptchaSecret;
+  ngAfterViewInit() {
+    if ((window as any).grecaptcha) {
+      (window as any).grecaptcha.render('recaptcha-container', {
+        sitekey: this.siteKey,
+        callback: (token: string) => {
+          this.captchaToken = token;
+        },
+      });
+    }
+  }
   @Input() title: string = 'Kirim Feedback';
   loading = false;
   errorMsg = '';
@@ -33,12 +45,23 @@ export class FeedbackFormComponent {
       this.errorMsg = 'Semua field wajib diisi.';
       return;
     }
+    if (!(window as any).grecaptcha) {
+      this.errorMsg = 'Captcha belum termuat.';
+      return;
+    }
     this.loading = true;
+    this.captchaToken = (window as any).grecaptcha.getResponse();
+    if (!this.captchaToken) {
+      this.errorMsg = 'Captcha harus diisi.';
+      this.loading = false;
+      return;
+    }
     const payload = {
       name: this.formData.name,
       email: this.formData.email,
       message: this.formData.message,
       subject: this.title,
+      captcha: this.captchaToken,
     };
     this.http.post(environment.baseUrl + '/send-feedback', payload).subscribe({
       next: () => {
@@ -46,6 +69,10 @@ export class FeedbackFormComponent {
         this.successMsg = 'Feedback berhasil dikirim!';
         this.toastr.success('Feedback berhasil dikirim!', 'Sukses');
         this.formData = { name: '', email: '', message: '' };
+        if ((window as any).grecaptcha) {
+          (window as any).grecaptcha.reset();
+        }
+        this.captchaToken = null;
       },
       error: (err) => {
         this.loading = false;
