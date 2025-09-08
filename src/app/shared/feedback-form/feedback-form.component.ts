@@ -77,7 +77,7 @@ export class FeedbackFormComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMsg = 'Gagal mengirim feedback.';
+        this.errorMsg = err.message ?? 'Gagal mengirim feedback.';
         this.toastr.error('Gagal mengirim feedback!', 'Error');
       },
     });
