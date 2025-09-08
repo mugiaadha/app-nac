@@ -62,7 +62,7 @@ export class FeedbackFormComponent {
       email: this.formData.email,
       message: this.formData.message,
       subject: this.title,
-      captcha: this.captchaToken,
+      captchaToken: this.captchaToken,
     };
     this.http.post(environment.baseUrl + '/send-feedback', payload).subscribe({
       next: () => {
