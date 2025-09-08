@@ -106,89 +106,89 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard],
-    component: InnerLayoutComponent,
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.dashboard },
+    canActivateChild: [authGuard],
     children: [
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/dashboard-home/dashboard-home.component'
-          ).then((m) => m.DashboardHomeComponent),
+        component: InnerLayoutComponent,
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/dashboard-home/dashboard-home.component'
+              ).then((m) => m.DashboardHomeComponent),
+          },
+          {
+            path: 'profile',
+            loadComponent: () =>
+              import('./pages/dashboard/profile/profile.component').then(
+                (m) => m.ProfileComponent
+              ),
+          },
+          {
+            path: 'certificates',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/certificates/certificates.component'
+              ).then((m) => m.CertificatesComponent),
+          },
+          {
+            path: 'my-courses',
+            loadComponent: () =>
+              import('./pages/dashboard/my-courses/my-courses.component').then(
+                (m) => m.MyCoursesComponent
+              ),
+          },
+          {
+            path: 'my-courses/:id',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/course-detail/course-detail.component'
+              ).then((m) => m.CourseDetailComponent),
+          },
+        ],
       },
       {
-        path: 'profile',
-        loadComponent: () =>
-          import('./pages/dashboard/profile/profile.component').then(
-            (m) => m.ProfileComponent
-          ),
-      },
-      {
-        path: 'certificates',
-        loadComponent: () =>
-          import('./pages/dashboard/certificates/certificates.component').then(
-            (m) => m.CertificatesComponent
-          ),
-      },
-      {
-        path: 'my-courses',
-        loadComponent: () =>
-          import('./pages/dashboard/my-courses/my-courses.component').then(
-            (m) => m.MyCoursesComponent
-          ),
-      },
-      {
-        path: 'my-courses/:id',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/course-detail/course-detail.component'
-          ).then((m) => m.CourseDetailComponent),
-      },
-    ],
-  },
-  {
-    path: '',
-    canActivate: [authGuard],
-    component: NonSidebarLayoutComponent,
-    resolve: { seo: SeoResolver },
-    data: { seo: SEO_CONFIG.dashboard },
-    children: [
-      {
-        path: 'verifikasi-email',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/verifikasi-email/verifikasi-email.component'
-          ).then((m) => m.VerifikasiEmailComponent),
-      },
-      {
-        path: 'verifikasi-payment',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/verifikasi-payment/verifikasi-payment.component'
-          ).then((m) => m.PaymentComponent),
-      },
-      {
-        path: 'course-learning/:id',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/course-learning/course-learning.component'
-          ).then((m) => m.CourseLearningComponent),
-      },
-      {
-        path: 'course-learning/:id/:lessonId',
-        loadComponent: () =>
-          import(
-            './pages/dashboard/course-learning/course-learning.component'
-          ).then((m) => m.CourseLearningComponent),
-      },
-      {
-        path: 'quiz/:courseId/:lessonId',
-        loadComponent: () =>
-          import('./pages/dashboard/quiz/quiz.component').then(
-            (m) => m.QuizComponent
-          ),
+        path: 'learning',
+        component: NonSidebarLayoutComponent,
+        children: [
+          {
+            path: 'verifikasi-email',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/verifikasi-email/verifikasi-email.component'
+              ).then((m) => m.VerifikasiEmailComponent),
+          },
+          {
+            path: 'verifikasi-payment',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/verifikasi-payment/verifikasi-payment.component'
+              ).then((m) => m.PaymentComponent),
+          },
+          {
+            path: 'course/:id',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/course-learning/course-learning.component'
+              ).then((m) => m.CourseLearningComponent),
+          },
+          {
+            path: 'course/:id/:lessonId',
+            loadComponent: () =>
+              import(
+                './pages/dashboard/course-learning/course-learning.component'
+              ).then((m) => m.CourseLearningComponent),
+          },
+          {
+            path: 'quiz/:courseId/:lessonId',
+            loadComponent: () =>
+              import('./pages/dashboard/quiz/quiz.component').then(
+                (m) => m.QuizComponent
+              ),
+          },
+        ],
       },
     ],
   },
