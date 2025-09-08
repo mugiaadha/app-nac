@@ -1,3 +1,4 @@
+import { environment } from '../../../../environment';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -43,7 +44,7 @@ export class VerifikasiEmailComponent {
     this.loading = true;
     this.http
       .post<any>(
-        'https://backend.nacademy.my.id/api/verify-otp',
+  environment.baseUrl + '/verify-otp',
         {
           otp: this.otp,
         },
@@ -58,7 +59,7 @@ export class VerifikasiEmailComponent {
             const token = localStorage.getItem('token');
             if (token) {
               this.http
-                .get<any>('https://backend.nacademy.my.id/api/user', {
+                .get<any>(environment.baseUrl + '/user', {
                   headers: { Authorization: `Bearer ${token}` },
                 })
                 .subscribe({

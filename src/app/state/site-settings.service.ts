@@ -3,7 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SiteSettings } from '../models/site-settings.model';
 
-const BASE_URL = 'https://backend.nacademy.my.id/api';
+import { environment } from '../../../environment';
+const BASE_URL = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })
 export class SiteSettingsService {

@@ -1,3 +1,4 @@
+import { environment } from '../../../../environment';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +30,7 @@ export class PaymentComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       this.http
-        .get<any>('https://backend.nacademy.my.id/api/user', {
+  .get<any>(environment.baseUrl + '/user', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .subscribe({
@@ -75,7 +76,7 @@ export class PaymentComponent implements OnInit {
     formData.append('bukti', this.selectedFile);
     this.http
       .post<any>(
-        'https://backend.nacademy.my.id/api/upload-payment-proof',
+  environment.baseUrl + '/upload-payment-proof',
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },

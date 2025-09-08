@@ -1,3 +1,4 @@
+import { environment } from '../../environment';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -17,7 +18,7 @@ interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'https://backend.nacademy.my.id/api';
+  private readonly apiUrl = environment.baseUrl;
 
   // State management subjects
   private readonly isLoggedInSubject = new BehaviorSubject<boolean>(
