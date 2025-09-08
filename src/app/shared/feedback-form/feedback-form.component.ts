@@ -4,7 +4,6 @@ import { environment } from '../../../environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-// import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-feedback-form',
@@ -14,19 +13,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent {
+  @Input() title: string = 'Kirim Feedback';
+
   siteKey: string = environment.recaptchaSiteKey;
   captchaToken: string | null = '';
-  ngAfterViewInit() {
-    if ((window as any).grecaptcha) {
-      (window as any).grecaptcha.render('recaptcha-container', {
-        sitekey: this.siteKey,
-        callback: (token: string) => {
-          this.captchaToken = token;
-        },
-      });
-    }
-  }
-  @Input() title: string = 'Kirim Feedback';
   loading = false;
   errorMsg = '';
   successMsg = '';
@@ -37,6 +27,17 @@ export class FeedbackFormComponent {
   };
 
   constructor(private toastr: ToastrService, private http: HttpClient) {}
+
+  ngAfterViewInit() {
+    if ((window as any).grecaptcha) {
+      (window as any).grecaptcha.render('recaptcha-container', {
+        sitekey: this.siteKey,
+        callback: (token: string) => {
+          this.captchaToken = token;
+        },
+      });
+    }
+  }
 
   onSubmit() {
     this.errorMsg = '';
