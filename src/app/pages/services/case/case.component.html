@@ -33,39 +33,5 @@
     netus et malesuada fames ac turpis egestas. Nullam ac sapien sit amet erat
     cursus dictum.
   </p>
-  <div class="card p-4 shadow-sm mt-4">
-    <h5 class="mb-3">Kirim Feedback / Pertanyaan</h5>
-    <form>
-      <div class="mb-3">
-        <label for="name" class="form-label">Nama</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          placeholder="Nama Anda"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="Email Anda"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Pesan</label>
-        <textarea
-          class="form-control"
-          id="message"
-          rows="4"
-          placeholder="Tulis pesan atau pertanyaan Anda..."
-        ></textarea>
-      </div>
-      <button type="submit" class="btn btn-gradient w-100 w-md-auto">
-        Kirim
-      </button>
-    </form>
-  </div>
+  <app-feedback-form [title]="'Kirim Feedback Compliance'"></app-feedback-form>
 </div>

@@ -1,0 +1,51 @@
+<div class="feedback-form-container">
+  <h3 class="mb-3 text-center">{{ title }}</h3>
+  <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nama</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        [(ngModel)]="formData.name"
+        name="name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        [(ngModel)]="formData.email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Pesan / Feedback</label>
+      <textarea
+        id="message"
+        class="form-control"
+        [(ngModel)]="formData.message"
+        name="message"
+        rows="4"
+        required
+      ></textarea>
+    </div>
+    <re-captcha
+      [siteKey]="siteKey"
+      (resolved)="onCaptchaResolved($event)"
+      class="mb-3 d-block"
+    ></re-captcha>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="loading || !captchaToken">
+      <span *ngIf="loading">Mengirim...</span>
+      <span *ngIf="!loading">Kirim Feedback</span>
+    </button>
+    <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success mt-3">
+      {{ successMsg }}
+    </div>
+  </form>
+</div>
