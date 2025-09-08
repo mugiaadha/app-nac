@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FeedbackFormComponent {
   siteKey: string = environment.recaptchaSiteKey;
-  captchaToken: string | null = environment.recaptchaSecret;
+  captchaToken: string | null = '';
   ngAfterViewInit() {
     if ((window as any).grecaptcha) {
       (window as any).grecaptcha.render('recaptcha-container', {
