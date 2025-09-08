@@ -25,8 +25,8 @@ import { DashboardInterceptor } from './interceptors/dashboard.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: DashboardInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [App],
 })

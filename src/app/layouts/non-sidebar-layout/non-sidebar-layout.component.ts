@@ -22,7 +22,7 @@ export class NonSidebarLayoutComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private dashboardMiddleware: DashboardMiddlewareService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {

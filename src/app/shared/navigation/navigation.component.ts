@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Subject, takeUntil, filter } from 'rxjs';
@@ -11,7 +18,7 @@ import { NavigationItem } from '../../config/dashboard-navigation.config';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   @Input() type: 'sidebar' | 'mobile' | 'dropdown' = 'sidebar';
@@ -30,7 +37,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     private navigationService: NavigationService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -38,17 +45,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.loadNavigationItems();
 
     // Subscribe to mobile dropdown state
-    this.navigationService.getMobileDropdownState()
+    this.navigationService
+      .getMobileDropdownState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
+      .subscribe((state) => {
         this.showMobileDropdown = state;
       });
 
     // Subscribe to route changes
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntil(this.destroy$)
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$),
       )
       .subscribe((event: any) => {
         this.currentRoute = event.url;
@@ -56,12 +64,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
 
     // Subscribe to auth state
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(user => {
-        this.isAuthenticated = !!user;
-        this.loadNavigationItems(); // Reload items when auth state changes
-      });
+    this.authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.isAuthenticated = !!user;
+      this.loadNavigationItems(); // Reload items when auth state changes
+    });
 
     // Set initial route
     this.currentRoute = this.router.url;
@@ -74,10 +80,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private loadNavigationItems() {
     let items = this.navigationService.getNavigationByType(this.type);
-    
+
     // Filter by authentication
     items = this.navigationService.filterByAuth(items, this.isAuthenticated);
-    
+
     this.navigationItems = items;
   }
 
@@ -135,7 +141,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   getItemClasses(item: NavigationItem): string {
     let classes = '';
-    
+
     switch (this.type) {
       case 'sidebar':
         classes = 'sidebar-item';

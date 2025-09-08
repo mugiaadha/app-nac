@@ -3,17 +3,17 @@
   padding: 2rem;
   background: #f8f9fa;
   border-radius: 12px;
-  
+
   &.certificate-small .certificate-template {
     transform: scale(0.7);
     transform-origin: top center;
   }
-  
+
   &.certificate-medium .certificate-template {
     transform: scale(0.85);
     transform-origin: top center;
   }
-  
+
   &.certificate-large .certificate-template {
     transform: scale(1);
   }
@@ -25,7 +25,7 @@
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   position: relative;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
 .certificate-border {
@@ -33,9 +33,9 @@
   border-image: linear-gradient(90deg, #1976d2 0%, #6366f1 100%) 1;
   padding: 3rem;
   position: relative;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -49,7 +49,7 @@
 .certificate-header {
   text-align: center;
   margin-bottom: 2rem;
-  
+
   .certificate-logo {
     width: 80px;
     height: 80px;
@@ -63,7 +63,7 @@
     font-size: 2rem;
     font-weight: bold;
   }
-  
+
   .certificate-title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -72,7 +72,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
   }
-  
+
   .certificate-subtitle {
     font-size: 1.2rem;
     color: #6c757d;
@@ -83,14 +83,14 @@
 .certificate-content {
   text-align: center;
   margin: 2rem 0;
-  
+
   .certificate-text {
     font-size: 1.1rem;
     color: #495057;
     line-height: 1.8;
     margin-bottom: 1.5rem;
   }
-  
+
   .recipient-name {
     font-size: 2.2rem;
     font-weight: bold;
@@ -100,7 +100,7 @@
     text-decoration-color: #6366f1;
     text-underline-offset: 8px;
   }
-  
+
   .course-name {
     font-size: 1.4rem;
     font-weight: 600;
@@ -108,7 +108,7 @@
     margin: 1rem 0;
     font-style: italic;
   }
-  
+
   .completion-date {
     font-size: 1rem;
     color: #6c757d;
@@ -121,23 +121,23 @@
   justify-content: space-between;
   align-items: end;
   margin-top: 3rem;
-  
+
   .signature-section {
     text-align: center;
     flex: 1;
-    
+
     .signature-line {
       border-bottom: 2px solid #495057;
       width: 200px;
       margin: 0 auto 0.5rem;
     }
-    
+
     .signature-label {
       font-size: 0.9rem;
       color: #6c757d;
       font-weight: 500;
     }
-    
+
     .signature-name {
       font-size: 1rem;
       color: #495057;
@@ -172,7 +172,7 @@
   .certificate-container {
     background: white;
     padding: 0;
-    
+
     .certificate-template {
       box-shadow: none;
       transform: none !important;
@@ -186,39 +186,39 @@
 @media (max-width: 768px) {
   .certificate-container {
     padding: 1rem;
-    
+
     .certificate-template {
       width: 100%;
       transform: none !important;
     }
-    
+
     .certificate-border {
       padding: 1.5rem;
     }
-    
+
     .certificate-header .certificate-title {
       font-size: 1.8rem;
     }
-    
+
     .recipient-name {
       font-size: 1.6rem;
     }
-    
+
     .course-name {
       font-size: 1.1rem;
     }
-    
+
     .certificate-footer {
       flex-direction: column;
       gap: 2rem;
-      
+
       .signature-section {
         .signature-line {
           width: 150px;
         }
       }
     }
-    
+
     .certificate-seal {
       position: static;
       margin: 2rem auto 0;

@@ -3,102 +3,98 @@
 // ========================================
 
 // Import modern SCSS modules
-@use 'sass:list';
-@use 'sass:map';
+@use "sass:list";
+@use "sass:map";
 
 // Color Variables
 $gradient-colors: (
   // Warm Tones
-  'warm-flame': (#ff9a9e, #fad0c4),
-  'sunny-morning': (#f6d365, #fda085),
-  'love-kiss': (#ff0844, #ffb199),
-  'mean-fruit': (#fccb90, #d57eeb),
-  'ripe-malin': (#f093fb, #f5576c),
-  'strong-bliss': (#f78ca0, #f9748f, #fd868c, #fe9a8b),
-  
+  "warm-flame": (#ff9a9e, #fad0c4),
+  "sunny-morning": (#f6d365, #fda085),
+  "love-kiss": (#ff0844, #ffb199),
+  "mean-fruit": (#fccb90, #d57eeb),
+  "ripe-malin": (#f093fb, #f5576c),
+  "strong-bliss": (#f78ca0, #f9748f, #fd868c, #fe9a8b),
   // Cool Tones
-  'night-fade': (#a18cd1, #fbc2eb),
-  'tempting-azure': (#84fab0, #8fd3f4),
-  'malibu-beach': (#4facfe, #00f2fe),
-  'malibu-purple': (#1976d2, #6366f1),
-  'deep-blue': (#e0c3fc, #8ec5fc),
-  'arielle-smile': (#16d9e3, #30c7ec, #46aef7),
-  'plum-plate': (#667eea, #764ba2),
-  'happy-fisher': (#89f7fe, #66a6ff),
-  'happy-itmeo': (#2af598, #009efd),
-  'amy-crisp': (#a6c0fe, #f68084),
-  
+  "night-fade": (#a18cd1, #fbc2eb),
+  "tempting-azure": (#84fab0, #8fd3f4),
+  "malibu-beach": (#4facfe, #00f2fe),
+  "malibu-purple": (#1976d2, #6366f1),
+  "deep-blue": (#e0c3fc, #8ec5fc),
+  "arielle-smile": (#16d9e3, #30c7ec, #46aef7),
+  "plum-plate": (#667eea, #764ba2),
+  "happy-fisher": (#89f7fe, #66a6ff),
+  "happy-itmeo": (#2af598, #009efd),
+  "amy-crisp": (#a6c0fe, #f68084),
   // Nature Tones
-  'grow-early': (#0ba360, #3cba92),
-  'happy-green': (#00b09b, #96c93d),
-  'mixed-hopes': (#c471f5, #fa71cd),
-  
+  "grow-early": (#0ba360, #3cba92),
+  "happy-green": (#00b09b, #96c93d),
+  "mixed-hopes": (#c471f5, #fa71cd),
   // Dark Tones
-  'premium-dark': (#434343, #000000),
-  'vicious-stance': (#29323c, #485563),
-  'midnight-bloom': (#2b5876, #4e4376),
-  'night-sky': (#1e3c72, #1e3c72, #2a5298),
-  'royal': (#141e30, #243b55),
-  'asteroid': (#0f2027, #203a43, #2c5364),
-  
+  "premium-dark": (#434343, #000000),
+  "vicious-stance": (#29323c, #485563),
+  "midnight-bloom": (#2b5876, #4e4376),
+  "night-sky": (#1e3c72, #1e3c72, #2a5298),
+  "royal": (#141e30, #243b55),
+  "asteroid": (#0f2027, #203a43, #2c5364),
   // Special
-  'heavy-rain': (#ffffff, #ffffff),
-  'transparent': (transparent, transparent)
+  "heavy-rain": (#ffffff, #ffffff),
+  "transparent": (transparent, transparent)
 );
 
 // Gradient Directions
 $gradient-directions: (
-  'warm-flame': 45deg,
-  'night-fade': to top,
-  'sunny-morning': 120deg,
-  'tempting-azure': 120deg,
-  'amy-crisp': 120deg,
-  'heavy-rain': to top,
-  'mean-fruit': 120deg,
-  'malibu-beach': to right,
-  'malibu-purple': 90deg,
-  'deep-blue': 120deg,
-  'ripe-malin': 120deg,
-  'arielle-smile': radial-gradient(circle 248px at center),
-  'plum-plate': 135deg,
-  'happy-fisher': 120deg,
-  'happy-itmeo': 180deg,
-  'mixed-hopes': to top,
-  'strong-bliss': to right,
-  'grow-early': to top,
-  'love-kiss': to top,
-  'premium-dark': to right,
-  'happy-green': to bottom,
-  'vicious-stance': 60deg,
-  'midnight-bloom': -20deg,
-  'night-sky': to top,
-  'royal': to right,
-  'asteroid': to right
+  "warm-flame": 45deg,
+  "night-fade": to top,
+  "sunny-morning": 120deg,
+  "tempting-azure": 120deg,
+  "amy-crisp": 120deg,
+  "heavy-rain": to top,
+  "mean-fruit": 120deg,
+  "malibu-beach": to right,
+  "malibu-purple": 90deg,
+  "deep-blue": 120deg,
+  "ripe-malin": 120deg,
+  "arielle-smile": radial-gradient(circle 248px at center),
+  "plum-plate": 135deg,
+  "happy-fisher": 120deg,
+  "happy-itmeo": 180deg,
+  "mixed-hopes": to top,
+  "strong-bliss": to right,
+  "grow-early": to top,
+  "love-kiss": to top,
+  "premium-dark": to right,
+  "happy-green": to bottom,
+  "vicious-stance": 60deg,
+  "midnight-bloom": -20deg,
+  "night-sky": to top,
+  "royal": to right,
+  "asteroid": to right,
 );
 
 // Order Status Colors
 $order-status-colors: (
-  'pending': #f39c12,
-  'processing': #3498db,
-  'confirmed': #27ae60,
-  'shipped': #9b59b6,
-  'delivered': #2ecc71,
-  'cancelled': #e74c3c,
-  'refunded': #95a5a6
+  "pending": #f39c12,
+  "processing": #3498db,
+  "confirmed": #27ae60,
+  "shipped": #9b59b6,
+  "delivered": #2ecc71,
+  "cancelled": #e74c3c,
+  "refunded": #95a5a6,
 );
 
 // Order Priority Colors
 $order-priority-colors: (
-  'high': #e74c3c,
-  'medium': #f39c12,
-  'low': #95a5a6
+  "high": #e74c3c,
+  "medium": #f39c12,
+  "low": #95a5a6,
 );
 
 // Order Type Colors
 $order-type-colors: (
-  'express': #ff6b6b,
-  'standard': #4ecdc4,
-  'economy': #74b9ff
+  "express": #ff6b6b,
+  "standard": #4ecdc4,
+  "economy": #74b9ff,
 );
 
 // ========================================
@@ -107,14 +103,14 @@ $order-type-colors: (
 
 // Background Gradient Mixin
 @mixin background-gradient($name, $colors, $direction: 135deg) {
-  @if $name == 'arielle-smile' {
+  @if $name == "arielle-smile" {
     background-image: radial-gradient(
       circle 248px at center,
       #{list.nth($colors, 1)} 0%,
       #{list.nth($colors, 2)} 47%,
       #{list.nth($colors, 3)} 100%
     ) !important;
-  } @else if $name == 'strong-bliss' {
+  } @else if $name == "strong-bliss" {
     background-image: linear-gradient(
       $direction,
       #{list.nth($colors, 1)} 0%,
@@ -122,7 +118,7 @@ $order-type-colors: (
       #{list.nth($colors, 3)} 60%,
       #{list.nth($colors, 4)} 100%
     ) !important;
-  } @else if $name == 'night-sky' {
+  } @else if $name == "night-sky" {
     background-image: linear-gradient(
       $direction,
       #{list.nth($colors, 1)} 0%,
@@ -179,9 +175,9 @@ $order-type-colors: (
   .bg-#{$name} {
     $direction: map.get($gradient-directions, $name);
     @include background-gradient($name, $colors, $direction);
-    
+
     // Add white text for specific gradients
-    @if $name == 'malibu-beach' or $name == 'malibu-purple' {
+    @if $name == "malibu-beach" or $name == "malibu-purple" {
       color: #fff;
     }
   }
@@ -189,12 +185,8 @@ $order-type-colors: (
 
 // Special background for slick-carbon
 .bg-slick-carbon {
-  background-image: linear-gradient(
-      to bottom,
-      #323232 0%,
-      #3f3f3f 40%,
-      #1c1c1c 150%
-    ),
+  background-image:
+    linear-gradient(to bottom, #323232 0%, #3f3f3f 40%, #1c1c1c 150%),
     linear-gradient(
       to top,
       rgba(255, 255, 255, 0.4) 0%,
@@ -241,14 +233,46 @@ $order-type-colors: (
 
 // Popular gradient text effects
 $popular-gradients: (
-  'warm-flame': (45deg, #ff9a9e, #fad0c4),
-  'night-fade': (to top, #a18cd1, #fbc2eb),
-  'sunny-morning': (120deg, #f6d365, #fda085),
-  'malibu-beach': (to right, #4facfe, #00f2fe),
-  'malibu-purple': (90deg, #1976d2, #6366f1),
-  'plum-plate': (135deg, #667eea, #764ba2),
-  'grow-early': (to top, #0ba360, #3cba92),
-  'happy-itmeo': (180deg, #2af598, #009efd)
+  "warm-flame": (
+    45deg,
+    #ff9a9e,
+    #fad0c4,
+  ),
+  "night-fade": (
+    to top,
+    #a18cd1,
+    #fbc2eb,
+  ),
+  "sunny-morning": (
+    120deg,
+    #f6d365,
+    #fda085,
+  ),
+  "malibu-beach": (
+    to right,
+    #4facfe,
+    #00f2fe,
+  ),
+  "malibu-purple": (
+    90deg,
+    #1976d2,
+    #6366f1,
+  ),
+  "plum-plate": (
+    135deg,
+    #667eea,
+    #764ba2,
+  ),
+  "grow-early": (
+    to top,
+    #0ba360,
+    #3cba92,
+  ),
+  "happy-itmeo": (
+    180deg,
+    #2af598,
+    #009efd,
+  ),
 );
 
 @each $name, $config in $popular-gradients {

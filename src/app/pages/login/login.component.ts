@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     public siteSettings: SiteSettingsService,
     private toastr: ToastrService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.siteSettings.settings$.subscribe((settings) => {
       this.logoUrl = settings.logo || '';
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     // Cek apakah user sudah login, jika iya redirect ke dashboard
-    this.auth.user$.subscribe(user => {
+    this.auth.user$.subscribe((user) => {
       if (user) {
         this.router.navigate(['/dashboard']);
       }
@@ -74,16 +74,16 @@ export class LoginComponent implements OnInit {
 
     if (success) {
       this.toastr.success('Selamat datang kembali!', 'Login Berhasil');
-      
+
       // Cek apakah ada intended URL, jika tidak redirect ke dashboard
       const intendedUrl = localStorage.getItem('intendedUrl');
       const redirectUrl = intendedUrl || '/dashboard';
-      
+
       // Hapus intended URL dari localStorage
       if (intendedUrl) {
         localStorage.removeItem('intendedUrl');
       }
-      
+
       // Redirect setelah delay untuk user bisa melihat success message
       setTimeout(() => {
         this.router.navigate([redirectUrl]);

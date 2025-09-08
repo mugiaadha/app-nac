@@ -85,7 +85,7 @@ export class DashboardHeaderComponent {
   constructor(
     public auth: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) {}
 
   logout() {

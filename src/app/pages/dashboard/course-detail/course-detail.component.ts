@@ -20,14 +20,14 @@ export class CourseDetailComponent implements OnInit {
   isLoading: boolean = true;
   error: string | null = null;
   statusConfig = COURSE_STATUS_CONFIG;
-  
+
   // Make Math available in template
   Math = Math;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -167,7 +167,7 @@ export class CourseDetailComponent implements OnInit {
   getCompletionPercentage(): number {
     if (!this.course || this.course.totalLessons === 0) return 0;
     return Math.round(
-      (this.course.completedLessons / this.course.totalLessons) * 100
+      (this.course.completedLessons / this.course.totalLessons) * 100,
     );
   }
 

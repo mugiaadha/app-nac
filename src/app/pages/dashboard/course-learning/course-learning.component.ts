@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -10,7 +16,7 @@ import {
 import {
   BrevetCourse,
   BREVET_COURSES,
-  getBrevetCourseById
+  getBrevetCourseById,
 } from '../../../config/brevet-courses.config';
 
 interface QuizQuestion {
@@ -51,7 +57,9 @@ interface CourseModule {
   templateUrl: './course-learning.component.html',
   styleUrls: ['./course-learning.component.scss'],
 })
-export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CourseLearningComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   course: CourseData | null = null;
   currentLesson: Lesson | null = null;
   modules: CourseModule[] = [];
@@ -78,7 +86,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -125,7 +133,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
     // Simulate API call
     setTimeout(() => {
       let foundCourse = MY_COURSES_DATA.find((c) => c.id === courseId);
-      
+
       // Check if it's a brevet course
       if (!foundCourse && courseId.startsWith('brevet-')) {
         const brevetCourse = getBrevetCourseById(courseId);
@@ -144,7 +152,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.selectFirstAvailableLesson();
         }
-        
+
         // Auto scroll to current lesson after everything is loaded
         setTimeout(() => {
           if (this.currentLesson) {
@@ -159,7 +167,9 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
     }, 500);
   }
 
-  private convertBrevetToStandardCourse(brevetCourse: BrevetCourse): CourseData {
+  private convertBrevetToStandardCourse(
+    brevetCourse: BrevetCourse,
+  ): CourseData {
     return {
       id: brevetCourse.id,
       title: brevetCourse.title,
@@ -176,7 +186,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
       lastAccessed: new Date(),
       rating: 5.0,
       level: brevetCourse.level,
-      tags: ['Brevet', 'Pajak', brevetCourse.level]
+      tags: ['Brevet', 'Pajak', brevetCourse.level],
     };
   }
 
@@ -233,7 +243,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private getLessonType(
-    index: number
+    index: number,
   ): 'video' | 'reading' | 'quiz' | 'assignment' {
     const types: ('video' | 'reading' | 'quiz' | 'assignment')[] = [
       'video',
@@ -246,7 +256,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
 
   private generateLessonContent(
     moduleTitle: string,
-    lessonNumber: number
+    lessonNumber: number,
   ): string {
     return `
       <h3>Welcome to ${moduleTitle} - Lesson ${lessonNumber}</h3>
@@ -334,7 +344,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
   private selectFirstAvailableLesson() {
     // Find the last incomplete lesson that is not locked
     let lastIncompleteLesson: Lesson | null = null;
-    
+
     for (const module of this.modules) {
       for (const lesson of module.lessons) {
         if (!lesson.isLocked) {
@@ -393,20 +403,22 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
   private scrollToCurrentLesson(lessonId: string) {
     // Use setTimeout to ensure DOM is updated
     setTimeout(() => {
-      const lessonElement = document.querySelector(`[data-lesson-id="${lessonId}"]`);
+      const lessonElement = document.querySelector(
+        `[data-lesson-id="${lessonId}"]`,
+      );
       if (lessonElement) {
         const sidebarContent = document.querySelector('.sidebar-content');
         if (sidebarContent) {
           const lessonTop = (lessonElement as HTMLElement).offsetTop;
           const sidebarHeight = sidebarContent.clientHeight;
           const lessonHeight = (lessonElement as HTMLElement).offsetHeight;
-          
+
           // Calculate scroll position to center the lesson in the sidebar
-          const scrollTop = lessonTop - (sidebarHeight / 2) + (lessonHeight / 2);
-          
+          const scrollTop = lessonTop - sidebarHeight / 2 + lessonHeight / 2;
+
           sidebarContent.scrollTo({
             top: Math.max(0, scrollTop),
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }
       }
@@ -478,7 +490,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
     if (this.course) {
       this.course.completedLessons++;
       this.course.progress = Math.round(
-        (this.course.completedLessons / this.course.totalLessons) * 100
+        (this.course.completedLessons / this.course.totalLessons) * 100,
       );
 
       if (this.course.completedLessons >= this.course.totalLessons) {
@@ -538,7 +550,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
 
     for (const module of this.modules) {
       const index = module.lessons.findIndex(
-        (l) => l.id === this.currentLesson?.id
+        (l) => l.id === this.currentLesson?.id,
       );
       if (index !== -1) {
         return { module, lessonIndex: index };
@@ -632,7 +644,7 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
 
     this.quizCompleted = true;
     this.quizScore = this.currentLesson.questions.filter(
-      (q) => q.isCorrect
+      (q) => q.isCorrect,
     ).length;
 
     // Mark lesson as complete if score is >= 70%
@@ -659,14 +671,14 @@ export class CourseLearningComponent implements OnInit, OnDestroy, AfterViewInit
     if (!this.currentLesson?.questions || !this.quizStarted) return 0;
     return Math.round(
       ((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) *
-        100
+        100,
     );
   }
 
   getScorePercentage(): number {
     if (!this.currentLesson?.questions || this.quizScore === 0) return 0;
     return Math.round(
-      (this.quizScore / this.currentLesson.questions.length) * 100
+      (this.quizScore / this.currentLesson.questions.length) * 100,
     );
   }
 

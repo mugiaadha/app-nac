@@ -4,7 +4,10 @@ import { Title, Meta } from '@angular/platform-browser';
 
 @Injectable({ providedIn: 'root' })
 export class SeoResolver implements Resolve<void> {
-  constructor(private title: Title, private meta: Meta) {}
+  constructor(
+    private title: Title,
+    private meta: Meta,
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): void {
     const seo = route.data['seo'];

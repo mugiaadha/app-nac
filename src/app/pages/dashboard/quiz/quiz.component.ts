@@ -2,10 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {
-  CourseData,
-  MY_COURSES_DATA,
-} from '../../../config/my-courses.config';
+import { CourseData, MY_COURSES_DATA } from '../../../config/my-courses.config';
 
 interface QuizQuestion {
   id: string;
@@ -58,14 +55,14 @@ export class QuizComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const courseId = params['courseId'];
       const lessonId = params['lessonId'];
-      
+
       if (courseId && lessonId) {
         this.loadQuiz(courseId, lessonId);
       } else {
@@ -87,11 +84,11 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     // Simulate API call
     setTimeout(() => {
-      const foundCourse = MY_COURSES_DATA.find(c => c.id === courseId);
-      
+      const foundCourse = MY_COURSES_DATA.find((c) => c.id === courseId);
+
       if (foundCourse) {
         this.course = foundCourse;
-        
+
         // Generate quiz lesson
         this.currentLesson = {
           id: lessonId,
@@ -100,7 +97,7 @@ export class QuizComponent implements OnInit, OnDestroy {
           type: 'quiz',
           isCompleted: false,
           isLocked: false,
-          questions: this.generateQuizQuestions()
+          questions: this.generateQuizQuestions(),
         };
 
         // Set timer (15 minutes = 900 seconds)
@@ -108,7 +105,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       } else {
         this.error = 'Course not found';
       }
-      
+
       this.isLoading = false;
     }, 500);
   }
@@ -123,10 +120,11 @@ export class QuizComponent implements OnInit, OnDestroy {
           'To avoid paying taxes entirely',
           'To minimize tax liability legally',
           'To delay tax payments indefinitely',
-          'To increase business expenses'
+          'To increase business expenses',
         ],
         correctAnswer: 1,
-        explanation: 'Tax planning aims to minimize tax liability through legal means while ensuring compliance with tax laws.'
+        explanation:
+          'Tax planning aims to minimize tax liability through legal means while ensuring compliance with tax laws.',
       },
       {
         id: 'q2',
@@ -134,7 +132,8 @@ export class QuizComponent implements OnInit, OnDestroy {
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 0,
-        explanation: 'Tax deductions reduce the amount of income that is subject to tax, thereby lowering your taxable income.'
+        explanation:
+          'Tax deductions reduce the amount of income that is subject to tax, thereby lowering your taxable income.',
       },
       {
         id: 'q3',
@@ -144,10 +143,11 @@ export class QuizComponent implements OnInit, OnDestroy {
           'Office rent',
           'Personal vacation',
           'Family dinner',
-          'Home mortgage'
+          'Home mortgage',
         ],
         correctAnswer: 0,
-        explanation: 'Office rent is a legitimate business expense as it is necessary for conducting business operations.'
+        explanation:
+          'Office rent is a legitimate business expense as it is necessary for conducting business operations.',
       },
       {
         id: 'q4',
@@ -155,7 +155,8 @@ export class QuizComponent implements OnInit, OnDestroy {
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 1,
-        explanation: 'The standard deduction varies based on filing status, age, and other factors.'
+        explanation:
+          'The standard deduction varies based on filing status, age, and other factors.',
       },
       {
         id: 'q5',
@@ -165,31 +166,30 @@ export class QuizComponent implements OnInit, OnDestroy {
           'Annual Gross Income',
           'Adjusted Gross Income',
           'Average General Income',
-          'Additional Government Income'
+          'Additional Government Income',
         ],
         correctAnswer: 1,
-        explanation: 'AGI stands for Adjusted Gross Income, which is your total income minus specific deductions.'
+        explanation:
+          'AGI stands for Adjusted Gross Income, which is your total income minus specific deductions.',
       },
       {
         id: 'q6',
-        question: 'A tax credit is more valuable than a tax deduction of the same amount.',
+        question:
+          'A tax credit is more valuable than a tax deduction of the same amount.',
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 0,
-        explanation: 'Tax credits directly reduce tax owed dollar-for-dollar, while deductions only reduce taxable income.'
+        explanation:
+          'Tax credits directly reduce tax owed dollar-for-dollar, while deductions only reduce taxable income.',
       },
       {
         id: 'q7',
         question: 'Which form is used for individual income tax returns?',
         type: 'multiple-choice',
-        options: [
-          'Form 1099',
-          'Form W-2',
-          'Form 1040',
-          'Form 941'
-        ],
+        options: ['Form 1099', 'Form W-2', 'Form 1040', 'Form 941'],
         correctAnswer: 2,
-        explanation: 'Form 1040 is the standard individual income tax return form used by U.S. taxpayers.'
+        explanation:
+          'Form 1040 is the standard individual income tax return form used by U.S. taxpayers.',
       },
       {
         id: 'q8',
@@ -197,8 +197,9 @@ export class QuizComponent implements OnInit, OnDestroy {
         type: 'true-false',
         options: ['True', 'False'],
         correctAnswer: 0,
-        explanation: 'Self-employment tax applies to net earnings from self-employment, including freelance work.'
-      }
+        explanation:
+          'Self-employment tax applies to net earnings from self-employment, including freelance work.',
+      },
     ];
 
     // Return random 5-8 questions
@@ -213,10 +214,10 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizCompleted = false;
     this.quizScore = 0;
     this.showExplanation = false;
-    
+
     // Reset all user answers
     if (this.currentLesson?.questions) {
-      this.currentLesson.questions.forEach(q => {
+      this.currentLesson.questions.forEach((q) => {
         q.userAnswer = undefined;
         q.isCorrect = undefined;
       });
@@ -265,8 +266,10 @@ export class QuizComponent implements OnInit, OnDestroy {
     if (!this.currentLesson?.questions) return;
 
     this.quizCompleted = true;
-    this.quizScore = this.currentLesson.questions.filter(q => q.isCorrect).length;
-    
+    this.quizScore = this.currentLesson.questions.filter(
+      (q) => q.isCorrect,
+    ).length;
+
     // Stop timer
     if (this.timer) {
       clearInterval(this.timer);
@@ -288,12 +291,17 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   getQuizProgress(): number {
     if (!this.currentLesson?.questions || !this.quizStarted) return 0;
-    return Math.round(((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) * 100);
+    return Math.round(
+      ((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) *
+        100,
+    );
   }
 
   getScorePercentage(): number {
     if (!this.currentLesson?.questions || this.quizScore === 0) return 0;
-    return Math.round((this.quizScore / this.currentLesson.questions.length) * 100);
+    return Math.round(
+      (this.quizScore / this.currentLesson.questions.length) * 100,
+    );
   }
 
   getScoreColor(): string {
@@ -311,7 +319,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   getTimeColor(): string {
     if (this.timeRemaining > 300) return 'text-success'; // > 5 minutes
-    if (this.timeRemaining > 60) return 'text-warning';  // > 1 minute
+    if (this.timeRemaining > 60) return 'text-warning'; // > 1 minute
     return 'text-danger'; // < 1 minute
   }
 

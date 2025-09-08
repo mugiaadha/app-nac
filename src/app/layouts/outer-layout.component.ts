@@ -16,16 +16,18 @@ import { FooterComponent } from '../shared/footer/footer.component';
       <app-footer></app-footer>
     </div>
   `,
-  styles: [`
-    .outer-layout {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .main-content {
-      flex: 1;
-    }
-  `]
+  styles: [
+    `
+      .outer-layout {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-content {
+        flex: 1;
+      }
+    `,
+  ],
 })
 export class OuterLayoutComponent {}

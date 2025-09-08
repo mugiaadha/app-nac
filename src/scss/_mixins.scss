@@ -12,24 +12,24 @@
   $hover-border: color.scale($border-color, $lightness: -20%);
   $active-bg: color.scale($bg-color, $lightness: -20%);
   $active-border: color.scale($border-color, $lightness: -25%);
-  
+
   background-color: $bg-color;
   border-color: $border-color;
   color: $color or map.get($colors, "white");
-  
+
   &:hover {
     background-color: $hover-bg;
     border-color: $hover-border;
     color: $color or map.get($colors, "white");
   }
-  
+
   &:focus,
   &.focus {
     background-color: $hover-bg;
     border-color: $hover-border;
     box-shadow: 0 0 0 0.2rem rgba($bg-color, 0.5);
   }
-  
+
   &:active,
   &.active {
     background-color: $active-bg;
@@ -41,7 +41,7 @@
 @mixin card-hover($scale: 1.02, $shadow: map.get($shadows, "lg")) {
   transition: map.get($transitions, "normal");
   border-radius: map.get($border-radii, "lg");
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: $shadow;

@@ -43,7 +43,8 @@ export const BREVET_COURSES: BrevetCourse[] = [
     slug: 'brevet-a',
     title: 'Brevet Pajak A',
     subtitle: 'Dasar-dasar Perpajakan',
-    description: 'Program pelatihan dasar perpajakan untuk pemahaman fundamental sistem pajak Indonesia',
+    description:
+      'Program pelatihan dasar perpajakan untuk pemahaman fundamental sistem pajak Indonesia',
     level: 'Beginner',
     duration: '40 Jam',
     totalLessons: 24,
@@ -63,12 +64,13 @@ export const BREVET_COURSES: BrevetCourse[] = [
           {
             id: 'lesson-1',
             title: 'Sejarah Perpajakan Indonesia',
-            description: 'Memahami perkembangan sistem pajak Indonesia dari masa ke masa',
+            description:
+              'Memahami perkembangan sistem pajak Indonesia dari masa ke masa',
             type: 'video',
             duration: '30 menit',
             videoUrl: 'https://example.com/video1',
             isCompleted: false,
-            isLocked: false
+            isLocked: false,
           },
           {
             id: 'lesson-2',
@@ -78,7 +80,7 @@ export const BREVET_COURSES: BrevetCourse[] = [
             duration: '45 menit',
             videoUrl: 'https://example.com/video2',
             isCompleted: false,
-            isLocked: false
+            isLocked: false,
           },
           {
             id: 'lesson-3',
@@ -97,14 +99,15 @@ export const BREVET_COURSES: BrevetCourse[] = [
                   'Fungsi Budgetair (membiayai pengeluaran negara)',
                   'Fungsi Regulerend (mengatur perekonomian)',
                   'Kedua fungsi di atas',
-                  'Tidak ada fungsi khusus'
+                  'Tidak ada fungsi khusus',
                 ],
                 correctAnswer: 2,
-                explanation: 'Pajak memiliki dua fungsi utama yaitu fungsi budgetair untuk membiayai pengeluaran negara dan fungsi regulerend untuk mengatur perekonomian.'
-              }
-            ]
-          }
-        ]
+                explanation:
+                  'Pajak memiliki dua fungsi utama yaitu fungsi budgetair untuk membiayai pengeluaran negara dan fungsi regulerend untuk mengatur perekonomian.',
+              },
+            ],
+          },
+        ],
       },
       {
         id: 'module-2',
@@ -121,7 +124,7 @@ export const BREVET_COURSES: BrevetCourse[] = [
             duration: '40 menit',
             videoUrl: 'https://example.com/video4',
             isCompleted: false,
-            isLocked: true
+            isLocked: true,
           },
           {
             id: 'lesson-5',
@@ -131,18 +134,19 @@ export const BREVET_COURSES: BrevetCourse[] = [
             duration: '35 menit',
             videoUrl: 'https://example.com/video5',
             isCompleted: false,
-            isLocked: true
-          }
-        ]
-      }
-    ]
+            isLocked: true,
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'brevet-b',
     slug: 'brevet-b',
     title: 'Brevet Pajak B',
     subtitle: 'Perpajakan Menengah',
-    description: 'Program pelatihan perpajakan tingkat menengah untuk praktisi dan konsultan pajak',
+    description:
+      'Program pelatihan perpajakan tingkat menengah untuk praktisi dan konsultan pajak',
     level: 'Intermediate',
     duration: '60 Jam',
     totalLessons: 36,
@@ -162,23 +166,25 @@ export const BREVET_COURSES: BrevetCourse[] = [
           {
             id: 'lesson-1',
             title: 'Perhitungan PPh Badan',
-            description: 'Metode perhitungan PPh Badan untuk berbagai jenis usaha',
+            description:
+              'Metode perhitungan PPh Badan untuk berbagai jenis usaha',
             type: 'video',
             duration: '50 menit',
             videoUrl: 'https://example.com/video-b1',
             isCompleted: false,
-            isLocked: false
-          }
-        ]
-      }
-    ]
+            isLocked: false,
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'brevet-c',
     slug: 'brevet-c',
     title: 'Brevet Pajak C',
     subtitle: 'Konsultan Pajak Profesional',
-    description: 'Program pelatihan perpajakan tingkat lanjut untuk menjadi konsultan pajak bersertifikat',
+    description:
+      'Program pelatihan perpajakan tingkat lanjut untuk menjadi konsultan pajak bersertifikat',
     level: 'Advanced',
     duration: '80 Jam',
     totalLessons: 48,
@@ -203,18 +209,18 @@ export const BREVET_COURSES: BrevetCourse[] = [
             duration: '60 menit',
             videoUrl: 'https://example.com/video-c1',
             isCompleted: false,
-            isLocked: false
-          }
-        ]
-      }
-    ]
-  }
+            isLocked: false,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getBrevetCourseById(id: string): BrevetCourse | undefined {
-  return BREVET_COURSES.find(course => course.id === id);
+  return BREVET_COURSES.find((course) => course.id === id);
 }
 
 export function getBrevetCourseBySlug(slug: string): BrevetCourse | undefined {
-  return BREVET_COURSES.find(course => course.slug === slug);
+  return BREVET_COURSES.find((course) => course.slug === slug);
 }

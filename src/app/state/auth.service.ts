@@ -22,10 +22,10 @@ export class AuthService {
 
   // State management subjects
   private readonly isLoggedInSubject = new BehaviorSubject<boolean>(
-    this.hasToken()
+    this.hasToken(),
   );
   private readonly userSubject = new BehaviorSubject<User | null>(
-    this.getUserFromStorage()
+    this.getUserFromStorage(),
   );
 
   constructor(private http: HttpClient) {}
@@ -37,9 +37,9 @@ export class AuthService {
     password: string;
     password_confirmation: string;
   }): Observable<boolean> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/register`, data).pipe(
-      map((response) => this.handleLoginResponse(response))
-    );
+    return this.http
+      .post<LoginResponse>(`${this.apiUrl}/register`, data)
+      .pipe(map((response) => this.handleLoginResponse(response)));
   }
 
   // Public observables for components to subscribe to
@@ -63,7 +63,7 @@ export class AuthService {
       .post<LoginResponse>(`${this.apiUrl}/login`, loginData)
       .pipe(
         map((response) => this.handleLoginResponse(response)),
-        catchError((error) => this.handleLoginError(error))
+        catchError((error) => this.handleLoginError(error)),
       );
   }
 
@@ -86,7 +86,7 @@ export class AuthService {
         // Even if server logout fails, clear local auth
         this.performLocalLogout();
         return of(true);
-      })
+      }),
     );
   }
 

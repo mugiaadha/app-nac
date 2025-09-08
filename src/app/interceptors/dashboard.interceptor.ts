@@ -13,7 +13,7 @@ import { throwError } from 'rxjs';
 export class DashboardInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     // Cek apakah request adalah untuk dashboard
     if (req.url.includes('/dashboard') || req.url.includes('/api/user')) {
@@ -39,7 +39,7 @@ export class DashboardInterceptor implements HttpInterceptor {
             window.location.href = '/login';
           }
           return throwError(() => error);
-        })
+        }),
       );
     }
 

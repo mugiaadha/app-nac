@@ -9,7 +9,10 @@
 
   <!-- Error State -->
   <div class="text-center py-5" *ngIf="error && !isLoading">
-    <i class="bi bi-exclamation-triangle text-warning" style="font-size: 4rem"></i>
+    <i
+      class="bi bi-exclamation-triangle text-warning"
+      style="font-size: 4rem"
+    ></i>
     <h4 class="mt-3 text-muted">{{ error }}</h4>
     <button class="btn btn-primary mt-3" (click)="goToMyCourses()">
       <i class="bi bi-arrow-left me-2"></i>Back to My Courses
@@ -26,7 +29,10 @@
             <i class="bi bi-arrow-left me-2"></i>Back
           </button>
           <div class="course-actions">
-            <button class="btn btn-outline-secondary" (click)="toggleBookmark()">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="toggleBookmark()"
+            >
               <i class="bi bi-bookmark"></i>
             </button>
             <button class="btn btn-outline-secondary" (click)="shareCourse()">
@@ -43,14 +49,17 @@
       <div class="col-lg-4">
         <div class="content-card h-100">
           <div class="course-image-large mb-4">
-            <img 
-              [src]="course.image" 
+            <img
+              [src]="course.image"
               [alt]="course.title"
               class="img-fluid rounded"
-              style="width: 100%; height: 250px; object-fit: cover;"
+              style="width: 100%; height: 250px; object-fit: cover"
             />
             <div class="status-overlay">
-              <span class="badge" [ngClass]="getStatusBadgeClass(course.status)">
+              <span
+                class="badge"
+                [ngClass]="getStatusBadgeClass(course.status)"
+              >
                 {{ getStatusText(course.status) }}
               </span>
             </div>
@@ -64,50 +73,64 @@
               </span>
               <span class="fw-medium">{{ course.instructor }}</span>
             </div>
-            
+
             <div class="meta-item d-flex justify-content-between mb-3">
               <span class="text-muted">
                 <i class="bi bi-clock me-2"></i>Duration
               </span>
               <span class="fw-medium">{{ course.duration }}</span>
             </div>
-            
+
             <div class="meta-item d-flex justify-content-between mb-3">
               <span class="text-muted">
                 <i class="bi bi-tag me-2"></i>Category
               </span>
               <span class="fw-medium">{{ course.category }}</span>
             </div>
-            
+
             <div class="meta-item d-flex justify-content-between mb-3">
               <span class="text-muted">
                 <i class="bi bi-mortarboard me-2"></i>Level
               </span>
               <span class="fw-medium">{{ course.level }}</span>
             </div>
-            
-            <div class="meta-item d-flex justify-content-between mb-3" *ngIf="course.rating">
+
+            <div
+              class="meta-item d-flex justify-content-between mb-3"
+              *ngIf="course.rating"
+            >
               <span class="text-muted">
                 <i class="bi bi-star me-2"></i>Rating
               </span>
               <div class="rating">
-                <span *ngFor="let star of getRatingStars(course.rating)" [class]="star" class="text-warning me-1"></span>
+                <span
+                  *ngFor="let star of getRatingStars(course.rating)"
+                  [class]="star"
+                  class="text-warning me-1"
+                ></span>
                 <span class="fw-medium ms-1">{{ course.rating }}/5</span>
               </div>
             </div>
-            
+
             <div class="meta-item d-flex justify-content-between mb-3">
               <span class="text-muted">
                 <i class="bi bi-calendar me-2"></i>Enrolled
               </span>
-              <span class="fw-medium">{{ course.enrolledDate | date:'MMM dd, yyyy' }}</span>
+              <span class="fw-medium">{{
+                course.enrolledDate | date: "MMM dd, yyyy"
+              }}</span>
             </div>
 
-            <div class="meta-item d-flex justify-content-between mb-3" *ngIf="course.lastAccessed">
+            <div
+              class="meta-item d-flex justify-content-between mb-3"
+              *ngIf="course.lastAccessed"
+            >
               <span class="text-muted">
                 <i class="bi bi-clock-history me-2"></i>Last Accessed
               </span>
-              <span class="fw-medium">{{ course.lastAccessed | date:'MMM dd, yyyy' }}</span>
+              <span class="fw-medium">{{
+                course.lastAccessed | date: "MMM dd, yyyy"
+              }}</span>
             </div>
           </div>
         </div>
@@ -119,50 +142,67 @@
           <!-- Course Title & Description -->
           <div class="course-header mb-4">
             <h1 class="course-title h2 mb-3">{{ course.title }}</h1>
-            <p class="course-description text-muted lead">{{ course.description }}</p>
-            
+            <p class="course-description text-muted lead">
+              {{ course.description }}
+            </p>
+
             <!-- Tags -->
             <div class="course-tags mt-3">
-              <span class="badge bg-light text-dark me-2" *ngFor="let tag of course.tags">
+              <span
+                class="badge bg-light text-dark me-2"
+                *ngFor="let tag of course.tags"
+              >
                 {{ tag }}
               </span>
             </div>
           </div>
 
           <!-- Progress Section -->
-          <div class="progress-section mb-4" *ngIf="course.status !== 'not-started'">
+          <div
+            class="progress-section mb-4"
+            *ngIf="course.status !== 'not-started'"
+          >
             <h5 class="mb-3">Course Progress</h5>
             <div class="progress-stats row g-3 mb-3">
               <div class="col-md-4">
                 <div class="stat-card text-center p-3 bg-light rounded">
-                  <div class="stat-number h4 mb-1 text-primary">{{ course.progress }}%</div>
+                  <div class="stat-number h4 mb-1 text-primary">
+                    {{ course.progress }}%
+                  </div>
                   <div class="stat-label text-muted small">Complete</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="stat-card text-center p-3 bg-light rounded">
-                  <div class="stat-number h4 mb-1 text-success">{{ course.completedLessons }}</div>
+                  <div class="stat-number h4 mb-1 text-success">
+                    {{ course.completedLessons }}
+                  </div>
                   <div class="stat-label text-muted small">Lessons Done</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="stat-card text-center p-3 bg-light rounded">
-                  <div class="stat-number h4 mb-1 text-info">{{ course.totalLessons - course.completedLessons }}</div>
+                  <div class="stat-number h4 mb-1 text-info">
+                    {{ course.totalLessons - course.completedLessons }}
+                  </div>
                   <div class="stat-label text-muted small">Remaining</div>
                 </div>
               </div>
             </div>
-            
-            <div class="progress mb-2" style="height: 12px;">
-              <div 
-                class="progress-bar" 
+
+            <div class="progress mb-2" style="height: 12px">
+              <div
+                class="progress-bar"
                 [style.width.%]="course.progress"
                 [class]="getProgressBarClass(course.status)"
               ></div>
             </div>
-            
+
             <div class="d-flex justify-content-between text-muted small">
-              <span>{{ course.completedLessons }} of {{ course.totalLessons }} lessons</span>
+              <span
+                >{{ course.completedLessons }} of
+                {{ course.totalLessons }} lessons</span
+              >
               <span>{{ getEstimatedTimeRemaining() }}</span>
             </div>
           </div>
@@ -173,30 +213,42 @@
             <div class="row g-3">
               <!-- Primary Action -->
               <div class="col-md-6" *ngIf="course.status === 'not-started'">
-                <button class="btn btn-primary btn-lg w-100" (click)="startCourse()">
+                <button
+                  class="btn btn-primary btn-lg w-100"
+                  (click)="startCourse()"
+                >
                   <i class="bi bi-play-circle me-2"></i>Start Course
                 </button>
               </div>
-              
+
               <div class="col-md-6" *ngIf="course.status === 'in-progress'">
-                <button class="btn btn-continue-course btn-lg w-100" (click)="continueCourse()">
+                <button
+                  class="btn btn-continue-course btn-lg w-100"
+                  (click)="continueCourse()"
+                >
                   <i class="bi bi-play-circle me-2"></i>Continue Learning
                 </button>
               </div>
-              
+
               <div class="col-md-6" *ngIf="course.status === 'completed'">
-                <button class="btn btn-success btn-lg w-100" (click)="continueCourse()">
+                <button
+                  class="btn btn-success btn-lg w-100"
+                  (click)="continueCourse()"
+                >
                   <i class="bi bi-arrow-clockwise me-2"></i>Review Course
                 </button>
               </div>
 
               <!-- Certificate Actions for Completed Courses -->
               <div class="col-md-3" *ngIf="course.status === 'completed'">
-                <button class="btn btn-outline-primary w-100" (click)="downloadCertificate()">
+                <button
+                  class="btn btn-outline-primary w-100"
+                  (click)="downloadCertificate()"
+                >
                   <i class="bi bi-download me-2"></i>Download Certificate
                 </button>
               </div>
-              
+
               <div class="col-md-3" *ngIf="course.status === 'completed'">
                 <button class="btn btn-outline-secondary w-100">
                   <i class="bi bi-award me-2"></i>View Certificate
@@ -205,7 +257,10 @@
 
               <!-- Secondary Actions -->
               <div class="col-md-6">
-                <button class="btn btn-outline-danger w-100" (click)="unenrollCourse()">
+                <button
+                  class="btn btn-outline-danger w-100"
+                  (click)="unenrollCourse()"
+                >
                   <i class="bi bi-x-circle me-2"></i>Unenroll from Course
                 </button>
               </div>
@@ -218,9 +273,10 @@
             <div class="curriculum-preview bg-light p-4 rounded">
               <p class="text-muted mb-3">
                 <i class="bi bi-list-ul me-2"></i>
-                This course contains {{ course.totalLessons }} lessons covering comprehensive {{ course.category.toLowerCase() }} topics.
+                This course contains {{ course.totalLessons }} lessons covering
+                comprehensive {{ course.category.toLowerCase() }} topics.
               </p>
-              
+
               <div class="curriculum-stats row g-3">
                 <div class="col-6">
                   <div class="d-flex align-items-center">

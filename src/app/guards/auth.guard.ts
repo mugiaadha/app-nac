@@ -28,7 +28,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         // If user is active, block access to any restricted page
         if (
           Object.values(statusPageMap).some((page) =>
-            state.url.startsWith(page)
+            state.url.startsWith(page),
           )
         ) {
           setTimeout(() => router.navigate(['/dashboard']), 0);
@@ -41,6 +41,6 @@ export const authGuard: CanActivateFn = (route, state) => {
         router.navigate(['/login']);
         return false;
       }
-    })
+    }),
   );
 };

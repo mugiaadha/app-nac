@@ -23,14 +23,14 @@ export class PaymentComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (token) {
       this.http
-  .get<any>(environment.baseUrl + '/user', {
+        .get<any>(environment.baseUrl + '/user', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .subscribe({
@@ -75,13 +75,9 @@ export class PaymentComponent implements OnInit {
     const formData = new FormData();
     formData.append('bukti', this.selectedFile);
     this.http
-      .post<any>(
-  environment.baseUrl + '/upload-payment-proof',
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      .post<any>(environment.baseUrl + '/upload-payment-proof', formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .subscribe({
         next: (res) => {
           this.loading = false;

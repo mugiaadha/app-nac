@@ -176,7 +176,10 @@ export class BrevetDetailComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -192,7 +195,7 @@ export class BrevetDetailComponent implements OnInit {
 
   downloadBrochure() {
     console.log(
-      `Downloading brochure for Brevet ${this.programId.toUpperCase()}`
+      `Downloading brochure for Brevet ${this.programId.toUpperCase()}`,
     );
     // Implementation for brochure download
   }

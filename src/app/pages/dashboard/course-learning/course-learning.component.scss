@@ -49,7 +49,7 @@
 
 .mobile-overlay {
   display: none;
-  
+
   @media (max-width: 768px) {
     display: block;
     position: fixed;
@@ -213,7 +213,7 @@
 @media (max-width: 576px) {
   .learning-header {
     padding: 0.5rem 1rem;
-    
+
     .header-controls .header-btn {
       width: 32px;
       height: 32px;

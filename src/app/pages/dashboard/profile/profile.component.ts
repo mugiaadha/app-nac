@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {

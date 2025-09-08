@@ -1,7 +1,5 @@
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 
 import { FormsModule } from '@angular/forms';
 
@@ -9,9 +7,8 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-hero-section',
   templateUrl: './hero-section.component.html',
   styleUrls: ['./hero-section.component.scss'],
-  imports: [FormsModule]
+  imports: [FormsModule],
 })
-
 export class HeroSectionComponent {
   searchValue: string = '';
 
@@ -19,7 +16,9 @@ export class HeroSectionComponent {
 
   handleSearch() {
     if (this.searchValue && this.searchValue.trim()) {
-      this.router.navigate(['/courses'], { queryParams: { search: this.searchValue } });
+      this.router.navigate(['/courses'], {
+        queryParams: { search: this.searchValue },
+      });
     } else {
       this.router.navigate(['/courses']);
     }

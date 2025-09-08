@@ -51,7 +51,7 @@ export const routes: Routes = [
         path: 'syarat-ketentuan',
         loadComponent: () =>
           import('./pages/syarat-ketentuan/syarat-ketentuan.component').then(
-            (m) => m.SyaratKetentuanComponent
+            (m) => m.SyaratKetentuanComponent,
           ),
         data: { seo: { title: 'Syarat dan Ketentuan' } },
       },
@@ -59,7 +59,7 @@ export const routes: Routes = [
         path: 'kebijakan-privasi',
         loadComponent: () =>
           import('./pages/kebijakan-privasi/kebijakan-privasi.component').then(
-            (m) => m.KebijakanPrivasiComponent
+            (m) => m.KebijakanPrivasiComponent,
           ),
         data: { seo: { title: 'Kebijakan Privasi' } },
       },
@@ -74,21 +74,21 @@ export const routes: Routes = [
         path: 'brevet',
         loadComponent: () =>
           import('./pages/brevet/brevet.component').then(
-            (m) => m.BrevetPajakComponent
+            (m) => m.BrevetPajakComponent,
           ),
       },
       {
         path: 'brevet/:id',
         loadComponent: () =>
           import('./pages/brevet/brevet-detail/brevet-detail.component').then(
-            (m) => m.BrevetDetailComponent
+            (m) => m.BrevetDetailComponent,
           ),
       },
       {
         path: 'articles',
         loadChildren: () =>
           import('./pages/articles/articles.module').then(
-            (m) => m.ArticlesModule
+            (m) => m.ArticlesModule,
           ),
         resolve: { seo: SeoResolver },
         data: { seo: SEO_CONFIG.articles },
@@ -97,7 +97,7 @@ export const routes: Routes = [
         path: 'services',
         loadChildren: () =>
           import('./pages/services/services.module').then(
-            (m) => m.ServicesModule
+            (m) => m.ServicesModule,
           ),
         resolve: { seo: SeoResolver },
         data: { seo: SEO_CONFIG.services },
@@ -122,21 +122,21 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () =>
           import('./pages/dashboard/profile/profile.component').then(
-            (m) => m.ProfileComponent
+            (m) => m.ProfileComponent,
           ),
       },
       {
         path: 'certificates',
         loadComponent: () =>
           import('./pages/dashboard/certificates/certificates.component').then(
-            (m) => m.CertificatesComponent
+            (m) => m.CertificatesComponent,
           ),
       },
       {
         path: 'my-courses',
         loadComponent: () =>
           import('./pages/dashboard/my-courses/my-courses.component').then(
-            (m) => m.MyCoursesComponent
+            (m) => m.MyCoursesComponent,
           ),
       },
       {
@@ -187,7 +187,7 @@ export const routes: Routes = [
         path: 'quiz/:courseId/:lessonId',
         loadComponent: () =>
           import('./pages/dashboard/quiz/quiz.component').then(
-            (m) => m.QuizComponent
+            (m) => m.QuizComponent,
           ),
       },
     ],
@@ -199,7 +199,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./pages/not-found/not-found.component').then(
-            (m) => m.NotFoundComponent
+            (m) => m.NotFoundComponent,
           ),
       },
     ],

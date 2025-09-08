@@ -15,11 +15,11 @@
     .btn {
       border-radius: map.get($border-radii, "md");
       color: map.get($colors, "white");
-      
+
       &.btn-outline-secondary {
         background: rgba(255, 255, 255, 0.1);
         border-color: rgba(255, 255, 255, 0.3);
-        
+
         &:hover {
           background: rgba(255, 255, 255, 0.2);
           border-color: rgba(255, 255, 255, 0.5);
@@ -42,8 +42,12 @@
       margin-right: map.get($spacers, "sm");
       transition: map.get($transitions, "normal");
 
-      &:hover { background-color: #f8f9fa; }
-      &.active { @include button-variant(map.get($colors, "primary")); }
+      &:hover {
+        background-color: #f8f9fa;
+      }
+      &.active {
+        @include button-variant(map.get($colors, "primary"));
+      }
     }
   }
 
@@ -68,7 +72,9 @@
         right: map.get($border-radii, "md");
       }
 
-      &:hover img { transform: scale(1.05); }
+      &:hover img {
+        transform: scale(1.05);
+      }
     }
 
     .course-content {
@@ -109,8 +115,12 @@
           font-weight: 500;
           transition: map.get($transitions, "normal");
 
-          &.btn-primary { @include button-variant(map.get($colors, "primary")); }
-          &.btn-success { @include button-variant(map.get($colors, "success")); }
+          &.btn-primary {
+            @include button-variant(map.get($colors, "primary"));
+          }
+          &.btn-success {
+            @include button-variant(map.get($colors, "success"));
+          }
         }
       }
     }
@@ -119,11 +129,15 @@
 
 @include mobile {
   .my-courses-page {
-    .page-header .d-flex { 
-      flex-direction: column; 
-      gap: map.get($spacers, "md"); 
+    .page-header .d-flex {
+      flex-direction: column;
+      gap: map.get($spacers, "md");
     }
-    .course-card .course-content { padding: 0.75rem; }
-    .course-actions .btn { font-size: 0.8rem; }
+    .course-card .course-content {
+      padding: 0.75rem;
+    }
+    .course-actions .btn {
+      font-size: 0.8rem;
+    }
   }
 }

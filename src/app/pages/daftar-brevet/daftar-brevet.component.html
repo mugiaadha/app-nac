@@ -8,7 +8,10 @@
         </div>
         <div class="card shadow-sm border-0">
           <form (ngSubmit)="onSubmit()">
-            <div *ngIf="errorMsg" class="alert alert-danger d-flex align-items-start gap-2 mb-4">
+            <div
+              *ngIf="errorMsg"
+              class="alert alert-danger d-flex align-items-start gap-2 mb-4"
+            >
               <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
               <div>
                 <ul class="mb-0 ps-3">
@@ -19,48 +22,99 @@
             <!-- Data Diri & Akun Estetik -->
             <div class="row mb-4">
               <div class="col-12 mb-2">
-                <h5 class="fw-semibold mb-3"><i class="bi bi-person-circle me-2"></i>Data Diri & Akun</h5>
+                <h5 class="fw-semibold mb-3">
+                  <i class="bi bi-person-circle me-2"></i>Data Diri & Akun
+                </h5>
               </div>
               <div class="col-md-6">
                 <div class="card p-3 border-0 shadow-sm h-100">
                   <div class="mb-3">
                     <label for="nama" class="form-label">Nama Lengkap</label>
                     <div class="input-group">
-                      <span class="input-group-text bg-white"><i class="bi bi-person"></i></span>
-                      <input type="text" id="nama" class="form-control" [(ngModel)]="formData.nama" name="nama" required />
+                      <span class="input-group-text bg-white"
+                        ><i class="bi bi-person"></i
+                      ></span>
+                      <input
+                        type="text"
+                        id="nama"
+                        class="form-control"
+                        [(ngModel)]="formData.nama"
+                        name="nama"
+                        required
+                      />
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <div class="input-group">
-                      <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
-                      <input type="email" id="email" class="form-control" [(ngModel)]="formData.email" name="email" required />
+                      <span class="input-group-text bg-white"
+                        ><i class="bi bi-envelope"></i
+                      ></span>
+                      <input
+                        type="email"
+                        id="email"
+                        class="form-control"
+                        [(ngModel)]="formData.email"
+                        name="email"
+                        required
+                      />
                     </div>
                   </div>
                   <div>
                     <label for="phone" class="form-label">Nomor Telepon</label>
                     <div class="input-group">
-                      <span class="input-group-text bg-white"><i class="bi bi-telephone"></i></span>
-                      <input type="tel" id="phone" class="form-control" [(ngModel)]="formData.phone" name="phone" required />
+                      <span class="input-group-text bg-white"
+                        ><i class="bi bi-telephone"></i
+                      ></span>
+                      <input
+                        type="tel"
+                        id="phone"
+                        class="form-control"
+                        [(ngModel)]="formData.phone"
+                        name="phone"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 mt-4 mt-md-0">
                 <div class="card p-3 border-0 shadow-sm h-100">
-                  <h6 class="fw-semibold mb-3"><i class="bi bi-lock me-2"></i>Keamanan Akun</h6>
+                  <h6 class="fw-semibold mb-3">
+                    <i class="bi bi-lock me-2"></i>Keamanan Akun
+                  </h6>
                   <div class="mb-3">
                     <label for="password" class="form-label">Kata Sandi</label>
                     <div class="input-group">
-                      <span class="input-group-text bg-white"><i class="bi bi-key"></i></span>
-                      <input type="password" id="password" class="form-control" [(ngModel)]="formData.password" name="password" required />
+                      <span class="input-group-text bg-white"
+                        ><i class="bi bi-key"></i
+                      ></span>
+                      <input
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        [(ngModel)]="formData.password"
+                        name="password"
+                        required
+                      />
                     </div>
                   </div>
                   <div>
-                    <label for="confirmPassword" class="form-label">Konfirmasi Kata Sandi</label>
+                    <label for="confirmPassword" class="form-label"
+                      >Konfirmasi Kata Sandi</label
+                    >
                     <div class="input-group">
-                      <span class="input-group-text bg-white"><i class="bi bi-key"></i></span>
-                      <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="formData.confirmPassword" name="confirmPassword" required />
+                      <span class="input-group-text bg-white"
+                        ><i class="bi bi-key"></i
+                      ></span>
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-control"
+                        [(ngModel)]="formData.confirmPassword"
+                        name="confirmPassword"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -120,8 +174,15 @@
                   />
                   <label class="form-check-label" for="termsCheck">
                     Saya menyetujui
-                    <a [routerLink]="['/syarat-ketentuan']" class="text-primary">Syarat dan Ketentuan</a>
-                    serta <a [routerLink]="['/kebijakan-privasi']" class="text-primary">Kebijakan Privasi</a>
+                    <a [routerLink]="['/syarat-ketentuan']" class="text-primary"
+                      >Syarat dan Ketentuan</a
+                    >
+                    serta
+                    <a
+                      [routerLink]="['/kebijakan-privasi']"
+                      class="text-primary"
+                      >Kebijakan Privasi</a
+                    >
                   </label>
                 </div>
               </div>

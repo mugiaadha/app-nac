@@ -23,12 +23,12 @@
 .dashboard-sidebar {
   position: sticky;
   top: 20px;
-  
+
   // Add spacing between navigation and quick stats
   app-navigation {
     margin-bottom: 1rem; // Reduced from 1.5rem
   }
-  
+
   // Ensure quick stats are above mobile navigation
   app-quick-stats {
     position: relative;
@@ -39,7 +39,7 @@
 // Mobile content spacing (to account for sticky bottom nav)
 .mobile-content-spacer {
   padding-bottom: 40px; // Space for mobile bottom navigation (further reduced)
-  
+
   @media (min-width: 992px) {
     padding-bottom: 0; // Remove spacing on desktop
   }
@@ -50,11 +50,11 @@
   .dashboard-container {
     padding-bottom: 50px; // Extra space for mobile nav (further reduced)
   }
-  
+
   .dashboard-sidebar {
     position: static;
     margin-bottom: 16px; // Reduced from 24px
-    
+
     // Ensure sidebar content doesn't get covered by mobile nav
     app-navigation,
     app-quick-stats {
@@ -68,7 +68,7 @@
     padding: 1rem;
     padding-bottom: 60px; // More space for mobile nav (further reduced)
   }
-  
+
   .dashboard-sidebar {
     margin-bottom: 1rem; // Further reduced margin
   }

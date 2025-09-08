@@ -75,7 +75,9 @@ footer .container {
 }
 
 .social-icon {
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
   color: #1976d2 !important;
 }
 .social-icon:hover {

@@ -15,7 +15,7 @@ export class ArticlesComponent {
   articles = ARTICLES;
 
   uniqueCategories: string[] = Array.from(
-    new Set(this.articles.map((b) => b.category))
+    new Set(this.articles.map((b) => b.category)),
   );
   searchTerm: string = '';
   searchFilter: string = 'all';
@@ -28,23 +28,23 @@ export class ArticlesComponent {
     switch (this.searchFilter) {
       case 'title':
         return this.articles.filter((article) =>
-          article.title.toLowerCase().includes(term)
+          article.title.toLowerCase().includes(term),
         );
       case 'author':
         return this.articles.filter((article) =>
-          article.author.toLowerCase().includes(term)
+          article.author.toLowerCase().includes(term),
         );
       case 'category':
         // kategori dummy, bisa diubah jika ada field kategori di data article
         return this.articles.filter((article) =>
-          article.summary.toLowerCase().includes(term)
+          article.summary.toLowerCase().includes(term),
         );
       default:
         return this.articles.filter(
           (article) =>
             article.title.toLowerCase().includes(term) ||
             article.author.toLowerCase().includes(term) ||
-            article.summary.toLowerCase().includes(term)
+            article.summary.toLowerCase().includes(term),
         );
     }
   }
@@ -83,7 +83,7 @@ export class ArticlesComponent {
   constructor(private route: ActivatedRoute) {
     // Inisialisasi kategori unik dari articles
     this.uniqueCategories = Array.from(
-      new Set(this.articles.map((b) => b.category))
+      new Set(this.articles.map((b) => b.category)),
     );
     this.route.queryParams.subscribe((params) => {
       if (params['search']) {

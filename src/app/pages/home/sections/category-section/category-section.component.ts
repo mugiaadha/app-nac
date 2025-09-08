@@ -22,7 +22,7 @@ export class CategorySectionComponent {
     if (this.visibleCount < this.categories.length) {
       this.visibleCount = Math.min(
         this.visibleCount + 12,
-        this.categories.length
+        this.categories.length,
       );
     }
   }

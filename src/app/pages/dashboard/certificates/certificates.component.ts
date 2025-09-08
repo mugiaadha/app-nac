@@ -114,7 +114,7 @@ export class CertificatesComponent implements OnInit {
     if (this.certificates.length === 0) return 0;
     const total = this.certificates.reduce(
       (sum, c) => sum + c.completionScore,
-      0
+      0,
     );
     return Math.round(total / this.certificates.length);
   }

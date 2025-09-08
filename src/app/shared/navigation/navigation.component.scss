@@ -87,7 +87,8 @@
   padding: 0 16px;
 }
 
-.mobile-nav-item, .mobile-nav-btn {
+.mobile-nav-item,
+.mobile-nav-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,10 +121,15 @@
     text-decoration: none;
   }
 
-  &.active, &.show {
+  &.active,
+  &.show {
     color: #1976d2;
-    background: linear-gradient(135deg, rgba(25, 118, 210, 0.1), rgba(99, 102, 241, 0.1));
-    
+    background: linear-gradient(
+      135deg,
+      rgba(25, 118, 210, 0.1),
+      rgba(99, 102, 241, 0.1)
+    );
+
     i {
       transform: scale(1.1);
     }
@@ -195,7 +201,7 @@
 
   &.logout-btn {
     border-top: 1px solid #e2e8f0;
-    
+
     &:hover {
       background-color: #fef2f2;
     }
@@ -287,7 +293,7 @@
 
   &.logout-btn {
     border-top: 1px solid #e2e8f0;
-    
+
     &:hover {
       background-color: #fef2f2;
     }

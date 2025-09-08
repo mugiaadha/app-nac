@@ -26,7 +26,7 @@ export class VerifikasiEmailComponent {
     private toastr: ToastrService,
     private auth: AuthService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
   onSubmit() {
@@ -44,13 +44,13 @@ export class VerifikasiEmailComponent {
     this.loading = true;
     this.http
       .post<any>(
-  environment.baseUrl + '/verify-otp',
+        environment.baseUrl + '/verify-otp',
         {
           otp: this.otp,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       )
       .subscribe({
         next: (res) => {
@@ -68,7 +68,7 @@ export class VerifikasiEmailComponent {
                     if (userRes && userRes.data) {
                       localStorage.setItem(
                         'user',
-                        JSON.stringify(userRes.data)
+                        JSON.stringify(userRes.data),
                       );
                       this.auth['userSubject'].next(userRes.data);
                     }

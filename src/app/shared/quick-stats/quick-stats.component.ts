@@ -8,7 +8,7 @@ import { QuickStatItem } from '../../config/dashboard-navigation.config';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './quick-stats.component.html',
-  styleUrls: ['./quick-stats.component.scss']
+  styleUrls: ['./quick-stats.component.scss'],
 })
 export class QuickStatsComponent implements OnInit {
   quickStats: QuickStatItem[] = [];

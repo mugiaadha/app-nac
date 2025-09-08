@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-syarat-ketentuan',
   standalone: true,
   templateUrl: './syarat-ketentuan.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class SyaratKetentuanComponent {}

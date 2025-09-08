@@ -31,11 +31,16 @@
             </button>
           </div>
           <div class="col-md-4 text-center">
-            <h5 class="mb-0 fw-semibold text-dark">{{ currentLesson.title }}</h5>
+            <h5 class="mb-0 fw-semibold text-dark">
+              {{ currentLesson.title }}
+            </h5>
             <small class="text-muted">{{ course?.title }}</small>
           </div>
           <div class="col-md-4 text-end">
-            <div class="badge bg-light text-dark fs-6 px-3 py-2 rounded-pill border" *ngIf="quizStarted && !quizCompleted">
+            <div
+              class="badge bg-light text-dark fs-6 px-3 py-2 rounded-pill border"
+              *ngIf="quizStarted && !quizCompleted"
+            >
               <i class="bi bi-clock me-1"></i>
               <span [ngClass]="getTimeColor()">{{ getTimeFormatted() }}</span>
             </div>
@@ -45,10 +50,13 @@
     </div>
 
     <!-- Quiz Content -->
-    <div class="py-4"
->      <div class="container">
+    <div class="py-4">
+      <div class="container">
         <!-- Quiz Start Screen -->
-        <div class="quiz-start text-center" *ngIf="!quizStarted && !quizCompleted">
+        <div
+          class="quiz-start text-center"
+          *ngIf="!quizStarted && !quizCompleted"
+        >
           <div class="quiz-intro">
             <i
               class="bi bi-clipboard-check text-primary"
@@ -56,22 +64,27 @@
             ></i>
             <h2 class="mt-4 mb-3">Ready to Take the Quiz?</h2>
             <p class="lead text-muted mb-4">
-              Test your knowledge and see how well you've understood the material.
+              Test your knowledge and see how well you've understood the
+              material.
             </p>
-            
+
             <div class="quiz-info-grid">
               <div class="row justify-content-center">
                 <div class="col-md-8">
                   <div class="row text-center">
                     <div class="col-4">
                       <div class="info-card">
-                        <div class="h3 text-primary mb-1">{{ currentLesson.questions?.length }}</div>
+                        <div class="h3 text-primary mb-1">
+                          {{ currentLesson.questions?.length }}
+                        </div>
                         <small class="text-muted">Questions</small>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="info-card">
-                        <div class="h3 text-success mb-1">{{ currentLesson.duration }}</div>
+                        <div class="h3 text-success mb-1">
+                          {{ currentLesson.duration }}
+                        </div>
                         <small class="text-muted">Time Limit</small>
                       </div>
                     </div>
@@ -109,18 +122,24 @@
         </div>
 
         <!-- Quiz Questions -->
-        <div class="quiz-questions" *ngIf="quizStarted && !quizCompleted && getCurrentQuestion() as question">
+        <div
+          class="quiz-questions"
+          *ngIf="
+            quizStarted && !quizCompleted && getCurrentQuestion() as question
+          "
+        >
           <!-- Progress Bar -->
           <div class="bg-white rounded-3 p-4 mb-4 shadow-sm">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span class="fw-medium">
-                Question {{ currentQuestionIndex + 1 }} of {{ currentLesson.questions?.length }}
+                Question {{ currentQuestionIndex + 1 }} of
+                {{ currentLesson.questions?.length }}
               </span>
               <span class="text-muted">{{ getQuizProgress() }}% Complete</span>
             </div>
-            <div class="progress" style="height: 8px;">
-              <div 
-                class="progress-bar" 
+            <div class="progress" style="height: 8px">
+              <div
+                class="progress-bar"
                 [style.width.%]="getQuizProgress()"
               ></div>
             </div>
@@ -128,178 +147,235 @@
 
           <!-- Question Card -->
           <div class="bg-white rounded-4 p-4 mb-4 shadow">
-            <span class="question-number badge text-white px-3 py-2 rounded-pill mb-3 d-inline-block fw-semibold">
+            <span
+              class="question-number badge text-white px-3 py-2 rounded-pill mb-3 d-inline-block fw-semibold"
+            >
               Question {{ currentQuestionIndex + 1 }}
             </span>
-            <h4 class="fs-4 fw-semibold text-dark mb-4 lh-base">{{ question.question }}</h4>
-            
+            <h4 class="fs-4 fw-semibold text-dark mb-4 lh-base">
+              {{ question.question }}
+            </h4>
+
             <!-- Multiple Choice Options -->
             <div class="options" *ngIf="question.type === 'multiple-choice'">
-              <div 
+              <div
                 class="option-item bg-white border border-2 rounded-3 p-3 mb-3 d-flex align-items-center"
                 *ngFor="let option of question.options; let i = index"
                 [class.selected]="question.userAnswer === i"
-                [class.correct]="showExplanation && i === question.correctAnswer"
-                [class.incorrect]="showExplanation && question.userAnswer === i && i !== question.correctAnswer"
-                (click)="!showExplanation && selectAnswer(currentQuestionIndex, i)"
+                [class.correct]="
+                  showExplanation && i === question.correctAnswer
+                "
+                [class.incorrect]="
+                  showExplanation &&
+                  question.userAnswer === i &&
+                  i !== question.correctAnswer
+                "
+                (click)="
+                  !showExplanation && selectAnswer(currentQuestionIndex, i)
+                "
               >
                 <div class="option-indicator me-3 flex-shrink-0">
                   <div class="circle">
                     <span>{{ String.fromCharCode(65 + i) }}</span>
                   </div>
-                <div class="option-text flex-grow-1">{{ option }}</div>
+                  <div class="option-text flex-grow-1">{{ option }}</div>
+                </div>
+              </div>
+
+              <!-- True/False Options -->
+              <div
+                class="options"
+                *ngIf="
+                  question.type !== 'multiple-choice' &&
+                  question.type === 'true-false'
+                "
+              >
+                <div
+                  class="option-item bg-white border border-2 rounded-3 p-3 mb-3 d-flex align-items-center justify-content-center"
+                  *ngFor="let option of question.options; let i = index"
+                  [class.selected]="question.userAnswer === i"
+                  [class.correct]="
+                    showExplanation && i === question.correctAnswer
+                  "
+                  [class.incorrect]="
+                    showExplanation &&
+                    question.userAnswer === i &&
+                    i !== question.correctAnswer
+                  "
+                  (click)="
+                    !showExplanation && selectAnswer(currentQuestionIndex, i)
+                  "
+                >
+                  <i
+                    class="me-3"
+                    [class.bi-check-circle-fill]="i === 0"
+                    [class.bi-x-circle-fill]="i === 1"
+                    [class.text-success]="i === 0"
+                    [class.text-danger]="i === 1"
+                    style="font-size: 1.5rem"
+                  ></i>
+                  <span class="fw-medium">{{ option }}</span>
+                </div>
+              </div>
+
+              <!-- Explanation -->
+              <div
+                class="alert alert-info d-flex align-items-start"
+                *ngIf="showExplanation"
+              >
+                <i class="bi bi-lightbulb me-3" style="font-size: 1.2rem"></i>
+                <div>
+                  <h6 class="mb-2">Explanation</h6>
+                  <p class="mb-0">{{ question.explanation }}</p>
+                </div>
               </div>
             </div>
 
-            <!-- True/False Options -->
-            <div class="options" *ngIf="question.type !== 'multiple-choice' && question.type === 'true-false'">
-              <div 
-                class="option-item bg-white border border-2 rounded-3 p-3 mb-3 d-flex align-items-center justify-content-center"
-                *ngFor="let option of question.options; let i = index"
-                [class.selected]="question.userAnswer === i"
-                [class.correct]="showExplanation && i === question.correctAnswer"
-                [class.incorrect]="showExplanation && question.userAnswer === i && i !== question.correctAnswer"
-                (click)="!showExplanation && selectAnswer(currentQuestionIndex, i)"
-              >
-                <i 
-                  class="me-3" 
-                  [class.bi-check-circle-fill]="i === 0"
-                  [class.bi-x-circle-fill]="i === 1"
-                  [class.text-success]="i === 0"
-                  [class.text-danger]="i === 1"
-                  style="font-size: 1.5rem"
+            <!-- Navigation -->
+            <div class="bg-white rounded-4 p-4 mt-4 shadow-sm">
+              <div class="d-flex justify-content-between align-items-center">
+                <button
+                  class="btn btn-outline-secondary rounded-pill px-4"
+                  [disabled]="currentQuestionIndex === 0"
+                  (click)="previousQuestion()"
+                >
+                  <i class="bi bi-chevron-left me-2"></i>Previous
+                </button>
+
+                <div class="quiz-actions">
+                  <button
+                    class="btn btn-outline-info me-3 rounded-pill px-3"
+                    *ngIf="
+                      question.userAnswer !== undefined && !showExplanation
+                    "
+                    (click)="toggleExplanation()"
+                  >
+                    <i class="bi bi-lightbulb me-2"></i>Show Explanation
+                  </button>
+                  <button
+                    class="btn btn-outline-info me-3 rounded-pill px-3"
+                    *ngIf="showExplanation"
+                    (click)="toggleExplanation()"
+                  >
+                    <i class="bi bi-eye-slash me-2"></i>Hide Explanation
+                  </button>
+                </div>
+
+                <button
+                  class="btn btn-quiz-primary rounded-pill px-4 fw-semibold"
+                  [disabled]="question.userAnswer === undefined"
+                  (click)="nextQuestion()"
+                >
+                  <span
+                    *ngIf="
+                      currentQuestionIndex <
+                      (currentLesson.questions?.length || 0) - 1
+                    "
+                  >
+                    Next<i class="bi bi-chevron-right ms-2"></i>
+                  </span>
+                  <span
+                    *ngIf="
+                      currentQuestionIndex ===
+                      (currentLesson.questions?.length || 0) - 1
+                    "
+                  >
+                    Finish Quiz<i class="bi bi-check-circle ms-2"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Results -->
+          <div class="quiz-results text-center" *ngIf="quizCompleted">
+            <div class="results-card">
+              <div class="results-icon">
+                <i
+                  style="font-size: 5rem"
+                  [class.bi-trophy-fill]="getScorePercentage() >= 70"
+                  [class.bi-emoji-frown-fill]="getScorePercentage() < 70"
+                  [class.text-success]="getScorePercentage() >= 70"
+                  [class.text-warning]="getScorePercentage() < 70"
                 ></i>
-                <span class="fw-medium">{{ option }}</span>
-              </div>
-            </div>
-
-            <!-- Explanation -->
-            <div class="alert alert-info d-flex align-items-start" *ngIf="showExplanation">
-              <i class="bi bi-lightbulb me-3" style="font-size: 1.2rem"></i>
-              <div>
-                <h6 class="mb-2">Explanation</h6>
-                <p class="mb-0">{{ question.explanation }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Navigation -->
-          <div class="bg-white rounded-4 p-4 mt-4 shadow-sm">
-            <div class="d-flex justify-content-between align-items-center">
-              <button 
-                class="btn btn-outline-secondary rounded-pill px-4"
-                [disabled]="currentQuestionIndex === 0"
-                (click)="previousQuestion()"
-              >
-                <i class="bi bi-chevron-left me-2"></i>Previous
-              </button>
-
-              <div class="quiz-actions">
-                <button 
-                  class="btn btn-outline-info me-3 rounded-pill px-3"
-                  *ngIf="question.userAnswer !== undefined && !showExplanation"
-                  (click)="toggleExplanation()"
-                >
-                  <i class="bi bi-lightbulb me-2"></i>Show Explanation
-                </button>
-                <button 
-                  class="btn btn-outline-info me-3 rounded-pill px-3"
-                  *ngIf="showExplanation"
-                  (click)="toggleExplanation()"
-                >
-                  <i class="bi bi-eye-slash me-2"></i>Hide Explanation
-                </button>
               </div>
 
-              <button 
-                class="btn btn-quiz-primary rounded-pill px-4 fw-semibold"
-                [disabled]="question.userAnswer === undefined"
-                (click)="nextQuestion()"
-              >
-                <span *ngIf="currentQuestionIndex < (currentLesson.questions?.length || 0) - 1">
-                  Next<i class="bi bi-chevron-right ms-2"></i>
-                </span>
-                <span *ngIf="currentQuestionIndex === (currentLesson.questions?.length || 0) - 1">
-                  Finish Quiz<i class="bi bi-check-circle ms-2"></i>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
+              <h2 class="mt-4 mb-3">Quiz Completed!</h2>
 
-        <!-- Quiz Results -->
-        <div class="quiz-results text-center" *ngIf="quizCompleted">
-          <div class="results-card">
-            <div class="results-icon">
-              <i 
-                style="font-size: 5rem"
-                [class.bi-trophy-fill]="getScorePercentage() >= 70"
-                [class.bi-emoji-frown-fill]="getScorePercentage() < 70"
-                [class.text-success]="getScorePercentage() >= 70"
-                [class.text-warning]="getScorePercentage() < 70"
-              ></i>
-            </div>
-            
-            <h2 class="mt-4 mb-3">Quiz Completed!</h2>
-            
-            <div class="score-summary">
-              <div class="row justify-content-center">
-                <div class="col-md-6">
-                  <div class="row text-center">
-                    <div class="col-4">
-                      <div class="score-item">
-                        <div class="h2 mb-1" [ngClass]="getScoreColor()">{{ quizScore }}</div>
-                        <small class="text-muted">Correct</small>
+              <div class="score-summary">
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <div class="row text-center">
+                      <div class="col-4">
+                        <div class="score-item">
+                          <div class="h2 mb-1" [ngClass]="getScoreColor()">
+                            {{ quizScore }}
+                          </div>
+                          <small class="text-muted">Correct</small>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="score-item">
-                        <div class="h2 mb-1">{{ currentLesson.questions?.length || 0 }}</div>
-                        <small class="text-muted">Total</small>
+                      <div class="col-4">
+                        <div class="score-item">
+                          <div class="h2 mb-1">
+                            {{ currentLesson.questions?.length || 0 }}
+                          </div>
+                          <small class="text-muted">Total</small>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="score-item">
-                        <div class="h2 mb-1" [ngClass]="getScoreColor()">{{ getScorePercentage() }}%</div>
-                        <small class="text-muted">Score</small>
+                      <div class="col-4">
+                        <div class="score-item">
+                          <div class="h2 mb-1" [ngClass]="getScoreColor()">
+                            {{ getScorePercentage() }}%
+                          </div>
+                          <small class="text-muted">Score</small>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="result-message mt-4 mb-4">
-              <div class="alert" [class.alert-success]="getScorePercentage() >= 70" [class.alert-warning]="getScorePercentage() < 70">
-                <p class="mb-0" *ngIf="getScorePercentage() >= 70">
-                  <i class="bi bi-check-circle me-2"></i>
-                  <strong>Congratulations!</strong> You passed the quiz with {{ getScorePercentage() }}%.
-                </p>
-                <p class="mb-0" *ngIf="getScorePercentage() < 70">
-                  <i class="bi bi-x-circle me-2"></i>
-                  <strong>Not quite there.</strong> You need 70% to pass. You scored {{ getScorePercentage() }}%.
-                </p>
+              <div class="result-message mt-4 mb-4">
+                <div
+                  class="alert"
+                  [class.alert-success]="getScorePercentage() >= 70"
+                  [class.alert-warning]="getScorePercentage() < 70"
+                >
+                  <p class="mb-0" *ngIf="getScorePercentage() >= 70">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Congratulations!</strong> You passed the quiz with
+                    {{ getScorePercentage() }}%.
+                  </p>
+                  <p class="mb-0" *ngIf="getScorePercentage() < 70">
+                    <i class="bi bi-x-circle me-2"></i>
+                    <strong>Not quite there.</strong> You need 70% to pass. You
+                    scored {{ getScorePercentage() }}%.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div class="results-actions">
-              <button class="btn btn-outline-primary me-3" (click)="retakeQuiz()">
-                <i class="bi bi-arrow-clockwise me-2"></i>Retake Quiz
-              </button>
-              <button 
-                class="btn btn-success"
-                *ngIf="getScorePercentage() >= 70"
-                (click)="continueToNextLesson()"
-              >
-                Continue Learning<i class="bi bi-chevron-right ms-2"></i>
-              </button>
-              <button 
-                class="btn btn-secondary"
-                *ngIf="getScorePercentage() < 70"
-                (click)="goToCourse()"
-              >
-                Review Material<i class="bi bi-book ms-2"></i>
-              </button>
+              <div class="results-actions">
+                <button
+                  class="btn btn-outline-primary me-3"
+                  (click)="retakeQuiz()"
+                >
+                  <i class="bi bi-arrow-clockwise me-2"></i>Retake Quiz
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="getScorePercentage() >= 70"
+                  (click)="continueToNextLesson()"
+                >
+                  Continue Learning<i class="bi bi-chevron-right ms-2"></i>
+                </button>
+                <button
+                  class="btn btn-secondary"
+                  *ngIf="getScorePercentage() < 70"
+                  (click)="goToCourse()"
+                >
+                  Review Material<i class="bi bi-book ms-2"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>

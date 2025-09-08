@@ -115,7 +115,7 @@ export class DaftarBrevetComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -145,7 +145,7 @@ export class DaftarBrevetComponent implements OnInit {
         tapToDismiss: false,
         closeButton: false,
         positionClass: 'toast-top-right',
-      }
+      },
     );
     if (this.formData.password !== this.formData.confirmPassword) {
       this.toastr.clear();
@@ -166,7 +166,7 @@ export class DaftarBrevetComponent implements OnInit {
           if (success) {
             this.toastr.success(
               'Registrasi berhasil! Mengalihkan ke dashboard...',
-              'Sukses'
+              'Sukses',
             );
             window.location.href = '/dashboard';
           } else {
@@ -185,7 +185,7 @@ export class DaftarBrevetComponent implements OnInit {
             if (res.data && typeof res.data === 'object') {
               const fieldErrors = Object.entries(res.data)
                 .map(([field, msgs]) =>
-                  Array.isArray(msgs) ? msgs.join('\n') : msgs
+                  Array.isArray(msgs) ? msgs.join('\n') : msgs,
                 )
                 .join('\n');
               if (fieldErrors) {

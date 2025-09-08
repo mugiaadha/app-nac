@@ -21,7 +21,7 @@ export class HeaderComponent {
     public siteSettings: SiteSettingsService,
     public auth: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) {}
 
   logout() {

@@ -31,7 +31,9 @@ export class CoursesComponent {
       const author = course.author ? course.author.toLowerCase() : '';
       const category = course.category ? course.category.toLowerCase() : '';
       return (
-        title.includes(query) || author.includes(query) || category.includes(query)
+        title.includes(query) ||
+        author.includes(query) ||
+        category.includes(query)
       );
     });
   }

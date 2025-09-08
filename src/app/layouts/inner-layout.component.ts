@@ -14,9 +14,16 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-inner-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, CommonModule, DashboardHeaderComponent, NavigationComponent, QuickStatsComponent],
+  imports: [
+    RouterOutlet,
+    RouterModule,
+    CommonModule,
+    DashboardHeaderComponent,
+    NavigationComponent,
+    QuickStatsComponent,
+  ],
   templateUrl: './inner-layout.component.html',
-  styleUrls: ['./inner-layout.component.scss']
+  styleUrls: ['./inner-layout.component.scss'],
 })
 export class InnerLayoutComponent implements OnInit, OnDestroy {
   user: User | null = null;
@@ -26,7 +33,7 @@ export class InnerLayoutComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private dashboardMiddleware: DashboardMiddlewareService,
     private navigationService: NavigationService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -69,7 +76,7 @@ export class InnerLayoutComponent implements OnInit, OnDestroy {
     this.dashboardMiddleware.logActivity('Navigation item clicked', {
       itemId: item.id,
       route: item.route,
-      label: item.label
+      label: item.label,
     });
   }
 

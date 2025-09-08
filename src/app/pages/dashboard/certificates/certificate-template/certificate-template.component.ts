@@ -16,7 +16,7 @@ export interface CertificateData {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './certificate-template.component.html',
-  styleUrls: ['./certificate-template.component.scss']
+  styleUrls: ['./certificate-template.component.scss'],
 })
 export class CertificateTemplateComponent {
   @Input() certificateData: CertificateData = {
@@ -26,7 +26,7 @@ export class CertificateTemplateComponent {
     completionDate: new Date(),
     certificateNumber: 'NAC-2024-001',
     duration: '40 hours',
-    grade: 'A'
+    grade: 'A',
   };
 
   @Input() showActions: boolean = true;
@@ -34,7 +34,10 @@ export class CertificateTemplateComponent {
 
   downloadCertificate() {
     // Implementasi download akan ditambahkan nanti
-    console.log('Downloading certificate:', this.certificateData.certificateNumber);
+    console.log(
+      'Downloading certificate:',
+      this.certificateData.certificateNumber,
+    );
   }
 
   printCertificate() {
@@ -46,7 +49,7 @@ export class CertificateTemplateComponent {
       navigator.share({
         title: `Certificate - ${this.certificateData.courseName}`,
         text: `I have completed ${this.certificateData.courseName} course!`,
-        url: window.location.href
+        url: window.location.href,
       });
     }
   }

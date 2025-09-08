@@ -55,7 +55,7 @@ export class DaftarComponent {
             if (res.data && typeof res.data === 'object') {
               const fieldErrors = Object.entries(res.data)
                 .map(([field, msgs]) =>
-                  Array.isArray(msgs) ? msgs.join('\n') : msgs
+                  Array.isArray(msgs) ? msgs.join('\n') : msgs,
                 )
                 .join('\n');
               if (fieldErrors) {

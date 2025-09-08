@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { NavigationItem, DASHBOARD_NAVIGATION, QuickStatItem, DASHBOARD_QUICK_STATS } from '../config/dashboard-navigation.config';
+import {
+  NavigationItem,
+  DASHBOARD_NAVIGATION,
+  QuickStatItem,
+  DASHBOARD_QUICK_STATS,
+} from '../config/dashboard-navigation.config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private mobileDropdownState$ = new BehaviorSubject<boolean>(false);
@@ -13,15 +18,15 @@ export class NavigationService {
 
   // Navigation items getters
   getSidebarNavigation(): NavigationItem[] {
-    return DASHBOARD_NAVIGATION.filter(item => item.showInSidebar);
+    return DASHBOARD_NAVIGATION.filter((item) => item.showInSidebar);
   }
 
   getMobileNavigation(): NavigationItem[] {
-    return DASHBOARD_NAVIGATION.filter(item => item.showInMobile);
+    return DASHBOARD_NAVIGATION.filter((item) => item.showInMobile);
   }
 
   getDropdownNavigation(): NavigationItem[] {
-    return DASHBOARD_NAVIGATION.filter(item => item.showInDropdown);
+    return DASHBOARD_NAVIGATION.filter((item) => item.showInDropdown);
   }
 
   getAllNavigation(): NavigationItem[] {
@@ -63,7 +68,9 @@ export class NavigationService {
   }
 
   // Navigation helpers
-  getNavigationByType(type: 'sidebar' | 'mobile' | 'dropdown'): NavigationItem[] {
+  getNavigationByType(
+    type: 'sidebar' | 'mobile' | 'dropdown',
+  ): NavigationItem[] {
     switch (type) {
       case 'sidebar':
         return this.getSidebarNavigation();
@@ -77,20 +84,26 @@ export class NavigationService {
   }
 
   getNavigationById(id: string): NavigationItem | undefined {
-    return DASHBOARD_NAVIGATION.find(item => item.id === id);
+    return DASHBOARD_NAVIGATION.find((item) => item.id === id);
   }
 
   // Filter navigation by permission (for future use)
-  filterByPermission(items: NavigationItem[], userPermissions: string[] = []): NavigationItem[] {
-    return items.filter(item => {
+  filterByPermission(
+    items: NavigationItem[],
+    userPermissions: string[] = [],
+  ): NavigationItem[] {
+    return items.filter((item) => {
       if (!item.permission) return true;
       return userPermissions.includes(item.permission);
     });
   }
 
   // Filter navigation by auth requirement
-  filterByAuth(items: NavigationItem[], isAuthenticated: boolean): NavigationItem[] {
-    return items.filter(item => {
+  filterByAuth(
+    items: NavigationItem[],
+    isAuthenticated: boolean,
+  ): NavigationItem[] {
+    return items.filter((item) => {
       if (item.requiresAuth === undefined) return true;
       return item.requiresAuth === isAuthenticated;
     });

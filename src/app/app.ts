@@ -11,7 +11,7 @@ export class App implements OnInit {
   protected readonly title = signal('app-nac');
 
   constructor(private siteSettings: SiteSettingsService) {}
-  
+
   ngOnInit() {
     this.siteSettings.fetchSettings();
   }

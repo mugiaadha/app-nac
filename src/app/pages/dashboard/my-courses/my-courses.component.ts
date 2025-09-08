@@ -61,23 +61,27 @@ export class MyCoursesComponent implements OnInit {
 
     // Apply status filter
     if (this.activeFilter !== 'all') {
-      filtered = filtered.filter(course => course.status === this.activeFilter);
+      filtered = filtered.filter(
+        (course) => course.status === this.activeFilter,
+      );
     }
 
     // Apply category filter
     if (this.selectedCategory !== 'all') {
-      filtered = filtered.filter(course => 
-        course.category.toLowerCase() === this.selectedCategory.toLowerCase()
+      filtered = filtered.filter(
+        (course) =>
+          course.category.toLowerCase() === this.selectedCategory.toLowerCase(),
       );
     }
 
     // Apply search filter
     if (this.searchTerm) {
       const searchLower = this.searchTerm.toLowerCase();
-      filtered = filtered.filter(course =>
-        course.title.toLowerCase().includes(searchLower) ||
-        course.description.toLowerCase().includes(searchLower) ||
-        course.instructor.toLowerCase().includes(searchLower)
+      filtered = filtered.filter(
+        (course) =>
+          course.title.toLowerCase().includes(searchLower) ||
+          course.description.toLowerCase().includes(searchLower) ||
+          course.instructor.toLowerCase().includes(searchLower),
       );
     }
 
@@ -90,7 +94,11 @@ export class MyCoursesComponent implements OnInit {
         filtered.sort((a, b) => b.progress - a.progress);
         break;
       case 'enrolled':
-        filtered.sort((a, b) => new Date(b.enrolledDate).getTime() - new Date(a.enrolledDate).getTime());
+        filtered.sort(
+          (a, b) =>
+            new Date(b.enrolledDate).getTime() -
+            new Date(a.enrolledDate).getTime(),
+        );
         break;
       case 'recent':
       default:

@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-kebijakan-privasi',
   standalone: true,
   templateUrl: './kebijakan-privasi.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class KebijakanPrivasiComponent {}

@@ -19,7 +19,7 @@ $colors: (
   "background": #f8f9fa,
   "text": #212529,
   "link": #007bff,
-  "gray": #6c757d
+  "gray": #6c757d,
 );
 
 // Spacing System
@@ -40,7 +40,7 @@ $spacers: (
   "auto": auto,
   "small": 0.5rem,
   "medium": 1rem,
-  "large": 2rem
+  "large": 2rem,
 );
 
 // Border Radius
@@ -52,7 +52,7 @@ $border-radii: (
   "xl": 0.75rem,
   "2xl": 1rem,
   "3xl": 1.5rem,
-  "full": 50%
+  "full": 50%,
 );
 
 // Box Shadows
@@ -63,7 +63,7 @@ $shadows: (
   "lg": 0 10px 15px -3px rgba(0, 0, 0, 0.1),
   "xl": 0 20px 25px -5px rgba(0, 0, 0, 0.1),
   "2xl": 0 25px 50px -12px rgba(0, 0, 0, 0.25),
-  "inner": inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)
+  "inner": inset 0 2px 4px 0 rgba(0, 0, 0, 0.06),
 );
 
 // Transitions
@@ -71,7 +71,7 @@ $transitions: (
   "fast": all 0.15s ease-in-out,
   "normal": all 0.3s ease-in-out,
   "slow": all 0.5s ease-in-out,
-  "bounce": all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+  "bounce": all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
 );
 
 // Font System
@@ -83,7 +83,7 @@ $font-weights: (
   "semibold": 600,
   "bold": 700,
   "extrabold": 800,
-  "black": 900
+  "black": 900,
 );
 
 $font-sizes: (
@@ -94,7 +94,7 @@ $font-sizes: (
   "xl": 1.25rem,
   "2xl": 1.5rem,
   "3xl": 1.875rem,
-  "4xl": 2.25rem
+  "4xl": 2.25rem,
 );
 
 // Gradients
@@ -102,5 +102,5 @@ $gradients: (
   "primary": linear-gradient(135deg, #667eea 0%, #764ba2 100%),
   "success": linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%),
   "warning": linear-gradient(135deg, #f093fb 0%, #f5576c 100%),
-  "info": linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)
+  "info": linear-gradient(135deg, #4facfe 0%, #00f2fe 100%),
 );

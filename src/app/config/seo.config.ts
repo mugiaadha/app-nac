@@ -22,7 +22,8 @@ export const SEO_CONFIG = {
     title: 'Dashboard - NAC Tax Center',
     description:
       'Dashboard pengguna NAC Tax Center untuk mengelola aktivitas pembelajaran dan layanan pajak.',
-    keywords: 'dashboard, NAC Tax Center, panel pengguna, aktivitas pembelajaran',
+    keywords:
+      'dashboard, NAC Tax Center, panel pengguna, aktivitas pembelajaran',
   },
   pusatBantuan: {
     title: 'Pusat Bantuan - NAC Tax Center',

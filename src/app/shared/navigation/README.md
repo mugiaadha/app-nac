@@ -1,57 +1,56 @@
 # Navigation System Documentation
 
 ## Overview
+
 The navigation system is built with reusable components and centralized configuration to provide consistent navigation across web and mobile platforms.
 
 ## Components Structure
 
 ### 1. Navigation Configuration (`dashboard-navigation.config.ts`)
+
 Centralized configuration for all navigation items with support for:
+
 - Different display contexts (sidebar, mobile, dropdown)
 - Authentication requirements
 - Custom styling
 - Item types (link, button, divider)
 
 ### 2. Navigation Service (`navigation.service.ts`)
+
 Service for managing navigation state and providing configuration data:
+
 - Mobile dropdown state management
 - Navigation filtering by type and permissions
 - Route tracking
 
 ### 3. Navigation Component (`navigation.component.ts`)
+
 Reusable component that renders navigation based on type:
+
 - `type="sidebar"` - Desktop sidebar navigation
 - `type="mobile"` - Mobile bottom navigation
 - `type="dropdown"` - Dropdown menu for mobile "More" button
 
 ### 4. Quick Stats Component (`quick-stats.component.ts`)
+
 Configurable stats display component for dashboard sidebar.
 
 ## Usage Examples
 
 ### Basic Sidebar Navigation
+
 ```html
-<app-navigation 
-  type="sidebar"
-  [showTitle]="true"
-  title="Navigation"
-  titleIcon="bi-grid-3x3-gap"
-  (onNavigate)="onNavigationItemClick($event)"
-  (onLogout)="onNavigationLogout()"
-></app-navigation>
+<app-navigation type="sidebar" [showTitle]="true" title="Navigation" titleIcon="bi-grid-3x3-gap" (onNavigate)="onNavigationItemClick($event)" (onLogout)="onNavigationLogout()"></app-navigation>
 ```
 
 ### Mobile Bottom Navigation
+
 ```html
-<app-navigation 
-  type="mobile"
-  [showTitle]="false"
-  (onNavigate)="onNavigationItemClick($event)"
-  (onLogout)="onNavigationLogout()"
-></app-navigation>
+<app-navigation type="mobile" [showTitle]="false" (onNavigate)="onNavigationItemClick($event)" (onLogout)="onNavigationLogout()"></app-navigation>
 ```
 
 ### Quick Stats Display
+
 ```html
 <app-quick-stats></app-quick-stats>
 ```
@@ -59,6 +58,7 @@ Configurable stats display component for dashboard sidebar.
 ## Configuration
 
 ### Adding New Navigation Items
+
 Edit `dashboard-navigation.config.ts`:
 
 ```typescript
@@ -77,6 +77,7 @@ Edit `dashboard-navigation.config.ts`:
 ```
 
 ### Adding Quick Stats
+
 Edit `dashboard-navigation.config.ts`:
 
 ```typescript
@@ -92,19 +93,19 @@ Edit `dashboard-navigation.config.ts`:
 
 ## Navigation Item Properties
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `id` | string | Unique identifier |
-| `label` | string | Display text |
-| `icon` | string | Bootstrap icon class |
-| `route` | string | Route path |
-| `type` | 'link' \| 'dropdown' \| 'divider' \| 'button' | Item type |
-| `showInSidebar` | boolean | Show in desktop sidebar |
-| `showInMobile` | boolean | Show in mobile nav |
-| `showInDropdown` | boolean | Show in dropdown menu |
-| `requiresAuth` | boolean | Requires authentication |
-| `cssClass` | string | Additional CSS classes |
-| `description` | string | Tooltip or description |
+| Property         | Type                                          | Description             |
+| ---------------- | --------------------------------------------- | ----------------------- |
+| `id`             | string                                        | Unique identifier       |
+| `label`          | string                                        | Display text            |
+| `icon`           | string                                        | Bootstrap icon class    |
+| `route`          | string                                        | Route path              |
+| `type`           | 'link' \| 'dropdown' \| 'divider' \| 'button' | Item type               |
+| `showInSidebar`  | boolean                                       | Show in desktop sidebar |
+| `showInMobile`   | boolean                                       | Show in mobile nav      |
+| `showInDropdown` | boolean                                       | Show in dropdown menu   |
+| `requiresAuth`   | boolean                                       | Requires authentication |
+| `cssClass`       | string                                        | Additional CSS classes  |
+| `description`    | string                                        | Tooltip or description  |
 
 ## Mobile Navigation Features
 

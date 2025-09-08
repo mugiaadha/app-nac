@@ -26,7 +26,10 @@ export class FeedbackFormComponent {
     message: '',
   };
 
-  constructor(private toastr: ToastrService, private http: HttpClient) {}
+  constructor(
+    private toastr: ToastrService,
+    private http: HttpClient,
+  ) {}
 
   ngAfterViewInit() {
     if ((window as any).grecaptcha) {
