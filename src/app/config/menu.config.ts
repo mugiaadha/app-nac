@@ -1,7 +1,7 @@
 export const MENUS = [
   { label: 'Beranda', link: '/' },
   { label: 'Brevet', link: '/brevet' },
-  { label: 'Pelatihan', link: '/courses' },
+  // { label: 'Pelatihan', link: '/courses' },
   { label: 'Artikel', link: '/articles' },
   {
     label: 'Layanan',
