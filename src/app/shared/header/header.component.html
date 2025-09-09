@@ -41,7 +41,7 @@
             >
               <ng-container *ngFor="let child of menu.children">
                 <li>
-                  <a class="dropdown-item" [href]="[child.link]">{{
+                  <a class="dropdown-item" href="{{ child.link }}">{{
                     child.label
                   }}</a>
                 </li>
