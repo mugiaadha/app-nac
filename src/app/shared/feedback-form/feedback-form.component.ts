@@ -4,11 +4,12 @@ import { environment } from '../../../environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { RecaptchaComponent } from '../captcha/recaptcha-component/recaptcha-component';
 
 @Component({
   selector: 'app-feedback-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RecaptchaComponent],
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
 })
@@ -26,10 +27,7 @@ export class FeedbackFormComponent {
     message: '',
   };
 
-  constructor(
-    private toastr: ToastrService,
-    private http: HttpClient,
-  ) {}
+  constructor(private toastr: ToastrService, private http: HttpClient) {}
 
   ngAfterViewInit() {
     if ((window as any).grecaptcha) {

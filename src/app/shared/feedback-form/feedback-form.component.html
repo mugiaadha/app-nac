@@ -34,12 +34,8 @@
         required
       ></textarea>
     </div>
-    <div class="mb-3 d-block text-center">
-      <div
-        id="recaptcha-container"
-        class="g-recaptcha"
-        [attr.data-sitekey]="siteKey"
-      ></div>
+    <div class="mb-3 text-center">
+      <app-recaptcha (verified)="captchaToken = $event"></app-recaptcha>
     </div>
     <button
       type="submit"
