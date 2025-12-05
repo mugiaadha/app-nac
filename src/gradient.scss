@@ -1,5 +1,5 @@
 // ========================================
-// GRADIENT SYSTEM - NAC Tax Center
+// GRADIENT SYSTEM - SAS Tax Center
 // ========================================
 
 // Import modern SCSS modules
@@ -185,8 +185,12 @@ $order-type-colors: (
 
 // Special background for slick-carbon
 .bg-slick-carbon {
-  background-image:
-    linear-gradient(to bottom, #323232 0%, #3f3f3f 40%, #1c1c1c 150%),
+  background-image: linear-gradient(
+      to bottom,
+      #323232 0%,
+      #3f3f3f 40%,
+      #1c1c1c 150%
+    ),
     linear-gradient(
       to top,
       rgba(255, 255, 255, 0.4) 0%,

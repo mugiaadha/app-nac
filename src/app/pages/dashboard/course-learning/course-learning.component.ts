@@ -86,7 +86,7 @@ export class CourseLearningComponent
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -168,13 +168,13 @@ export class CourseLearningComponent
   }
 
   private convertBrevetToStandardCourse(
-    brevetCourse: BrevetCourse,
+    brevetCourse: BrevetCourse
   ): CourseData {
     return {
       id: brevetCourse.id,
       title: brevetCourse.title,
       description: brevetCourse.description,
-      instructor: 'NAC Tax Center',
+      instructor: 'SAS Tax Center',
       duration: brevetCourse.duration,
       category: brevetCourse.category,
       image: brevetCourse.img,
@@ -243,7 +243,7 @@ export class CourseLearningComponent
   }
 
   private getLessonType(
-    index: number,
+    index: number
   ): 'video' | 'reading' | 'quiz' | 'assignment' {
     const types: ('video' | 'reading' | 'quiz' | 'assignment')[] = [
       'video',
@@ -256,7 +256,7 @@ export class CourseLearningComponent
 
   private generateLessonContent(
     moduleTitle: string,
-    lessonNumber: number,
+    lessonNumber: number
   ): string {
     return `
       <h3>Welcome to ${moduleTitle} - Lesson ${lessonNumber}</h3>
@@ -404,7 +404,7 @@ export class CourseLearningComponent
     // Use setTimeout to ensure DOM is updated
     setTimeout(() => {
       const lessonElement = document.querySelector(
-        `[data-lesson-id="${lessonId}"]`,
+        `[data-lesson-id="${lessonId}"]`
       );
       if (lessonElement) {
         const sidebarContent = document.querySelector('.sidebar-content');
@@ -490,7 +490,7 @@ export class CourseLearningComponent
     if (this.course) {
       this.course.completedLessons++;
       this.course.progress = Math.round(
-        (this.course.completedLessons / this.course.totalLessons) * 100,
+        (this.course.completedLessons / this.course.totalLessons) * 100
       );
 
       if (this.course.completedLessons >= this.course.totalLessons) {
@@ -550,7 +550,7 @@ export class CourseLearningComponent
 
     for (const module of this.modules) {
       const index = module.lessons.findIndex(
-        (l) => l.id === this.currentLesson?.id,
+        (l) => l.id === this.currentLesson?.id
       );
       if (index !== -1) {
         return { module, lessonIndex: index };
@@ -644,7 +644,7 @@ export class CourseLearningComponent
 
     this.quizCompleted = true;
     this.quizScore = this.currentLesson.questions.filter(
-      (q) => q.isCorrect,
+      (q) => q.isCorrect
     ).length;
 
     // Mark lesson as complete if score is >= 70%
@@ -671,14 +671,14 @@ export class CourseLearningComponent
     if (!this.currentLesson?.questions || !this.quizStarted) return 0;
     return Math.round(
       ((this.currentQuestionIndex + 1) / this.currentLesson.questions.length) *
-        100,
+        100
     );
   }
 
   getScorePercentage(): number {
     if (!this.currentLesson?.questions || this.quizScore === 0) return 0;
     return Math.round(
-      (this.quizScore / this.currentLesson.questions.length) * 100,
+      (this.quizScore / this.currentLesson.questions.length) * 100
     );
   }
 

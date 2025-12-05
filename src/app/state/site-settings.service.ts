@@ -9,7 +9,7 @@ const BASE_URL = environment.baseUrl;
 @Injectable({ providedIn: 'root' })
 export class SiteSettingsService {
   private settingsSubject = new BehaviorSubject<SiteSettings>({
-    title: 'Nac Tax Center',
+    title: 'SAS Tax Center',
     favicon: 'favicon.ico',
   });
   settings$ = this.settingsSubject.asObservable();

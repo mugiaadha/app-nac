@@ -1,5 +1,5 @@
 // ========================================
-// GLOBAL STYLES - NAC Tax Center
+// GLOBAL STYLES - SAS Tax Center
 // ========================================
 
 // Variables
@@ -82,15 +82,12 @@ $shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 @mixin card-hover-effect() {
-  transition:
-    transform 0.18s cubic-bezier(0.4, 0.2, 0.2, 1),
+  transition: transform 0.18s cubic-bezier(0.4, 0.2, 0.2, 1),
     box-shadow 0.18s cubic-bezier(0.4, 0.2, 0.2, 1);
 
   &:hover {
     transform: translateY(-7px) scale(1.03);
-    box-shadow:
-      $shadow-lg,
-      0 1.5px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow-lg, 0 1.5px 6px rgba(0, 0, 0, 0.08);
     z-index: 2;
   }
 }
